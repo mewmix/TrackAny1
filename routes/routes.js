@@ -11,5 +11,6 @@ module.exports = (app) => {
 
     // Database Routes
     app.get('/api/v1/database/init', DatabaseController.initDatabase);
-    app.get('/api/v1/database/drop', checkAuth, DatabaseController.dropDatabase);
+    app.get('/api/v1/database/addtables', DatabaseController.addTables);
+    app.get('/api/v1/database/mockusers', DatabaseController.addMockUsers);
 }
