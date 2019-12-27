@@ -1,6 +1,6 @@
-require('dotenv').config(); // Dev
+// require('dotenv').config(); // Dev
 
-// const sls = require('serverless-http') // Prod
+const sls = require('serverless-http') // Prod
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -21,5 +21,5 @@ routes(app);
 // Error Handler
 app.use(errorHandler);
 
-app.listen(8000, () => console.log('App running on http://localhost:8000/api/v1/status')); // Dev
-// module.exports.server = sls(app) // Prod
+// app.listen(8000, () => console.log('App running on http://localhost:8000/api/v1/status')); // Dev
+module.exports.server = sls(app) // Prod
