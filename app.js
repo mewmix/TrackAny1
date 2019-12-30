@@ -21,5 +21,5 @@ routes(app);
 // Error Handler
 app.use(errorHandler);
 
-app.listen(8000, () => console.log('App running on http://localhost:8000/api/v1/status')); // Dev
+app.listen(8080, () => console.log('App running on http://localhost:8080/api/v1/status')); // Dev
 // module.exports.server = sls(app) // Prod

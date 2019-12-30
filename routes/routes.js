@@ -2,6 +2,9 @@ const checkAuth = require('../middleware/check-auth');
 const DatabaseController = require('../controllers/database_controller');
 const UsersController = require('../controllers/users_controller');
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 
 module.exports = (app) => {
 
@@ -17,4 +20,21 @@ module.exports = (app) => {
 
     // User Routes
     app.get('/api/v1/users', UsersController.getAllUsers);
+
+    // Oauth Routes
+    passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: '/auth/google/callback'
+    },
+        (accessToken, refreshToken, profile, done) => {
+            console.log('access token', accessToken);
+            console.log('refresh token', refreshToken);
+            console.log('profile:', profile);
+        }
+    ));
+
+    app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+    app.get('/auth/google/callback', passport.authenticate('google'));
+
 }
