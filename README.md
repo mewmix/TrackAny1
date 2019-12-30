@@ -1,4 +1,4 @@
-# TrackPilots API Node.js
+# TrackPilots.com API (Node.js)
 
 # Supported Devices
 ![Satellite Trackers](docs/trackers.jpeg)
