@@ -1,5 +1,6 @@
 const checkAuth = require('../middleware/check-auth');
 const DatabaseController = require('../controllers/database_controller');
+const UsersController = require('../controllers/users_controller');
 
 
 module.exports = (app) => {
@@ -13,4 +14,7 @@ module.exports = (app) => {
     app.get('/api/v1/database/init', DatabaseController.initDatabase);
     app.get('/api/v1/database/addtables', DatabaseController.addTables);
     app.get('/api/v1/database/mockusers', DatabaseController.addMockUsers);
+
+    // User Routes
+    app.get('/api/v1/users', UsersController.getAllUsers);
 }
