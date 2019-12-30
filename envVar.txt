@@ -1,0 +1,5 @@
+JWT_SECRET = mysupersecretjwtsecret
+DB_HOST = localhost
+DB_USER = root
+DB_PASSWORD = 
+DB_DATABASE = auth_test_db
