@@ -9,8 +9,9 @@ CREATE TABLE users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     fName VARCHAR (255),
     lName VARCHAR (255),
-    email VARCHAR (255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    email VARCHAR (255),
+    picture VARCHAR (255),
+    googleID VARCHAR (255) UNIQUE,
     created TIMESTAMP DEFAULT NOW()
 );
 

@@ -24,3 +24,5 @@ app.use(errorHandler);
 
 app.listen(8080, () => console.log('App running on http://localhost:8080/api/v1/status')); // Dev
 // module.exports.server = sls(app) // Prod
+
+// killall -9 node if port is already in use
