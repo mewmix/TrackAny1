@@ -5,7 +5,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback'
+    callbackURL: '/auth/google/callback',   // We may have to make this a definite path instead of a relative path. Use https in prod
+    proxy: true    // Might not need this ?
 },
     // This callback function is automatically called when the user is re-directed back to our app from the google Oauth flow.
     // This is where we need to check for an existing user with a matching google-user-id. If we dont find one we create a new user and log them in.
@@ -27,9 +28,9 @@ passport.use(new GoogleStrategy({
                     }
                 });
             } else {    // Login existing user
-                console.log(`User should be logged in.`);
-                console.log(result);
-                done(null, result);    // We need to call done() with 2 arguments. 1) An error, but in our case null. 2) The object we saved, the user. We call done(null, user) if we create a user or if we login as user.
+                console.log(`User ${result[0].id} should be logged in.`);
+                console.log(result[0]);
+                done(null, result[0].id);    // We need to call done() with 2 arguments. 1) An error, but in our case null. 2) The object we saved, the user. We call done(null, user) if we create a user or if we login as user.
             }
         });
     }

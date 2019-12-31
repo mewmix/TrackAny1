@@ -10,6 +10,11 @@ module.exports = (app) => {
         res.status(200).json({ status: "Nominal!", description: "Track Pilots Node.js & Express API running on AWS Lambda through API Gateway Proxy" });
     });
 
+    // Oauth Finished
+    app.get('/api/v1/oauth', (req, res) => {
+        res.status(200).json({ status: "Nominal!", description: "Oauth was a success!" });
+    });
+
     // Database Routes
     app.get('/api/v1/database/init', DatabaseController.initDatabase);
     app.get('/api/v1/database/addtables', DatabaseController.addTables);
