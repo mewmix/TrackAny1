@@ -18,11 +18,15 @@ passport.use(new GoogleStrategy({
         let findUserQuery = `SELECT * FROM users WHERE googleID=? limit 1;`;
 
         db.query(findUserQuery, profile.id, (err, result) => {
+            if (err) throw err;
+
             if (result.length === 0) {    // Create a new user
 
                 let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (googleID, fName, lName, email, picture) VALUES (?, ?, ?, ?, ?);`;
 
                 db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName, profile.emails[0].value, profile.photos[0].value], (err, result) => {
+                    if (err) throw err;
+                    
                     if (!err) {
 
                         const newUser = { id: result.insertId }
