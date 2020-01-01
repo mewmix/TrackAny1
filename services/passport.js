@@ -1,3 +1,5 @@
+// https://www.sitepoint.com/spa-social-login-google-facebook/
+
 const db = require('../db');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;

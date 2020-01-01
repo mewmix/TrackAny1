@@ -2,20 +2,21 @@ require('dotenv').config(); // Dev
 
 // const sls = require('serverless-http') // Prod
 const express = require('express');
-const passport = require('passport');
-require('./services/passport'); // The passport config file does not return anything. Which is why we dont have to assign it to a const.
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
 const cors = require('./middleware/cors');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const errorHandler = require('./middleware/error-handler');
+const passport = require('passport'); // ??????????
 const app = express();
 
+require('./services/passport'); // The passport config file does not return anything. Which is why we dont have to assign it to a const.
+
 // Middleware
-app.use(passport.initialize());
-app.use(morgan('dev'));
+app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors);
+app.use(morgan('dev'));
+app.use(passport.initialize()); // ????????????
 
 // Routes
 require('./routes/routes')(app);
