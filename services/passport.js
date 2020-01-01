@@ -1,4 +1,5 @@
 // https://www.sitepoint.com/spa-social-login-google-facebook/
+// https://scotch.io/tutorials/easy-node-authentication-facebook
 
 const db = require('../db');
 const passport = require('passport');
@@ -10,7 +11,7 @@ const jwt = require('jsonwebtoken');
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback',   // We may have to make this a definite path instead of a relative path. Use https in prod
+    callbackURL: process.env.GOOGLE_CALLBACK,   // We may have to make this a definite path instead of a relative path. Use https in prod
     proxy: true    // Might not need this ?
 },
     // This callback function is automatically called when the user is re-directed back to our app from the google Oauth flow.
@@ -61,7 +62,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/auth/facebook/callback",
+    callbackURL: process.env.FACEBOOK_CALLBACK,
     proxy: true
 },
     (accessToken, refreshToken, profile, done) => {
