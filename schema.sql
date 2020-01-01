@@ -12,6 +12,7 @@ CREATE TABLE users(
     email VARCHAR (255),
     picture VARCHAR (255),
     googleID VARCHAR (255) UNIQUE,
+    facebookID VARCHAR (255) UNIQUE,
     created TIMESTAMP DEFAULT NOW()
 );
 

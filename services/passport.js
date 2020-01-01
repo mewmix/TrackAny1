@@ -3,8 +3,10 @@
 const db = require('../db');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 
+// Google
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -18,15 +20,15 @@ passport.use(new GoogleStrategy({
         let findUserQuery = `SELECT * FROM users WHERE googleID=? limit 1;`;
 
         db.query(findUserQuery, profile.id, (err, result) => {
-            if (err) throw err;
+            if (err) return done(err);
 
             if (result.length === 0) {    // Create a new user
 
                 let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (googleID, fName, lName, email, picture) VALUES (?, ?, ?, ?, ?);`;
 
                 db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName, profile.emails[0].value, profile.photos[0].value], (err, result) => {
-                    if (err) throw err;
-                    
+                    if (err) return done(err);
+
                     if (!err) {
 
                         const newUser = { id: result.insertId }
@@ -49,6 +51,51 @@ passport.use(new GoogleStrategy({
                 token = jwt.sign(existingUser, process.env.JWT_SECRET);
 
                 done(null, token);    // We need to call done() with 2 arguments. 1) An error, but in our case null. 2) The object we saved, the user. We call done(null, user) if we create a user or if we login as user.
+            }
+        });
+    }
+));
+
+
+// Facebook
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "/auth/facebook/callback",
+    proxy: true
+},
+    (accessToken, refreshToken, profile, done) => {
+        console.log("Facebook profile is:")
+        console.log(profile);
+
+        let findUserQuery = `SELECT * FROM users WHERE facebookID=? limit 1;`;
+
+        db.query(findUserQuery, profile.id, (err, result) => {
+            if (err) return done(err);
+
+            if (result.length === 0) {    // Create a new user
+
+                let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (facebookID, fName, lName, email, picture) VALUES (?, ?, ?, ?, ?);`;
+
+                db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName, profile.emails[0].value, profile.photos[0].value], (err, result) => {
+                    if (err) return done(err);
+
+                    if (!err) {
+
+                        const newUser = { id: result.insertId }
+
+                        token = jwt.sign(newUser, process.env.JWT_SECRET);
+
+                        done(null, token);
+                    }
+                });
+            } else {    // Login existing user
+
+                const existingUser = { id: result[0].id }
+
+                token = jwt.sign(existingUser, process.env.JWT_SECRET);
+
+                done(null, token);
             }
         });
     }
