@@ -1,3 +1,5 @@
+NODE_ENV=development
+
 JWT_SECRET = mysupersecretjwtsecret
 DB_HOST = localhost
 DB_USER = root

@@ -1,6 +1,6 @@
-require('dotenv').config(); // Dev
+require('dotenv').config();
 
-// const sls = require('serverless-http'); // Prod
+const sls = require('serverless-http');
 const express = require('express');
 const cors = require('./middleware/cors');
 const bodyParser = require('body-parser');
@@ -25,6 +25,8 @@ require('./routes/authRoutes')(app); // When we require the authRoutes file it r
 // Error Handler
 app.use(errorHandler);
 
-app.listen(8080, () => console.log('App running on http://localhost:8080/api/v1/status')); // Dev
-
-// module.exports.server = sls(app) // Prod
+if (process.env.NODE_ENV === 'production') {
+    module.exports.server = sls(app);
+} else {
+    app.listen(8080, () => console.log('App running on http://localhost:8080/api/v1/status'));
+}
