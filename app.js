@@ -1,6 +1,6 @@
 require('dotenv').config(); // Dev
 
-// const sls = require('serverless-http') // Prod
+// const sls = require('serverless-http'); // Prod
 const express = require('express');
 const cors = require('./middleware/cors');
 const bodyParser = require('body-parser');
@@ -26,6 +26,5 @@ require('./routes/authRoutes')(app); // When we require the authRoutes file it r
 app.use(errorHandler);
 
 app.listen(8080, () => console.log('App running on http://localhost:8080/api/v1/status')); // Dev
-// killall -9 node if port is already in use
 
 // module.exports.server = sls(app) // Prod
