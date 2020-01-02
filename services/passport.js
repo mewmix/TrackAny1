@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK,   // We may have to make this a definite path instead of a relative path. Use https in prod
+    callbackURL: "/dev/auth/google/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
     proxy: true    // Might not need this ?
 },
     // This callback function is automatically called when the user is re-directed back to our app from the google Oauth flow.
@@ -62,7 +62,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: process.env.FACEBOOK_CALLBACK,
+    callbackURL: "/dev/auth/facebook/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
+    profileFields: ["emails", "name", "photos"],
     proxy: true
 },
     (accessToken, refreshToken, profile, done) => {
@@ -76,14 +77,14 @@ passport.use(new FacebookStrategy({
 
             if (result.length === 0) {    // Create a new user
 
-                let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (facebookID, fName, lName, email, picture) VALUES (?, ?, ?, ?, ?);`;
+                let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (facebookID, fName, lName) VALUES (?, ?, ?);`;
 
-                db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName, profile.emails[0].value, profile.photos[0].value], (err, result) => {
+                db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName], (err, result) => {
                     if (err) return done(err);
 
                     if (!err) {
 
-                        const newUser = { id: result.insertId }
+                        const newUser = { id: result.insertId, fName: profile.name.givenName, lName: profile.name.familyName }
 
                         token = jwt.sign(newUser, process.env.JWT_SECRET);
 
@@ -92,7 +93,11 @@ passport.use(new FacebookStrategy({
                 });
             } else {    // Login existing user
 
-                const existingUser = { id: result[0].id }
+                const existingUser = {
+                    id: result[0].id,
+                    fName: result[0].fName,
+                    lName: result[0].lName,
+                }
 
                 token = jwt.sign(existingUser, process.env.JWT_SECRET);
 
