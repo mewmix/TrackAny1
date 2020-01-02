@@ -1,22 +1,14 @@
 # Variables
 BINARY_NAME=deploy
+PROD_FILES=controllers middleware node_modules routes services
+PROD_FOLDERS=app.js db.js package-lock.json package.json
 
-Need to destroy previous binary file
-Need to copy contents of entire project to another folder called deploy
-Need to specify all the unnessisary files to delete when deploying to AWS
-Need to zip this into deploy.zip
 
 # Commands
-clean: 
-	rm -f $(BINARY_NAME) main.zip
-
-build: 
-	GOOS=linux go build -o $(BINARY_NAME)
+clean:
+	rm -f $(BINARY_NAME).zip
 
 zip: 
-	zip -r main.zip $(BINARY_NAME)
+	zip -r $(BINARY_NAME).zip $(PROD_FILES) $(PROD_FOLDERS)
 
-local:
-	go run main.go
-
-deploy: clean build zip
+deploy: clean zip
