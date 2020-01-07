@@ -27,4 +27,5 @@ module.exports = (app) => {
 
     // User Routes
     app.get('/api/v1/users', UsersController.getAllUsers);
+    app.get('/api/v1/users/:id', UsersController.getSingleUserWithPromise);
 }
