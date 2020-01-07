@@ -1,5 +1,14 @@
 # TrackPilots.com API (Node.js)
 
+# Why build this application?
+When I was 16, my father & I learned how to fly powered paragliders. We saw a video on youtube of these guys flying around Dubai with parachutes and big fans attached to their backs. They were part of a flying team known as the Parabatix Sky Racers. (https://www.youtube.com/watch?v=cTQvYxELaFI) I was completely blown away by what I was seeing. These guys were flying low through the Dubai dunes chasing motorcycles & landing on top of moving dune buggies. They were flying with hot air balloons, doing flips, spins, stalls,  spirals & barrel rolls. Things I never imagined a parachute could do. They made it look so simple and easy. They just unfolded a parachute, started up a 2-stroke motor with a prop on it and ran into the air. I've been hooked on the sport ever since.
+
+I made the transition to "free-flight" paragliding a year after learning to paramotor. "Free-flight" refers to flying a paraglider without a motor. Just the parachute and a harness. Paragliding pilots use thermals (warm rising pockets of air) to go up. When the sun heats the ground, the air near it starts to rise and create clouds. Warm air rises and cold air sinks. Paragliding pilots can ride these warm rising pockets of air thousands of feet to the cloud base. Some pilots like to fly Cross-Country. This is where they try to fly as far as they possibly can using nothing but thermals and the wind. Some flying hundreds of kilometers from where they started. This is where the need for a new application begins.
+
+Cross-Country pilots are flying hundreds of kilometers out in the middle of nowhere over mountains, deserts, forests, etc. Where there is no cell service, there are no roads, and in some cases nowhere to even land. They have to use Personal Locator Beacons or Satellite Messengers to relay their positions via satellite to friends so they can get a ride back home. The two most popular brands being Garmin inReach and SPOT. These devices allow pilots to broadcast their position, send messages, and in some cases trigger an SOS. Each tracker has a website that you use to follow your friends and view the messages they send. Ex) (https://share.garmin.com/WilliamDavis2) But there is currently no way to track multiple people with dissimilar Satellite Trackers using one application. Also, there is no "Yellow pages" for tracking URLs. If you lose or misplace your friends tracking URL you are screwed.
+
+# What are my goals for the project and what type of functionality should be expected?
+
 # Supported Devices
 ![Satellite Trackers](docs/trackers.jpeg)
 
