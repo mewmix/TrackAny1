@@ -13,20 +13,21 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "/dev/auth/google/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
-    proxy: true    // Might not need this ?
+    proxy: true
 },
     // This callback function is automatically called when the user is re-directed back to our app from the google Oauth flow.
     // This is where we need to check for an existing user with a matching google-user-id. If we dont find one we create a new user and log them in.
     (accessToken, refreshToken, profile, done) => {
 
-        UsersServices.findGoogleUser(profile.id).then((existingUser) => {
+        const googleID = profile.id;
+
+        UsersServices.findGoogleUser(googleID).then((existingUser) => {
 
             if (existingUser === undefined) {   // Create new user
 
                 const { givenName, familyName } = profile.name;
                 const email = profile.emails[0].value;
                 const photo = profile.photos[0].value;
-                const googleID = profile.id;
 
                 UsersServices.createUser(givenName, familyName, email, photo, googleID, null).then((newUserID) => {
 
