@@ -7,6 +7,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 
+const UsersServices = require('../services/users_services');
+
 // Google
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -18,41 +20,32 @@ passport.use(new GoogleStrategy({
     // This is where we need to check for an existing user with a matching google-user-id. If we dont find one we create a new user and log them in.
     (accessToken, refreshToken, profile, done) => {
 
-        let findUserQuery = `SELECT * FROM users WHERE googleID=? limit 1;`;
+        UsersServices.findGoogleUser(profile.id).then((existingUser) => {
 
-        db.query(findUserQuery, profile.id, (err, result) => {
-            if (err) return done(err);
+            if (existingUser === undefined) {   // Create new user
 
-            if (result.length === 0) {    // Create a new user
+                const { givenName, familyName } = profile.name;
+                const email = profile.emails[0].value;
+                const photo = profile.photos[0].value;
+                const googleID = profile.id;
 
-                let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (googleID, fName, lName, email, picture) VALUES (?, ?, ?, ?, ?);`;
+                UsersServices.createUser(givenName, familyName, email, photo, googleID, null).then((newUserID) => {
 
-                db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName, profile.emails[0].value, profile.photos[0].value], (err, result) => {
-                    if (err) return done(err);
+                    const newUser = { id: newUserID, fName: givenName, lName: familyName }
+                    token = jwt.sign(newUser, process.env.JWT_SECRET);
+                    done(null, token);
 
-                    if (!err) {
-
-                        const newUser = { id: result.insertId }
-
-                        token = jwt.sign(newUser, process.env.JWT_SECRET);
-
-                        done(null, token);
-                    }
+                }).catch((err) => {
+                    return done(err);
                 });
+
             } else {    // Login existing user
-
-                const existingUser = {
-                    id: result[0].id,
-                    fName: result[0].fName,
-                    lName: result[0].lName,
-                    picture: result[0].picture,
-                    created: result[0].created
-                }
-
-                token = jwt.sign(existingUser, process.env.JWT_SECRET);
-
-                done(null, token);    // We need to call done() with 2 arguments. 1) An error, but in our case null. 2) The object we saved, the user. We call done(null, user) if we create a user or if we login as user.
+                const payload = { id: existingUser.id, fName: existingUser.fName, lName: existingUser.lName }
+                token = jwt.sign(payload, process.env.JWT_SECRET);
+                done(null, token);
             }
+        }).catch((err) => {
+            return done(err);
         });
     }
 ));
@@ -67,42 +60,32 @@ passport.use(new FacebookStrategy({
     proxy: true
 },
     (accessToken, refreshToken, profile, done) => {
-        console.log("Facebook profile is:")
-        console.log(profile);
 
-        let findUserQuery = `SELECT * FROM users WHERE facebookID=? limit 1;`;
+        const facebookID = profile.id;
 
-        db.query(findUserQuery, profile.id, (err, result) => {
-            if (err) return done(err);
+        UsersServices.findFacebookUser(facebookID).then((existingUser) => {
 
-            if (result.length === 0) {    // Create a new user
+            if (existingUser === undefined) {   // Create new user
 
-                let newUserStatement = `INSERT INTO ${process.env.DB_DATABASE}.users (facebookID, fName, lName) VALUES (?, ?, ?);`;
+                const { givenName, familyName } = profile.name;
 
-                db.query(newUserStatement, [profile.id, profile.name.givenName, profile.name.familyName], (err, result) => {
-                    if (err) return done(err);
+                UsersServices.createUser(givenName, familyName, null, null, null, facebookID).then((newUserID) => {
 
-                    if (!err) {
+                    const payload = { id: newUserID, fName: givenName, lName: familyName }
+                    token = jwt.sign(payload, process.env.JWT_SECRET);
+                    done(null, token);
 
-                        const newUser = { id: result.insertId, fName: profile.name.givenName, lName: profile.name.familyName }
-
-                        token = jwt.sign(newUser, process.env.JWT_SECRET);
-
-                        done(null, token);
-                    }
+                }).catch((err) => {
+                    return done(err);
                 });
+
             } else {    // Login existing user
-
-                const existingUser = {
-                    id: result[0].id,
-                    fName: result[0].fName,
-                    lName: result[0].lName,
-                }
-
-                token = jwt.sign(existingUser, process.env.JWT_SECRET);
-
+                const payload = { id: existingUser.id, fName: existingUser.fName, lName: existingUser.lName }
+                token = jwt.sign(payload, process.env.JWT_SECRET);
                 done(null, token);
             }
+        }).catch((err) => {
+            return done(err);
         });
     }
 ));

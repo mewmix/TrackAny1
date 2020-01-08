@@ -27,5 +27,8 @@ module.exports = (app) => {
 
     // User Routes
     app.get('/api/v1/users', UsersController.getAllUsers);
-    app.get('/api/v1/users/:id', UsersController.getSingleUserWithPromise);
+    app.get('/api/v1/users/:id', UsersController.getSingleUser);
+    app.delete('/api/v1/users', checkAuth, UsersController.deleteUser);
+    app.put('/api/v1/users', checkAuth, UsersController.updateUser);
+
 }
