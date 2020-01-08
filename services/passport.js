@@ -1,7 +1,6 @@
 // https://www.sitepoint.com/spa-social-login-google-facebook/
 // https://scotch.io/tutorials/easy-node-authentication-facebook
 
-const db = require('../db');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
