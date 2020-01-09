@@ -6,9 +6,11 @@ PROD_FOLDERS=app.js db.js package-lock.json package.json
 
 # Commands
 clean:
-	rm -f $(BINARY_NAME).zip
+	rm -f ../dist/$(BINARY_NAME).zip
 
 zip: 
 	zip -r $(BINARY_NAME).zip $(PROD_FILES) $(PROD_FOLDERS)
+moveup:
+	mv $(BINARY_NAME).zip ../dist
 
-deploy: clean zip
+deploy: clean zip moveup
