@@ -1,0 +1,15 @@
+{
+  "name": "retrieve-new-tracking-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Mark Faulkner",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "mysql": "^2.17.1"
+  }
+}

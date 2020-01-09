@@ -1,7 +1,7 @@
 # Variables
 BINARY_NAME=deploy
-PROD_FILES=controllers middleware node_modules routes services
-PROD_FOLDERS=app.js db.js package-lock.json package.json
+PROD_FILES=app.js db.js package-lock.json package.json
+PROD_FOLDERS=node_modules services
 
 # Commands
 clean:
