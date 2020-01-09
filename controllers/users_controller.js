@@ -7,7 +7,7 @@ module.exports = {
             return res.status(200).json({ users: allUsers });
         }
         catch (e) {
-            return res.status(400).json({ error: e, message: 'Failed to get all users' });
+            return res.status(500).json({ error: e, message: 'Failed to get all users' });
         }
     },
     async getSingleUser(req, res) {
@@ -17,7 +17,7 @@ module.exports = {
             res.status(200).json({ user: userData });
         }
         catch (e) {
-            res.status(400).json({ error: e, message: `Failed to get user: ${userID}` });
+            res.status(500).json({ error: e, message: `Failed to get user: ${userID}` });
         }
     },
     async deleteUser(req, res) {
@@ -27,7 +27,7 @@ module.exports = {
             res.status(200).json({ message: `user: ${id} was successfully deleted` });
 
         } catch (e) {
-            res.status(400).json({ error: e, message: `Failed to delete user: ${id}` });
+            res.status(500).json({ error: e, message: `Failed to delete user: ${id}` });
         }
     },
     async updateUser(req, res) {
@@ -38,7 +38,7 @@ module.exports = {
             res.status(200).json({ message: `user: ${id} was successfully updated` });
 
         } catch (e) {
-            res.status(400).json({ error: e, message: `Failed to update user: ${id}` });
+            res.status(500).json({ error: e, message: `Failed to update user: ${id}` });
         }
     },
 }
