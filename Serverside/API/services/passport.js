@@ -6,7 +6,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 
-const UsersServices = require('../services/users_services');
+const UsersServices = require('./users_services');
 
 // Google
 passport.use(new GoogleStrategy({
