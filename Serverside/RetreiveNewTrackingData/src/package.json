@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.1",
+    "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "mysql": "^2.17.1"
   }
