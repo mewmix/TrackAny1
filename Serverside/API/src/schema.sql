@@ -26,7 +26,7 @@ CREATE TABLE trackers(
     owner_id INT NOT NULL, 
     created TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE pings(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,8 +64,21 @@ CREATE TABLE groups_have_members(
     FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+INSERT INTO users(fName, lName) VALUES 
+('Mark','Faulkner'),
+('Brad', 'Stevenson'),
+('Willy','Dydo'),
+('Chris','Cote'),
+('Jason','Lombard'),
+('Honza','Rejmanek');
 
-
+INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES 
+(1, 'Mark Garmin Inreach', 'inreach', 'https://us0.inreach.garmin.com/Feed/Share/markfaulk'),
+(2, 'Brad Garmin Inreach', 'inreach', 'https://us0.inreach.garmin.com/Feed/Share/bradstevenson'),
+(3, 'Willy SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
+(4, 'Chris SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
+(5, 'Jason SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
+(6, 'Honza SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
 
 
 
