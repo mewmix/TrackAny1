@@ -8,7 +8,7 @@ async function start() {
 
     const allTrackers = await TrackersServices.getAllTrackers();
 
-    let insertStatement = '';
+    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id) VALUES ';
 
     for (let tracker of allTrackers) {
         switch (tracker.trkType) {
