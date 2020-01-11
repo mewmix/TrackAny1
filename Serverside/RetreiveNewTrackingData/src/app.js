@@ -47,20 +47,3 @@ async function start() {
 }
 
 start();
-
-
-
-
-
-
-
-
-
-// exports.handler = async (event, context) => {
-//     try {
-//         const allTrackers = await TrackersServices.getAllTrackers();
-//         console.log(allTrackers);
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }
