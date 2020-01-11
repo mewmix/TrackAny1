@@ -3,7 +3,8 @@ const dateFormat = require('dateformat');
 
 
 async function getTrackingData(deviceID, trkLink) {
-    const weekAgo = new Date(Date.now() - 604800000);
+    const miliSecInDay = 86400 * 1000;
+    const weekAgo = new Date(Date.now() - (miliSecInDay * 7));
     const spotFormatedDate = dateFormat(weekAgo, 'isoDateTime');
 
     const finalURL = `${trkLink}/message.json?startDate=${spotFormatedDate}`;

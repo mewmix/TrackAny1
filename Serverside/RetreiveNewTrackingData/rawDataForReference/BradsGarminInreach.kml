@@ -1,0 +1,2475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>KML Export 1/10/2020 5:54:32 AM</name>
+    <Style id="style_emergency">
+      <IconStyle>
+        <colorMode>normal</colorMode>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/caution.png</href>
+        </Icon>
+      </IconStyle>
+      <BalloonStyle>
+        <text>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Id&lt;/td&gt;&lt;td&gt; $[Id] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt; $[Time] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Time UTC&lt;/td&gt;&lt;td&gt; $[Time UTC] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Name&lt;/td&gt;&lt;td&gt; $[Name] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Map Display Name&lt;/td&gt;&lt;td&gt; $[Map Display Name] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Device Type&lt;/td&gt;&lt;td&gt; $[Device Type] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IMEI&lt;/td&gt;&lt;td&gt; $[IMEI] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Incident Id&lt;/td&gt;&lt;td&gt; $[Incident Id] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Latitude&lt;/td&gt;&lt;td&gt; $[Latitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Longitude&lt;/td&gt;&lt;td&gt; $[Longitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Elevation&lt;/td&gt;&lt;td&gt; $[Elevation] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Velocity&lt;/td&gt;&lt;td&gt; $[Velocity] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Course&lt;/td&gt;&lt;td&gt; $[Course] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Valid GPS Fix&lt;/td&gt;&lt;td&gt; $[Valid GPS Fix] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;In Emergency&lt;/td&gt;&lt;td&gt; $[In Emergency] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Text&lt;/td&gt;&lt;td&gt; $[Text] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Event&lt;/td&gt;&lt;td&gt; $[Event] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;SpatialRefSystem&lt;/td&gt;&lt;td&gt; $[SpatialRefSystem] &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_1019008">
+      <IconStyle>
+        <color>ffff5500</color>
+        <colorMode>normal</colorMode>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href>
+        </Icon>
+      </IconStyle>
+      <BalloonStyle>
+        <text>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Id&lt;/td&gt;&lt;td&gt; $[Id] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt; $[Time] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Time UTC&lt;/td&gt;&lt;td&gt; $[Time UTC] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Name&lt;/td&gt;&lt;td&gt; $[Name] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Map Display Name&lt;/td&gt;&lt;td&gt; $[Map Display Name] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Device Type&lt;/td&gt;&lt;td&gt; $[Device Type] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IMEI&lt;/td&gt;&lt;td&gt; $[IMEI] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Incident Id&lt;/td&gt;&lt;td&gt; $[Incident Id] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Latitude&lt;/td&gt;&lt;td&gt; $[Latitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Longitude&lt;/td&gt;&lt;td&gt; $[Longitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Elevation&lt;/td&gt;&lt;td&gt; $[Elevation] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Velocity&lt;/td&gt;&lt;td&gt; $[Velocity] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Course&lt;/td&gt;&lt;td&gt; $[Course] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Valid GPS Fix&lt;/td&gt;&lt;td&gt; $[Valid GPS Fix] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;In Emergency&lt;/td&gt;&lt;td&gt; $[In Emergency] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Text&lt;/td&gt;&lt;td&gt; $[Text] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Event&lt;/td&gt;&lt;td&gt; $[Event] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;SpatialRefSystem&lt;/td&gt;&lt;td&gt; $[SpatialRefSystem] &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="waypointstyle_1019008">
+      <IconStyle>
+        <color>ffff5500</color>
+        <colorMode>normal</colorMode>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href>
+        </Icon>
+      </IconStyle>
+      <BalloonStyle>
+        <text>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt; $[Time] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Time UTC&lt;/td&gt;&lt;td&gt; $[Time UTC] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Latitude&lt;/td&gt;&lt;td&gt; $[Latitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Longitude&lt;/td&gt;&lt;td&gt; $[Longitude] &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Text&lt;/td&gt;&lt;td&gt; $[Text] &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="linestyle_1019008">
+      <LineStyle>
+        <color>ffff5500</color>
+        <colorMode>normal</colorMode>
+        <width>1</width>
+        <labelVisibility xmlns="http://www.google.com/kml/ext/2.2">false</labelVisibility>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Brad Stevenson</name>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T19:56:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57317907</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 7:56:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 11:56:45 AM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.874011</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.849770</value>
+          </Data>
+          <Data name="Elevation">
+            <value>384.44 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>2.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>135.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.84977,32.874011,384.44</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T20:06:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57320372</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 8:06:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 12:06:45 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.875965</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.854748</value>
+          </Data>
+          <Data name="Elevation">
+            <value>309.60 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>18.6 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>225.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.854748,32.875965,309.6</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T20:10:15Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57322098</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 8:10:15 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 12:10:15 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876511</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.859233</value>
+          </Data>
+          <Data name="Elevation">
+            <value>194.11 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>2.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>180.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned off from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.859233,32.876511,194.11</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T20:52:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57333155</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 8:52:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 12:52:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876661</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848225</value>
+          </Data>
+          <Data name="Elevation">
+            <value>468.19 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848225,32.876661,468.19</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:02:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57335623</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:02:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:02:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876983</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.850671</value>
+          </Data>
+          <Data name="Elevation">
+            <value>565.35 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>12.2 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>292.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.850671,32.876983,565.35</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:12:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57338621</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:12:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:12:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.875406</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.847775</value>
+          </Data>
+          <Data name="Elevation">
+            <value>661.36 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>14.3 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>270.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.847775,32.875406,661.36</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:22:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57341325</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:22:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:22:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.877916</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848568</value>
+          </Data>
+          <Data name="Elevation">
+            <value>580.22 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>12.2 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>202.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848568,32.877916,580.22</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:32:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57344222</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:32:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:32:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.875900</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.849770</value>
+          </Data>
+          <Data name="Elevation">
+            <value>669.95 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>55.4 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>67.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.84977,32.8759,669.95</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:42:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57346840</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:42:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:42:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.866608</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.840930</value>
+          </Data>
+          <Data name="Elevation">
+            <value>1009.45 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>19.7 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>315.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.84093,32.866608,1009.45</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T21:52:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57349649</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 9:52:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 1:52:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.842995</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.861980</value>
+          </Data>
+          <Data name="Elevation">
+            <value>644.22 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>39.1 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>180.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.86198,32.842995,644.22</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T22:02:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57352264</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 10:02:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 2:02:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.857135</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.858783</value>
+          </Data>
+          <Data name="Elevation">
+            <value>262.04 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.858783,32.857135,262.04</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description>Landed Safely</description>
+        <TimeStamp>
+          <when>2019-12-15T22:03:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57352732</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 10:03:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 2:03:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.857168</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.858825</value>
+          </Data>
+          <Data name="Elevation">
+            <value>290.00 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value>Landed Safely</value>
+          </Data>
+          <Data name="Event">
+            <value>Quick Text to MapShare received</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.858825,32.857168,290</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-15T22:03:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>57352665</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/15/2019 10:03:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/15/2019 2:03:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.857168</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.858825</value>
+          </Data>
+          <Data name="Elevation">
+            <value>290.97 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned off from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.858825,32.857168,290.97</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-24T19:21:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>59736544</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/24/2019 7:21:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/24/2019 11:21:30 AM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.987910</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-117.122240</value>
+          </Data>
+          <Data name="Elevation">
+            <value>349.04 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>3.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>22.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-117.12224,32.98791,349.04</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-24T19:31:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>59738465</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/24/2019 7:31:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/24/2019 11:31:30 AM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.987951</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-117.122283</value>
+          </Data>
+          <Data name="Elevation">
+            <value>346.96 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking interval received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-117.122283,32.987951,346.96</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-24T19:49:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>59742141</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/24/2019 7:49:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/24/2019 11:49:45 AM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.988650</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-117.122970</value>
+          </Data>
+          <Data name="Elevation">
+            <value>349.04 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>14.3 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>292.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking interval received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-117.12297,32.98865,349.04</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-24T19:59:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>59743994</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/24/2019 7:59:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/24/2019 11:59:45 AM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.989915</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-117.125201</value>
+          </Data>
+          <Data name="Elevation">
+            <value>224.94 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned off from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-117.125201,32.989915,224.94</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-29T23:10:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61401695</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:10:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:10:45 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.905576</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.829921</value>
+          </Data>
+          <Data name="Elevation">
+            <value>958.16 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>28.9 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>315.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.829921,32.905576,958.16</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-29T23:20:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61404644</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:20:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:20:45 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.901391</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.826981</value>
+          </Data>
+          <Data name="Elevation">
+            <value>909.41 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>18.6 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>225.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.826981,32.901391,909.41</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-29T23:30:45Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61408931</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:30:45 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:30:45 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.879108</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.855220</value>
+          </Data>
+          <Data name="Elevation">
+            <value>529.33 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>27.7 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>225.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.85522,32.879108,529.33</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description>Landed Safely</description>
+        <TimeStamp>
+          <when>2019-12-29T23:36:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61409916</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:36:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:36:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876695</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848203</value>
+          </Data>
+          <Data name="Elevation">
+            <value>465.00 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value>Landed Safely</value>
+          </Data>
+          <Data name="Event">
+            <value>Quick Text to MapShare received</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848203,32.876695,465</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-29T23:36:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61409521</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:36:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:36:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876726</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848225</value>
+          </Data>
+          <Data name="Elevation">
+            <value>472.39 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>180.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned off from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848225,32.876726,472.39</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2019-12-29T23:36:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>61409895</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>12/29/2019 11:36:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>12/29/2019 3:36:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876705</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848203</value>
+          </Data>
+          <Data name="Elevation">
+            <value>463.98 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>202.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848203,32.876705,463.98</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T20:52:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62520725</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 8:52:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 12:52:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.876511</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.848203</value>
+          </Data>
+          <Data name="Elevation">
+            <value>461.88 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned on from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.848203,32.876511,461.88</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:02:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62523014</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:02:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:02:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.874120</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.850371</value>
+          </Data>
+          <Data name="Elevation">
+            <value>531.45 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>20.8 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>315.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.850371,32.87412,531.45</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:12:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62526028</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:12:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:12:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.892830</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.833891</value>
+          </Data>
+          <Data name="Elevation">
+            <value>633.52 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>27.7 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>0.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.833891,32.89283,633.52</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:22:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62528993</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:22:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:22:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.908108</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.831101</value>
+          </Data>
+          <Data name="Elevation">
+            <value>1018.40 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>30.1 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>315.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.831101,32.908108,1018.4</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:32:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62532044</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:32:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:32:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.918128</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.843418</value>
+          </Data>
+          <Data name="Elevation">
+            <value>1248.15 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>26.5 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>225.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.843418,32.918128,1248.15</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:42:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62535026</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:42:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:42:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.921251</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.836338</value>
+          </Data>
+          <Data name="Elevation">
+            <value>1456.91 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>26.5 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>180.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.836338,32.921251,1456.91</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T21:52:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62537895</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 9:52:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 1:52:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.966248</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.824665</value>
+          </Data>
+          <Data name="Elevation">
+            <value>916.04 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>37.8 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>337.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.824665,32.966248,916.04</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T22:02:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62540820</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 10:02:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 2:02:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.981396</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.810245</value>
+          </Data>
+          <Data name="Elevation">
+            <value>715.15 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>28.9 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>315.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.810245,32.981396,715.15</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T22:12:30Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62543858</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 10:12:30 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 2:12:30 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>32.993681</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.802413</value>
+          </Data>
+          <Data name="Elevation">
+            <value>749.74 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>41.9 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>22.50 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking message received.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.802413,32.993681,749.74</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name />
+        <visibility>true</visibility>
+        <description>Landed Safely</description>
+        <TimeStamp>
+          <when>2020-01-01T22:20:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62546250</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 10:20:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 2:20:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>33.010365</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.790911</value>
+          </Data>
+          <Data name="Elevation">
+            <value>473.00 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>90.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value>Landed Safely</value>
+          </Data>
+          <Data name="Event">
+            <value>Quick Text to MapShare received</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.790911,33.010365,473</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brad Stevenson</name>
+        <visibility>true</visibility>
+        <description />
+        <TimeStamp>
+          <when>2020-01-01T22:20:00Z</when>
+        </TimeStamp>
+        <styleUrl>#style_1019008</styleUrl>
+        <ExtendedData>
+          <Data name="Id">
+            <value>62546265</value>
+          </Data>
+          <Data name="Time UTC">
+            <value>1/1/2020 10:20:00 PM</value>
+          </Data>
+          <Data name="Time">
+            <value>1/1/2020 2:20:00 PM</value>
+          </Data>
+          <Data name="Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Map Display Name">
+            <value>Brad Stevenson</value>
+          </Data>
+          <Data name="Device Type">
+            <value>inReach 2.5</value>
+          </Data>
+          <Data name="IMEI">
+            <value>300434062011840</value>
+          </Data>
+          <Data name="Incident Id">
+            <value />
+          </Data>
+          <Data name="Latitude">
+            <value>33.010365</value>
+          </Data>
+          <Data name="Longitude">
+            <value>-116.790890</value>
+          </Data>
+          <Data name="Elevation">
+            <value>476.60 m from MSL</value>
+          </Data>
+          <Data name="Velocity">
+            <value>0.0 km/h</value>
+          </Data>
+          <Data name="Course">
+            <value>180.00 ° True</value>
+          </Data>
+          <Data name="Valid GPS Fix">
+            <value>True</value>
+          </Data>
+          <Data name="In Emergency">
+            <value>False</value>
+          </Data>
+          <Data name="Text">
+            <value />
+          </Data>
+          <Data name="Event">
+            <value>Tracking turned off from device.</value>
+          </Data>
+          <Data name="SpatialRefSystem">
+            <value>WGS84</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <extrude>false</extrude>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates>-116.79089,33.010365,476.6</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brad Stevenson</name>
+        <visibility>true</visibility>
+        <description>Brad Stevenson's track log</description>
+        <styleUrl>#linestyle_1019008</styleUrl>
+        <LineString>
+          <tessellate>true</tessellate>
+          <coordinates>-116.84977,32.874011,384.44
+-116.854748,32.875965,309.6
+-116.859233,32.876511,194.11
+-116.848225,32.876661,468.19
+-116.850671,32.876983,565.35
+-116.847775,32.875406,661.36
+-116.848568,32.877916,580.22
+-116.84977,32.8759,669.95
+-116.84093,32.866608,1009.45
+-116.86198,32.842995,644.22
+-116.858783,32.857135,262.04
+-116.858825,32.857168,290
+-116.858825,32.857168,290.97
+-117.12224,32.98791,349.04
+-117.122283,32.987951,346.96
+-117.12297,32.98865,349.04
+-117.125201,32.989915,224.94
+-116.829921,32.905576,958.16
+-116.826981,32.901391,909.41
+-116.85522,32.879108,529.33
+-116.848203,32.876695,465
+-116.848225,32.876726,472.39
+-116.848203,32.876705,463.98
+-116.848203,32.876511,461.88
+-116.850371,32.87412,531.45
+-116.833891,32.89283,633.52
+-116.831101,32.908108,1018.4
+-116.843418,32.918128,1248.15
+-116.836338,32.921251,1456.91
+-116.824665,32.966248,916.04
+-116.810245,32.981396,715.15
+-116.802413,32.993681,749.74
+-116.790911,33.010365,473
+-116.79089,33.010365,476.6</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

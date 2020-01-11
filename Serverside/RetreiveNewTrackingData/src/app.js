@@ -12,26 +12,28 @@ async function start() {
 
     for (let tracker of allTrackers) {
         switch (tracker.trkType) {
-            case 'spot':
-                try {
-                    console.log("Need to grab data from SPOT");
-                    let string = await SpotServices.getTrackingData(tracker.id, tracker.trkLink);
-                    insertStatement = insertStatement.concat(string);
-                } catch (e) {
-                    console.log(e)
-                }
-                break;
             case 'inreach':
                 try {
                     console.log("Need to grab data from Garmin");
                     let string = await GarminServices.getTrackingData(tracker.id, tracker.trkLink);
                     insertStatement = insertStatement.concat(string);
                 } catch (e) {
-                    console.log(e);
+                    console.log("Error thrown from Garmin function:", e);
+                }
+                break;
+            case 'spot':
+                try {
+                    console.log("Need to grab data from SPOT");
+                    let string = await SpotServices.getTrackingData(tracker.id, tracker.trkLink);
+                    insertStatement = insertStatement.concat(string);
+                } catch (e) {
+                    console.log("Error thrown from SPOT function:", e)
                 }
                 break;
         }
     }
+
+    insertStatement = insertStatement.slice(0, -1).concat(";");
     console.log('Final String:', insertStatement);
 
     // Need to remove trailing comma and replace with semicolon
