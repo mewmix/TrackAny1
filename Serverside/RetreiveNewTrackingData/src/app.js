@@ -3,6 +3,7 @@ require('dotenv').config();
 const TrackersServices = require('./services/trackers_services');
 const SpotServices = require('./services/spot_services');
 const GarminServices = require('./services/garmin_services');
+const PingsServices = require('./services/pings_services');
 
 async function start() {
 
@@ -34,11 +35,15 @@ async function start() {
     }
 
     insertStatement = insertStatement.slice(0, -1).concat(";");
-    console.log('Final String:', insertStatement);
 
-    // Need to remove trailing comma and replace with semicolon
+    try {
+        const rowsAffected = await PingsServices.saveAllTrackingData(insertStatement);
+        console.log(rowsAffected)
+    } catch (e) {
+        console.log("Error thrown when trying to insert all tracking data:", e)
+    }
 
-    // Take insert string with all the tracking data and save it to db
+    // console.log('Final String:', insertStatement);
 }
 
 start();
