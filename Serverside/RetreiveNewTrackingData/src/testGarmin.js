@@ -3,7 +3,7 @@ const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 // const util = require('util'); // For viewing deeply nested xml parsed json objects
 
-async function testGarmin(deviceID, trkLink) {
+async function testGarmin(deviceID, trkLink, userID) {
     const miliSecInDay = 86400 * 1000;
     const daysAgo = new Date(Date.now() - (miliSecInDay * 14));
     dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
@@ -33,9 +33,9 @@ async function testGarmin(deviceID, trkLink) {
         let message = p[i].ExtendedData[0].Data[15].value[0];
         let emergency = p[i].ExtendedData[0].Data[14].value[0];
 
-        insertStatement = insertStatement.concat(`(${unix}, ${lat}, ${lng}, ${alt}, "${velocity}", "${heading}", "${message}", "${emergency}", ${deviceID}),`);
+        insertStatement = insertStatement.concat(`(${unix}, ${lat}, ${lng}, ${alt}, "${velocity}", "${heading}", "${message}", "${emergency}", ${deviceID}, ${userID}),`);
     }
     console.log(insertStatement);
 }
 
-testGarmin(2, 'https://us0.inreach.garmin.com/Feed/Share/bradstevenson');
+testGarmin(2, 'https://us0.inreach.garmin.com/Feed/Share/bradstevenson', 2);

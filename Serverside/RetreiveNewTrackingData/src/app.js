@@ -9,14 +9,14 @@ async function start() {
 
     const allTrackers = await TrackersServices.getAllTrackers();
 
-    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id) VALUES ';
+    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
 
     for (let tracker of allTrackers) {
         switch (tracker.trkType) {
             case 'inreach':
                 try {
                     console.log("Need to grab data from Garmin");
-                    let string = await GarminServices.getTrackingData(tracker.id, tracker.trkLink);
+                    let string = await GarminServices.getTrackingData(tracker.id, tracker.trkLink, tracker.owner_id);
                     insertStatement = insertStatement.concat(string);
                 } catch (e) {
                     console.log("Error thrown from Garmin function:", e);
@@ -25,7 +25,7 @@ async function start() {
             case 'spot':
                 try {
                     console.log("Need to grab data from SPOT");
-                    let string = await SpotServices.getTrackingData(tracker.id, tracker.trkLink);
+                    let string = await SpotServices.getTrackingData(tracker.id, tracker.trkLink, tracker.owner_id);
                     insertStatement = insertStatement.concat(string);
                 } catch (e) {
                     console.log("Error thrown from SPOT function:", e)

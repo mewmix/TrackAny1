@@ -2,7 +2,7 @@ const axios = require('axios');
 const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
-async function getTrackingData(deviceID, trkLink) {
+async function getTrackingData(deviceID, trkLink, userID) {
     const miliSecInDay = 86400 * 1000;
     const daysAgo = new Date(Date.now() - (miliSecInDay * 14));
     dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
@@ -28,7 +28,7 @@ async function getTrackingData(deviceID, trkLink) {
         let message = p[i].ExtendedData[0].Data[15].value[0];
         let emergency = p[i].ExtendedData[0].Data[14].value[0];
 
-        insertStatement = insertStatement.concat(`(${unix}, ${lat}, ${lng}, ${alt}, "${velocity}", "${heading}", "${message}", "${emergency}", ${deviceID}),`);
+        insertStatement = insertStatement.concat(`(${unix}, ${lat}, ${lng}, ${alt}, "${velocity}", "${heading}", "${message}", "${emergency}", ${deviceID}, ${userID}),`);
     }
     return insertStatement;
 }

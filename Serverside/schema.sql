@@ -39,7 +39,8 @@ CREATE TABLE pings(
     heading VARCHAR(255) DEFAULT 'n/a',
     txtMsg VARCHAR(255),
     isEmergency VARCHAR(255),
-    tracker_id INT,
+    tracker_id INT NOT NULL,
+    user_id INT NOT NULL, 
     UNIQUE (unixTime, tracker_id),
     FOREIGN KEY (tracker_id) REFERENCES trackers(id) ON DELETE CASCADE
 );
