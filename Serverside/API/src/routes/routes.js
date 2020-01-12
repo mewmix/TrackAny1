@@ -2,6 +2,7 @@ const checkAuth = require('../middleware/check-auth');  // Use to protect each r
 const DatabaseController = require('../controllers/database_controller');
 const UsersController = require('../controllers/users_controller');
 const TrackersController = require('../controllers/trackers_controller');
+const GroupsController = require('../controllers/groups_controller');
 
 // Since we do not have access to the app variable from this file. This is how we export the routes to be used by the express app in app.js
 module.exports = (app) => {
@@ -38,5 +39,8 @@ module.exports = (app) => {
     app.post('/api/v1/trackers', checkAuth, TrackersController.createTracker);
     app.put('/api/v1/trackers', checkAuth, TrackersController.updateTracker);
     app.delete('/api/v1/trackers/:id', checkAuth, TrackersController.deleteTracker);
+
+    // Groups Routes
+    app.get('api/v1/grouptrackingdata/:id/:timespan', GroupsController.getGroupTrackingData);
 
 }
