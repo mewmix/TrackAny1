@@ -45,7 +45,7 @@ CREATE TABLE pings(
     FOREIGN KEY (tracker_id) REFERENCES trackers(id) ON DELETE CASCADE
 );
 
-CREATE TABLE flying_groups(
+CREATE TABLE public_groups(
     id INT AUTO_INCREMENT PRIMARY KEY,
     creatorId VARCHAR (255) NOT NULL,
     groupName VARCHAR (255) NOT NULL UNIQUE,
@@ -61,7 +61,7 @@ CREATE TABLE groups_have_members(
     group_id INT NOT NULL,
     member_id INT NOT NULL,
     UNIQUE (group_id, member_id),
-    FOREIGN KEY (group_id) REFERENCES flying_groups(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES public_groups(id) ON DELETE CASCADE,
     FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -81,9 +81,9 @@ INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES
 (5, 'Jason SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
 (6, 'Honza SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
 
+INSERT INTO public_groups(creatorId, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca');
 
-
-
+INSERT INTO groups_have_members(group_id, member_id) VALUES (1, 2), (1, 3), (1, 4), (1, 5), (1, 6);
 
 
 

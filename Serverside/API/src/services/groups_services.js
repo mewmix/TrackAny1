@@ -4,14 +4,13 @@ module.exports = {
     getGroupTrackingData(groupID, timeSpan) {
         return new Promise((resolve, reject) => {
 
-            // Need to get current time in seconds and determine how far back we want our tracking data to go
             const currentUnix = Math.floor(Date.now() / 1000);
 
             let queryTill;
 
             switch (timeSpan) {
                 case 'mostrecent':
-
+                    console.log("Need to get most recent")
                     break;
                 case '1hr':
                     queryTill = currentUnix - 3600;
@@ -44,34 +43,34 @@ module.exports = {
                     reject(new Error('did not specify time span for group tracking data'));
             }
 
-            // Need to take string called timespan. This will contain things like mostrecent, all, 1hr, 2hr, 8hr, 12hr, 24hr, 48hr, 1week etc...
-            // For each of these string we need to get the time in seconds ago these were
-
-            // We can then query the db saying give us all data between then and now
-
-            let members;
-
-            this.getGroupRoster(groupID).then((res) => {
-                members = res;
-            }).catch((e) => {
-                resolve('problem getting group roster', e);
-            });
-
-            for (let member of members) {
-                consoconsole.log(member);
-            }
-            
-        });
-    },
-    getGroupRoster(groupID) {
-        return Promise((resolve, reject) => {
             let sqlStatement = 'SELECT users.id, fName, lName, picture FROM groups_have_members INNER JOIN users ON groups_have_members.member_id = users.id WHERE groups_have_members.group_id=?;';
-            db.query(sqlStatement, groupID, (err, rows) => {
+
+            db.query(sqlStatement, groupID, (err, groupMembers) => {
                 if (err) reject(err);
                 else {
-                    resolve(rows);
+                    let groupTrackingData = []
+                    for(let member of groupMembers){
+                        let sqlStatement = 'SELECT id, unixTime, lat, lng, alt, agl, velocity, heading, txtMsg, isEmergency FROM pings WHERE user_id=? AND unixTime >=? ORDER BY unixTime DESC;';
+                        db.query(sqlStatement, [member.id, queryTill], (err, rows) => {
+                            if (err) reject(err);
+                            else {
+                            }
+                        });
+                    }
+                    
                 }
             });
         });
-    }
+    },
+    // getGroupRoster(groupID) {
+    //     return Promise((resolve, reject) => {
+    //         let sqlStatement = 'SELECT users.id, fName, lName, picture FROM groups_have_members INNER JOIN users ON groups_have_members.member_id = users.id WHERE groups_have_members.group_id=?;';
+    //         db.query(sqlStatement, groupID, (err, rows) => {
+    //             if (err) reject(err);
+    //             else {
+    //                 resolve(rows);
+    //             }
+    //         });
+    //     });
+    // }
 }

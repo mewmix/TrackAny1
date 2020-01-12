@@ -41,6 +41,6 @@ module.exports = (app) => {
     app.delete('/api/v1/trackers/:id', checkAuth, TrackersController.deleteTracker);
 
     // Groups Routes
-    app.get('api/v1/grouptrackingdata/:id/:timespan', GroupsController.getGroupTrackingData);
+    app.get('/api/v1/grouptrackingdata/:id/:timespan', GroupsController.getGroupTrackingData);
 
 }
