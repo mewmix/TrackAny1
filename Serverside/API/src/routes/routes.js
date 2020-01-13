@@ -1,5 +1,4 @@
 const checkAuth = require('../middleware/check-auth');  // Use to protect each route with JWT
-const DatabaseController = require('../controllers/database_controller');
 const UsersController = require('../controllers/users_controller');
 const TrackersController = require('../controllers/trackers_controller');
 const GroupsController = require('../controllers/groups_controller');
@@ -21,11 +20,6 @@ module.exports = (app) => {
     app.get('/api/v1/protected', checkAuth, (req, res) => {
         res.status(200).json({ status: "Nominal!", description: "Protected Resource" });
     });
-
-    // Database Routes
-    app.get('/api/v1/database/init', DatabaseController.initDatabase);
-    app.get('/api/v1/database/addtables', DatabaseController.addTables);
-    app.get('/api/v1/database/mockusers', DatabaseController.addMockUsers);
 
     // User Routes
     app.get('/api/v1/users', UsersController.getAllUsers);
