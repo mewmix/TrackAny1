@@ -44,13 +44,22 @@ module.exports = {
 
             const groupMembers = await GroupsServices.getGroupRoster(id);
 
-            let allData = [];
+            let groupTrackingData = [];
             for (let member of groupMembers) {
-                const userTrackingData = await GroupsServices.getUserTrackingData(member.id, queryTill);
-                allData.push({member: member, userTrackingData});
+                const trackingData = await GroupsServices.getUserTrackingData(member.id, queryTill);
+
+                let user = {
+                    id: member.id,
+                    fName: member.fName,
+                    lName: member.lName,
+                    picture: member.picture,
+                    trackingData
+                }
+
+                groupTrackingData.push(user);
             }
 
-            return res.status(200).json({ allData });
+            return res.status(200).json(groupTrackingData);
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to get group tracking data' });
         }
