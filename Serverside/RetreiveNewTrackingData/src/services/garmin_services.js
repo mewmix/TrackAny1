@@ -1,18 +1,8 @@
-const axios = require('axios');
-const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
-async function getTrackingData(deviceID, trkLink, userID) {
-    const miliSecInDay = 86400 * 1000;
-    const daysAgo = new Date(Date.now() - (miliSecInDay * 14));
-    dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
-    const garminFormatedDate = dateFormat(daysAgo, 'garmin');
-    const finalURL = `${trkLink}?d1=${garminFormatedDate}`;
-
-    const res = await axios.get(finalURL);
-
+async function createGarminInsertStatement(deviceID, userID, result) {
     const parser = new xml2js.Parser();
-    const rawData = await parser.parseStringPromise(res.data);
+    const rawData = await parser.parseStringPromise(result.data);
     const p = rawData.kml.Document[0].Folder[0].Placemark;
 
     let insertStatement = '';
@@ -33,4 +23,4 @@ async function getTrackingData(deviceID, trkLink, userID) {
     return insertStatement;
 }
 
-module.exports.getTrackingData = getTrackingData;
+module.exports.createGarminInsertStatement = createGarminInsertStatement;
