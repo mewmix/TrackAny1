@@ -26,6 +26,7 @@ module.exports = (app) => {
     app.get('/api/v1/users/:id', UsersController.getSingleUser);
     app.delete('/api/v1/users', checkAuth, UsersController.deleteUser);
     app.put('/api/v1/users', checkAuth, UsersController.updateUser);
+    app.post('/api/v1/users', UsersController.createUser);
 
     // Tracker Routes
     app.get('/api/v1/trackers', TrackersController.getAllTrackers);
