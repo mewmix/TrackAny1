@@ -3,7 +3,7 @@ const GetAllGroups = require('../services/groups/getAllGroups');
 const GetSingleGroup = require('../services/groups/getSingleGroup');
 const UpdateGroup = require('../services/groups/updateGroup');
 const DeleteGroup = require('../services/groups/deleteGroup');
-const GetUserTrackingData = require('../services/users/getUserTrackingData');
+const GetGroupTrackingData = require('../services/groups/getGroupTrackingData');
 const GetGroupRoster = require('../services/groups/getGroupRoster');
 
 module.exports = {
@@ -111,22 +111,7 @@ module.exports = {
                     return res.status(400).json({ error: e, message: 'Failed to get group tracking data bad request' });
             }
 
-            const groupMembers = await GetGroupRoster.getGroupRoster(id);
-
-            let groupTrackingData = [];
-            for (let member of groupMembers) {
-                const trackingData = await GetUserTrackingData.getUserTrackingData(member.id, queryTill);
-
-                let user = {
-                    id: member.id,
-                    fName: member.fName,
-                    lName: member.lName,
-                    picture: member.picture,
-                    trackingData
-                }
-
-                groupTrackingData.push(user);
-            }
+            const groupTrackingData = await GetGroupTrackingData.getGroupTrackingData(id, queryTill);
 
             return res.status(200).json(groupTrackingData);
         } catch (e) {
