@@ -3,6 +3,8 @@ const GetAllGroups = require('../services/groups/getAllGroups');
 const GetSingleGroup = require('../services/groups/getSingleGroup');
 const UpdateGroup = require('../services/groups/updateGroup');
 const DeleteGroup = require('../services/groups/deleteGroup');
+const GetUserTrackingData = require('../services/users/getUserTrackingData');
+const GetGroupRoster = require('../services/groups/getGroupRoster');
 
 module.exports = {
     async createGroup(req, res) {
@@ -109,11 +111,11 @@ module.exports = {
                     return res.status(400).json({ error: e, message: 'Failed to get group tracking data bad request' });
             }
 
-            const groupMembers = await GroupsServices.getGroupRoster(id);
+            const groupMembers = await GetGroupRoster.getGroupRoster(id);
 
             let groupTrackingData = [];
             for (let member of groupMembers) {
-                const trackingData = await GroupsServices.getUserTrackingData(member.id, queryTill);
+                const trackingData = await GetUserTrackingData.getUserTrackingData(member.id, queryTill);
 
                 let user = {
                     id: member.id,
@@ -129,6 +131,16 @@ module.exports = {
             return res.status(200).json(groupTrackingData);
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to get group tracking data' });
+        }
+    },
+    async getGroupRoster(req, res) {
+        try {
+            const { id } = req.params;
+            const roster = await GetGroupRoster.getGroupRoster(id);
+            return res.status(200).json({ roster });
+            
+        } catch (e) {
+            return res.status(500).json({ error: e, message: `Failed to get group roster: ${id}` });
         }
     }
 }

@@ -43,11 +43,7 @@ module.exports = (app) => {
     app.delete('/api/v1/groups/:id', checkAuth, GroupsController.deleteGroup);
     // Special Group Routes
     app.get('/api/v1/grouptrackingdata/:id/:timespan', GroupsController.getGroupTrackingData);
-    
-
-
-    // Groups have Members Routes
-    app.get('/api/v1/groupRoster')
+    app.get('/api/v1/grouproster/:id', GroupsController.getGroupRoster);
 
     
 }
