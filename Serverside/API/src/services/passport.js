@@ -6,7 +6,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 
-const UsersServices = require('./users_services');
+const FindOauthUser = require('../services/users/findOauthUser');
+const CreateUser = require('./users/createUser');
 
 // Google
 passport.use(new GoogleStrategy({
@@ -15,13 +16,11 @@ passport.use(new GoogleStrategy({
     callbackURL: "/dev/auth/google/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
     proxy: true
 },
-    // This callback function is automatically called when the user is re-directed back to our app from the google Oauth flow.
-    // This is where we need to check for an existing user with a matching google-user-id. If we dont find one we create a new user and log them in.
     (accessToken, refreshToken, profile, done) => {
 
         const googleID = profile.id;
 
-        UsersServices.findGoogleUser(googleID).then((existingUser) => {
+        FindOauthUser.findOauthUser(googleID, 'google').then((existingUser) => {
 
             if (existingUser === undefined) {   // Create new user
 
@@ -29,7 +28,7 @@ passport.use(new GoogleStrategy({
                 const email = profile.emails[0].value;
                 const photo = profile.photos[0].value;
 
-                UsersServices.createUser(givenName, familyName, email, photo, googleID, null).then((newUserID) => {
+                CreateUser.createUser(givenName, familyName, email, photo, googleID, null).then((newUserID) => {
 
                     const newUser = { id: newUserID, fName: givenName, lName: familyName }
                     token = jwt.sign(newUser, process.env.JWT_SECRET);
@@ -63,13 +62,13 @@ passport.use(new FacebookStrategy({
 
         const facebookID = profile.id;
 
-        UsersServices.findFacebookUser(facebookID).then((existingUser) => {
+        FindOauthUser.findOauthUser(facebookID, 'facebook').then((existingUser) => {
 
             if (existingUser === undefined) {   // Create new user
 
                 const { givenName, familyName } = profile.name;
 
-                UsersServices.createUser(givenName, familyName, null, null, null, facebookID).then((newUserID) => {
+                CreateUser.createUser(givenName, familyName, null, null, null, facebookID).then((newUserID) => {
 
                     const payload = { id: newUserID, fName: givenName, lName: familyName }
                     token = jwt.sign(payload, process.env.JWT_SECRET);

@@ -22,19 +22,28 @@ module.exports = (app) => {
     });
 
     // User Routes
+    app.post('/api/v1/users', UsersController.createUser);
     app.get('/api/v1/users', UsersController.getAllUsers);
     app.get('/api/v1/users/:id', UsersController.getSingleUser);
-    app.delete('/api/v1/users', checkAuth, UsersController.deleteUser);
     app.put('/api/v1/users', checkAuth, UsersController.updateUser);
+    app.delete('/api/v1/users', checkAuth, UsersController.deleteUser);
 
     // Tracker Routes
+    app.post('/api/v1/trackers', checkAuth, TrackersController.createTracker);
     app.get('/api/v1/trackers', TrackersController.getAllTrackers);
     app.get('/api/v1/trackers/:id', TrackersController.getSingleTracker);
-    app.post('/api/v1/trackers', checkAuth, TrackersController.createTracker);
     app.put('/api/v1/trackers', checkAuth, TrackersController.updateTracker);
     app.delete('/api/v1/trackers/:id', checkAuth, TrackersController.deleteTracker);
 
-    // Groups Routes
+    // Group Routes
+    app.post('/api/v1/groups', checkAuth, GroupsController.createGroup);
+    app.get('/api/v1/groups', GroupsController.getAllGroups);
+    app.get('/api/v1/groups/:id', GroupsController.getSingleGroup);
+    app.put('/api/v1/groups', checkAuth, GroupsController.updateGroup);
+    app.delete('/api/v1/groups/:id', checkAuth, GroupsController.deleteGroup);
+    // Special Group Routes
     app.get('/api/v1/grouptrackingdata/:id/:timespan', GroupsController.getGroupTrackingData);
+    app.get('/api/v1/grouproster/:id', GroupsController.getGroupRoster);
 
+    
 }
