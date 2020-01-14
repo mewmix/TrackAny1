@@ -53,7 +53,7 @@ module.exports = {
             res.status(500).json({ error: e, message: `Failed to update group: ${id}` });
         }
     },
-    async deleteTracker(req, res) {
+    async deleteGroup(req, res) {
         try {
             const userID = req.userData.id;
             const { id } = req.params;
