@@ -47,7 +47,7 @@ CREATE TABLE pings(
 
 CREATE TABLE public_groups(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    creatorId VARCHAR (255) NOT NULL,
+    creatorID VARCHAR (255) NOT NULL,
     groupName VARCHAR (255) NOT NULL UNIQUE,
     region VARCHAR (255) DEFAULT '',
     info VARCHAR (255) DEFAULT '',
