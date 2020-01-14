@@ -1,4 +1,8 @@
-const TrackersServices = require('../services/trackers_services');
+const CreateTracker = require('../services/trackers/createTracker');
+const GetAllTrackers = require('../services/trackers/getAllTrackers');
+const GetSingleTracker = require('../services/trackers/getSingleTracker');
+const UpdateTracker = require('../services/trackers/updateTracker');
+const DeleteTracker = require('../services/trackers/deleteTracker');
 
 module.exports = {
     async createTracker(req, res) {
@@ -6,7 +10,7 @@ module.exports = {
             const userID = req.userData.id;
             const { trkType, trkLink, trkName } = req.body;
 
-            const newTrackerID = await TrackersServices.createTracker(userID, trkType, trkLink, trkName);
+            const newTrackerID = await CreateTracker.createTracker(userID, trkType, trkLink, trkName);
             return res.status(201).json({ id: newTrackerID, message: `Tracker created with id: ${newTrackerID}` });            
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to create new tracker' });
@@ -14,7 +18,7 @@ module.exports = {
     },
     async getAllTrackers(req, res) {
         try {
-            const allTrackers = await TrackersServices.getAllTrackers();
+            const allTrackers = await GetAllTrackers.getAllTrackers();
             return res.status(200).json({ trackers: allTrackers });
 
         } catch (e) {
@@ -24,7 +28,7 @@ module.exports = {
     async getSingleTracker(req, res) {
         try {
             const { id } = req.params;
-            const tracker = await TrackersServices.getSingleTracker(id);
+            const tracker = await GetSingleTracker.getSingleTracker(id);
             return res.status(200).json({tracker});
         } catch (e) {
             return res.status(500).json({ error: e, message: `Failed to get tracker: ${id}` });
@@ -35,10 +39,10 @@ module.exports = {
             const userID = req.userData.id;
             const { id, trkType, trkLink, trkName } = req.body;
 
-            const trackerToUpdate = await TrackersServices.getSingleTracker(id);
+            const trackerToUpdate = await GetSingleTracker.getSingleTracker(id);
 
             if(trackerToUpdate.owner_id == userID) {
-                await TrackersServices.updateTracker(id, trkType, trkLink, trkName);
+                await UpdateTracker.updateTracker(id, trkType, trkLink, trkName);
                 return res.status(200).json({ message: `Tracker ${id} was successfully updated`});
             } else {
                 res.status(401).json({ message: `Failed to update tracker: ${id}. You do not have the authority.` });
@@ -52,10 +56,10 @@ module.exports = {
             const userID = req.userData.id;
             const { id } = req.params;
 
-            const trackerToBeDeleted = await TrackersServices.getSingleTracker(id);
+            const trackerToBeDeleted = await GetSingleTracker.getSingleTracker(id);
 
             if (trackerToBeDeleted.owner_id == userID) {
-                await TrackersServices.deleteTracker(id);
+                await DeleteTracker.deleteTracker(id);
                 res.status(200).json({ message: `tracker: ${id} was successfully deleted` });
             } else {
                 res.status(401).json({ message: `Failed to delete tracker: ${id}. You do not have the authority.` });
