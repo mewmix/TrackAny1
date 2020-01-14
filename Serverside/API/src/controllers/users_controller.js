@@ -50,7 +50,7 @@ module.exports = {
             const userID = await CreateUser.createUser(fName, lName, email, picture, '', '');
             res.status(200).json({ message: `user: ${userID} was successfully created` });
         } catch (e) {
-            res.status(500).json({ error: e, message: `Failed to update user` });
+            res.status(500).json({ error: e, message: `Failed to create user` });
         }
 
     }
