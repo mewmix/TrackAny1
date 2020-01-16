@@ -13,7 +13,7 @@ const CreateUser = require('./users/createUser');
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/dev/auth/google/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
+    callbackURL: "/auth/google/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
     proxy: true
 },
     (accessToken, refreshToken, profile, done) => {
@@ -54,7 +54,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/dev/auth/facebook/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
+    callbackURL: "/auth/facebook/callback",     // REMEMBER TO REMOVE /DEV WHEN IN PROD
     profileFields: ["emails", "name", "photos"],
     proxy: true
 },
