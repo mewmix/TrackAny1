@@ -7,7 +7,8 @@ const FormatUrlsService = require('./services/format_urls');
 const GarminServices = require('./services/garmin_services');
 const SpotServices = require('./services/spot_services');
 
-async function start() {
+// async function start() {     // DEV
+exports.handler = async (event) => {
     const t0 = Date.now();
 
     const allTrackers = await TrackersServices.getAllTrackers();
@@ -49,4 +50,9 @@ async function start() {
     console.log('Final String:', insertStatement);
 }
 
-start();
+
+
+
+
+// }     // DEV
+// start();     // DEV
