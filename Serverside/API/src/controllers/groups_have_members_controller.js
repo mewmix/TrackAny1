@@ -19,12 +19,12 @@ module.exports = {
     async removeFromRoster(req, res) {
         try {
             const userID = req.userData.id;
-            const { group_id } = req.params;
+            const { id } = req.params;
 
-            const groupMemberToBeDeleted = await GetGroupMember.getGroupMember(group_id, userID);
+            const groupMemberToBeDeleted = await GetGroupMember.getGroupMember(id, userID);
 
             if (groupMemberToBeDeleted.member_id == userID) {
-                await RemoveFromRoster.removeFromRoster(group_id, userID);
+                await RemoveFromRoster.removeFromRoster(id, userID);
                 res.status(200).json({ message: `group member was removed` });
             } else {
                 res.status(401).json({ message: `Failed to remove group member. You do not have the authority.` });

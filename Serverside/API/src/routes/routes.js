@@ -48,7 +48,6 @@ module.exports = (app) => {
 
     // Groups Have Members Routes
     app.post('/api/v1/groupmembers', checkAuth, GroupsHaveMembersController.addToRoster);
-    app.delete('/api/v1/groupmembers', checkAuth, GroupsHaveMembersController.removeFromRoster);
+    app.delete('/api/v1/groupmembers/:id', checkAuth, GroupsHaveMembersController.removeFromRoster);
 
-    
 }
