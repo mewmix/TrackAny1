@@ -4,6 +4,7 @@ const TrackersController = require('../controllers/trackers_controller');
 const GroupsController = require('../controllers/groups_controller');
 const GroupsHaveMembersController = require('../controllers/groups_have_members_controller');
 const FollowGroups = require('../controllers/follow_groups');
+const FollowUsers = require('../controllers/follow_users');
 
 // Since we do not have access to the app variable from this file. This is how we export the routes to be used by the express app in app.js
 module.exports = (app) => {
@@ -52,10 +53,10 @@ module.exports = (app) => {
     app.delete('/api/v1/groupmembers/:id', checkAuth, GroupsHaveMembersController.removeFromRoster);
 
     // Users Follow Users
-    app.post('/api/v1/followuser/:id', checkAuth, );
-    app.delete('/api/v1/followuser/:id', checkAuth, );
-    app.get('/api/v1/usersfollowers', checkAuth, )
-    app.get('/api/v1/usersfollowees', checkAUth, )
+    app.post('/api/v1/followuser/:id', checkAuth, FollowUsers.followUser);
+    app.delete('/api/v1/followuser/:id', checkAuth, FollowUsers.unfollowUser);
+    app.get('/api/v1/usersfollowers', checkAuth, FollowUsers.getUsersFollowers);
+    app.get('/api/v1/usersfollowees', checkAUth, FollowUsers.getUsersFollowees);
 
     // Users Follow Groups
     app.post('/api/v1/followgroup/:id', checkAuth, FollowGroups.followGroup);
