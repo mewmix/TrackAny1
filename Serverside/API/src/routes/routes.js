@@ -56,7 +56,7 @@ module.exports = (app) => {
     app.post('/api/v1/followuser/:id', checkAuth, FollowUsers.followUser);
     app.delete('/api/v1/followuser/:id', checkAuth, FollowUsers.unfollowUser);
     app.get('/api/v1/usersfollowers', checkAuth, FollowUsers.getUsersFollowers);
-    app.get('/api/v1/usersfollowees', checkAUth, FollowUsers.getUsersFollowees);
+    app.get('/api/v1/usersfollowees', checkAuth, FollowUsers.getUsersFollowees);
 
     // Users Follow Groups
     app.post('/api/v1/followgroup/:id', checkAuth, FollowGroups.followGroup);
