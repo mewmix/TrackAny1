@@ -80,7 +80,7 @@ CREATE TABLE follow_groups(
     group_id INT NOT NULL,
     UNIQUE (follower_id, group_id),
     FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (group_id) REFERENCES public_groups(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES public_groups(id) ON DELETE CASCADE
 );
 
 INSERT INTO users(fName, lName) VALUES 
@@ -99,6 +99,6 @@ INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES
 (5, 'Jason SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
 (6, 'Honza SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
 
-INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca');
+INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca'), (3, 'Red Bull X-Alps 2020', 'Chamonix, Fr');
 
 INSERT INTO groups_have_members(group_id, member_id) VALUES (1, 2), (1, 3), (1, 4), (1, 5), (1, 6);
