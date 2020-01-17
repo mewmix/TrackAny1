@@ -52,13 +52,13 @@ module.exports = (app) => {
     app.delete('/api/v1/groupmembers/:id', checkAuth, GroupsHaveMembersController.removeFromRoster);
 
     // Users Follow Users
-    app.post('/api/v1/followuser/:id', cheackAuth, );
+    app.post('/api/v1/followuser/:id', checkAuth, );
     app.delete('/api/v1/followuser/:id', checkAuth, );
     app.get('/api/v1/usersfollowers', checkAuth, )
     app.get('/api/v1/usersfollowees', checkAUth, )
 
     // Users Follow Groups
-    app.post('/api/v1/followgroup/:id', cheackAuth, FollowGroups.followGroup);
+    app.post('/api/v1/followgroup/:id', checkAuth, FollowGroups.followGroup);
     app.delete('/api/v1/followgroup/:id', checkAuth, FollowGroups.unfollowGroup);
     app.get('/api/v1/groupsfollowers/:id', FollowGroups.getGroupsFollowers);
     app.get('/api/v1/followgroups', checkAuth, FollowGroups.getUsersFollowedGroups);
