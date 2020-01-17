@@ -65,6 +65,25 @@ CREATE TABLE groups_have_members(
     FOREIGN KEY (member_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE follow_users(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    follower_id INT NOT NULL,
+    folowee_id INT NOT NULL,
+    UNIQUE (follower_id, folowee_id),
+    FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (folowee_id) REFERENCES users(id) ON DELETE CASCADE
+
+);
+
+CREATE TABLE follow_groups(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    follower_id INT NOT NULL,
+    group_id INT NOT NULL,
+    UNIQUE (follower_id, group_id),
+    FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES public_groups(id) ON DELETE CASCADE,
+);
+
 INSERT INTO users(fName, lName) VALUES 
 ('Mark','Faulkner'),
 ('Brad', 'Stevenson'),
