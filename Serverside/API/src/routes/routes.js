@@ -14,6 +14,9 @@ module.exports = (app) => {
         res.status(200).json({ status: "Nominal!", description: "Home Page" });
     });
 
+    // Postman API Documentation
+    app.get('/docs', (req, res) => res.redirect('https://documenter.getpostman.com/view/4885205/SWLmYk58?version=latest'));
+
     // Health Status
     app.get('/api/v1/status', (req, res) => {
         res.status(200).json({ status: "Nominal!", description: "Track Pilots Node.js & Express API running on AWS Lambda through API Gateway Proxy" });
