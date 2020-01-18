@@ -17,6 +17,7 @@ exports.handler = async (event) => {
         const insertStatement = await createInsertStatement(trackers, responses);
         const rowsAffected = await PingsServices.saveAllTrackingData(db, insertStatement);
         console.log('Finished. Rows Affected:', rowsAffected);
+        // process.exit(1);    // DEV
     } catch (e) {
         console.log('Retreive Tracking Data Lambda Function threw an error:', e);
     }
