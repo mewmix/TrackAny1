@@ -1,15 +1,8 @@
-const db = require('../db');
-
-module.exports = {
-    getAllTrackers() {
-        return new Promise((resolve, reject) => {
-            let sqlStatement = 'SELECT id, trkType, trkLink, owner_id FROM trackers;';
-            db.query(sqlStatement, (err, rows) => {
-                if (err) reject(err);
-                else {
-                    resolve(rows);
-                }
-            });
-        });
-    },
+exports.getAllTrackers = async function (db) {
+    try {
+        const [rows] = await db.execute('SELECT id, trkType, trkLink, owner_id FROM trackers;')
+        return rows
+    } catch (e) {
+        throw e
+    }
 }

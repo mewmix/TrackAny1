@@ -9,9 +9,12 @@ const SpotServices = require('./services/spot_services');
 
 // async function start() {     // DEV
 exports.handler = async (event) => {
+
+    const db = await require('./db').connectToDatabase();
+
     const t0 = Date.now();
 
-    const allTrackers = await TrackersServices.getAllTrackers();
+    const allTrackers = await TrackersServices.getAllTrackers(db);
 
     let promises = [];
 
@@ -40,7 +43,7 @@ exports.handler = async (event) => {
     console.log(`Results from all trackers took ${t2 - t1} miliseconds to format into a single string`)
 
     try {
-        const rowsAffected = await PingsServices.saveAllTrackingData(insertStatement);
+        const rowsAffected = await PingsServices.saveAllTrackingData(db, insertStatement);
         const t3 = Date.now();
         console.log(`Rows affected: ${rowsAffected}. Finished in ${t3 - t0} miliseconds.`)
     } catch (e) {
