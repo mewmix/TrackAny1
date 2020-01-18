@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise');
 
-async function connectToDatabase() {
+async function connect() {
     try {
         const connection = await mysql.createConnection(
             {
@@ -17,7 +17,7 @@ async function connectToDatabase() {
         throw e;
     }
 }
-module.exports.connectToDatabase = connectToDatabase;
+module.exports.connect = connect;
 
 // const mysql = require('mysql');
 
