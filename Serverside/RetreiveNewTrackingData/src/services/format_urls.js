@@ -10,7 +10,9 @@ function formatFinalUrl(trkType, trkLink, currentUnixTime) {
         return `${trkLink}?d1=${garminFormatedDate}`;
     } else {
         const timeAgo = new Date(currentUnixTime - (daysAgo));
-        const spotFormatedDate = dateFormat(timeAgo, 'isoDateTime');
+        dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
+        const spotFormatedDate = dateFormat(timeAgo, 'spot');
+        console.log(`${trkLink}/message.json?startDate=${spotFormatedDate}`);
         return `${trkLink}/message.json?startDate=${spotFormatedDate}`;
     }
 }
