@@ -7,7 +7,7 @@ async function testSpot(deviceID, trkLink, userID) {
     dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
     const spotFormatedDate = dateFormat(weekAgo, 'spot');
 
-    const finalURL = `${trkLink}/message.json?startDate=${spotFormatedDate}`;
+    const finalURL = `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
 
     const res = await axios.get(finalURL);
 
@@ -21,31 +21,47 @@ async function testSpot(deviceID, trkLink, userID) {
         let { error } = res.data.response.errors;
         if (error.text === 'No Messages to display') {
             console.log(`Spot tracker ${deviceID} does not have any new data.`);
-            return '';
+            return [];
         } else if (error.text === 'Feed Not Found') {
             console.log(`Spot tracker ${deviceID}'s URL is not working.`);
-            return '';
+            return [];
         } else if (error.text === 'Date/Time format is incorrect.') {
             console.log(`Spot tracker ${deviceID} is thowing a Date/Time format error but just ignore it.`)
         }
         else {
             console.log(`Spot tracker ${deviceID} threw an unrecognized error.`, error)
-            return '';
+            return [];
         }
     }
 
     const dataPoints = res.data.response.feedMessageResponse.messages.message;
 
-    let insertStatement = '';
+    const pingsArray = [];
 
-    for (let p of dataPoints) {
-        let message = '';
-        if (p.messageContent !== undefined) { message = p.messageContent }
-        insertStatement = insertStatement.concat(`(${p.unixTime}, ${p.latitude}, ${p.longitude}, ${p.altitude}, "n/a", "n/a", "${message}", "n/a", ${deviceID}, ${userID}),`);
+    for (let point of dataPoints) {
+
+        let { unixTime, latitude, longitude, altitude, messageContent } = point;
+
+        if (messageContent === undefined) {
+            messageContent = '';
+        }
+
+        ping = {
+            unix: unixTime,
+            lat: latitude,
+            lng: longitude,
+            alt: altitude, 
+            velocity: '',
+            heading: '',
+            message: messageContent,
+            emergency: '',
+            deviceID: deviceID,
+            userID: userID
+        }
+        pingsArray.push(ping);
     }
-
-    console.log(insertStatement)
-    return insertStatement;
+    console.log(pingsArray)
+    return pingsArray;
 }
 
-testSpot(4, 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa', 4);
+testSpot(4, '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa', 4);

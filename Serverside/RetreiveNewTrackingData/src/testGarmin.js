@@ -9,45 +9,56 @@ async function testGarmin(deviceID, trkLink, userID) {
     dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
     const garminFormatedDate = dateFormat(daysAgo, 'garmin');
 
-    const finalURL = `${trkLink}?d1=${garminFormatedDate}`;
+    const finalURL = `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
     console.log(finalURL);
 
     const res = await axios.get(finalURL);
 
     const parser = new xml2js.Parser();
-    const rawData = await parser.parseStringPromise(res.data);
-    
-    // Need to look at response and see if there is anything before we start parsing data
-    if (rawData === null) {
+    const data = await parser.parseStringPromise(res.data);
+
+    if (data === null) {
         console.log(`Tracker: ${deviceID}'s tracking link might not be valid. The response is completely empty.`)
         return '';
     }
 
-    if (rawData.kml.Document[0].Folder === undefined) {
-        console.log(`Tracker ${deviceID} doesn't seem to have any new data.`)
+    if (data.kml.Document[0].Folder === undefined) {
+        console.log(`Garmin tracker ${deviceID} does not have any new data.`)
         return '';
     }
-    
-    // console.log(util.inspect(rawData, false, null));
 
-    const p = rawData.kml.Document[0].Folder[0].Placemark;
+    const d = data.kml.Document[0].Folder[0].Placemark;
 
-    let insertStatement = '';
+    const pingsArray = [];
 
-    for (let i = 0; i < p.length - 1; i++) {
+    for (let i = 0; i < d.length - 1; i++) {
 
-        let unix = Math.floor(new Date(p[i].TimeStamp[0].when[0]).getTime() / 1000);
-        let lat = p[i].ExtendedData[0].Data[8].value[0];
-        let lng = p[i].ExtendedData[0].Data[9].value[0];
-        let alt = (p[i].Point[0].coordinates[0]).split(",")[2];
-        let velocity = p[i].ExtendedData[0].Data[11].value[0];
-        let heading = p[i].ExtendedData[0].Data[12].value[0];
-        let message = p[i].ExtendedData[0].Data[15].value[0];
-        let emergency = p[i].ExtendedData[0].Data[14].value[0];
+        let unix = Math.floor(new Date(d[i].TimeStamp[0].when[0]).getTime() / 1000);
+        let lat = d[i].ExtendedData[0].Data[8].value[0];
+        let lng = d[i].ExtendedData[0].Data[9].value[0];
+        let alt = (d[i].Point[0].coordinates[0]).split(",")[2];
+        let velocity = d[i].ExtendedData[0].Data[11].value[0];
+        let heading = d[i].ExtendedData[0].Data[12].value[0];
+        let message = d[i].ExtendedData[0].Data[15].value[0];
+        let emergency = d[i].ExtendedData[0].Data[14].value[0];
 
-        insertStatement = insertStatement.concat(`(${unix}, ${lat}, ${lng}, ${alt}, "${velocity}", "${heading}", "${message}", "${emergency}", ${deviceID}, ${userID}),`);
+        const ping = {
+            unix: unix,
+            lat: lat,
+            lng: lng,
+            alt: alt, 
+            velocity: velocity,
+            heading: heading,
+            message: message,
+            emergency: emergency,
+            deviceID: deviceID,
+            userID: userID
+        }
+
+        pingsArray.push(ping);
     }
-    console.log(insertStatement);
+    console.log(pingsArray)
+    return pingsArray;
 }
 
-testGarmin(2, 'https://us0.inreach.garmin.com/Feed/Share/bradstevenson', 2);
+testGarmin(2, 'bradstevenson', 2);
