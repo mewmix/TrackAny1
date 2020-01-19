@@ -1,21 +1,21 @@
 require('dotenv').config();
 const axios = require('axios');
+const dateFormat = require('dateformat');
+const xml2js = require('xml2js');
 
-const TrackersServices = require('./services/trackers_services');
-const PingsServices = require('./services/pings_services');
-const FormatUrlsService = require('./services/format_urls');
-const GarminServices = require('./services/garmin_services');
-const SpotServices = require('./services/spot_services');
 
-async function start() {     // DEV
-// exports.handler = async (event) => {
+// async function start() {     // DEV
+    exports.handler = async (event) => {
     try {
         const t0 = Date.now();
+
         const db = await require('./db').connect();
-        const trackers = await TrackersServices.getAllTrackers(db);
+        const trackers = await getAllTrackers(db);
         const responses = await getTrackerResponses(t0, trackers);
-        const insertStatement = await createInsertStatement(trackers, responses);
-        const rowsAffected = await PingsServices.saveAllTrackingData(db, insertStatement);
+        const pingsArray = await createPingsArray(trackers, responses);
+        const insertStatement = await createInsertStatement(pingsArray);
+        const rowsAffected = await saveTrackingData(db, insertStatement);
+
         console.log('Finished. Rows Affected:', rowsAffected);
         // process.exit(1);    // DEV
     } catch (e) {
@@ -23,46 +23,176 @@ async function start() {     // DEV
     }
 }
 
+
+async function getAllTrackers(db) {
+    try {
+        const [rows] = await db.execute('SELECT id, trkType, trkLink, owner_id FROM trackers;')
+        return rows
+    } catch (e) {
+        throw e
+    }
+}
+
+function formatFinalUrl(trkType, trkLink, currentUnixTime) {
+    const miliSecInDay = 86400 * 1000;
+    const daysAgo = miliSecInDay * 14;
+    if (trkType === 'inreach') {
+        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
+        const garminFormatedDate = dateFormat(timeAgo, 'garmin');
+        return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
+    } else {
+        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
+        const spotFormatedDate = dateFormat(timeAgo, 'spot');
+        return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
+    }
+}
+
 async function getTrackerResponses(time, trackers) {
     let promises = [];
 
     for (let i = 0; i < trackers.length; i++) {
-        promises[i] = axios.get(FormatUrlsService.formatFinalUrl(trackers[i].trkType, trackers[i].trkLink, time));
+        promises[i] = axios.get(formatFinalUrl(trackers[i].trkType, trackers[i].trkLink, time));
     }
 
     const results = await Promise.all(promises);
     return results;
 }
 
-async function createInsertStatement(trackers, responses) {
-    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
+async function createPingsArray(trackers, responses) {
 
-    let trackerInsertStatements = '';
+    pingsArray = [];
 
     for (let i = 0; i < trackers.length; i++) {
-        // Check and see if response is empty
-        if (responses[i].status !== 200) {
-            continue;
-        }
-
         if (trackers[i].trkType === 'inreach') {
-            let string = await GarminServices.createGarminInsertStatement(trackers[i].id, trackers[i].owner_id, responses[i]);
-            trackerInsertStatements = trackerInsertStatements.concat(string);
+            let pings = await parseGarminResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
+            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
         } else {
-            let string = await SpotServices.createSpotInsertStatement(trackers[i].id, trackers[i].owner_id, responses[i]);
-            trackerInsertStatements = trackerInsertStatements.concat(string);
+            let pings = await parseSpotResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
+            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
         }
     }
-    if (trackerInsertStatements === '') {
+
+    if (pingsArray === []) {
         console.log("None of the devices have any new data to save to the database, exit program here.")
         process.exit(1);
     }
-    
-    insertStatement = insertStatement.concat(trackerInsertStatements);
+    return pingsArray;
+}
+
+async function parseGarminResponse(deviceID, userID, res) {
+    const parser = new xml2js.Parser();
+    const data = await parser.parseStringPromise(res.data);
+
+    if (data === null) {
+        console.log(`Tracker: ${deviceID}'s tracking link might not be valid. The response is completely empty.`)
+        return [];
+    }
+
+    if (data.kml.Document[0].Folder === undefined) {
+        console.log(`Garmin tracker ${deviceID} does not have any new data.`)
+        return [];
+    }
+
+    const d = data.kml.Document[0].Folder[0].Placemark;
+
+    const pingsArray = [];
+
+    for (let i = 0; i < d.length - 1; i++) {
+
+        let unix = Math.floor(new Date(d[i].TimeStamp[0].when[0]).getTime() / 1000);
+        let lat = d[i].ExtendedData[0].Data[8].value[0];
+        let lng = d[i].ExtendedData[0].Data[9].value[0];
+        let alt = (d[i].Point[0].coordinates[0]).split(",")[2];
+        let velocity = d[i].ExtendedData[0].Data[11].value[0];
+        let heading = d[i].ExtendedData[0].Data[12].value[0];
+        let message = d[i].ExtendedData[0].Data[15].value[0];
+        let emergency = d[i].ExtendedData[0].Data[14].value[0];
+
+        const ping = {
+            unix: unix,
+            lat: lat,
+            lng: lng,
+            alt: alt, 
+            velocity: velocity,
+            heading: heading,
+            message: message,
+            emergency: emergency,
+            deviceID: deviceID,
+            userID: userID
+        }
+
+        pingsArray.push(ping);
+    }
+    return pingsArray;
+}
+
+async function parseSpotResponse(deviceID, userID, res) {
+    if (res.data.response.errors !== undefined) {
+        let { error } = res.data.response.errors;
+        if (error.text === 'No Messages to display') {
+            console.log(`Spot tracker ${deviceID} does not have any new data.`);
+            return [];
+        } else if (error.text === 'Feed Not Found') {
+            console.log(`Spot tracker ${deviceID}'s URL is not working.`);
+            return [];
+        } else if (error.text === 'Date/Time format is incorrect.') {
+            console.log(`Spot tracker ${deviceID} is thowing a Date/Time format error but just ignore it.`)
+        }
+        else {
+            console.log(`Spot tracker ${deviceID} threw an unrecognized error.`, error)
+            return [];
+        }
+    }
+
+    const dataPoints = res.data.response.feedMessageResponse.messages.message;
+
+    const pingsArray = [];
+
+    for (let point of dataPoints) {
+
+        let { unixTime, latitude, longitude, altitude, messageContent } = point;
+
+        if (messageContent === undefined) {
+            messageContent = '';
+        }
+
+        ping = {
+            unix: unixTime,
+            lat: latitude,
+            lng: longitude,
+            alt: altitude, 
+            velocity: '',
+            heading: '',
+            message: messageContent,
+            emergency: '',
+            deviceID: deviceID,
+            userID: userID
+        }
+        pingsArray.push(ping);
+    }
+    return pingsArray;
+}
+
+async function createInsertStatement(pingsArray) {
+    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
+
+    for (let p of pingsArray) {
+        insertStatement = insertStatement.concat(`(${p.unix}, ${p.lat}, ${p.lng}, ${p.alt}, "${p.velocity}", "${p.heading}", "${p.message}", "${p.emergency}", ${p.deviceID}, ${p.userID}),`);
+    }
 
     insertStatement = insertStatement.slice(0, -1).concat(";");
-    console.log('Final String:', insertStatement);
     return insertStatement;
 }
 
-start();     // DEV
+async function saveTrackingData(db, sqlStatement) {
+    try {
+        const [result] = await db.execute(sqlStatement)
+        return result.affectedRows
+    } catch (e) {
+        throw e
+    }
+}
+
+// start();     // DEV
