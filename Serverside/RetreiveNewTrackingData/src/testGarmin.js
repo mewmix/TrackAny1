@@ -1,7 +1,7 @@
 const axios = require('axios');
 const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
-// const util = require('util'); // For viewing deeply nested xml parsed json objects
+const util = require('util'); // For viewing deeply nested xml parsed json objects
 
 async function testGarmin(deviceID, trkLink, userID) {
     const miliSecInDay = 86400 * 1000;
@@ -10,13 +10,25 @@ async function testGarmin(deviceID, trkLink, userID) {
     const garminFormatedDate = dateFormat(daysAgo, 'garmin');
 
     const finalURL = `${trkLink}?d1=${garminFormatedDate}`;
-    // console.log(finalURL);
+    console.log(finalURL);
 
     const res = await axios.get(finalURL);
 
     const parser = new xml2js.Parser();
     const rawData = await parser.parseStringPromise(res.data);
-    // console.log(util.inspect(rawData.kml.Document[0].Folder[0].Placemark[0].Point[0].coordinates[0], false, null));
+    
+    // Need to look at response and see if there is anything before we start parsing data
+    if (rawData === null) {
+        console.log(`Tracker: ${deviceID}'s tracking link might not be valid. The response is completely empty.`)
+        return '';
+    }
+
+    if (rawData.kml.Document[0].Folder === undefined) {
+        console.log(`Tracker ${deviceID} doesn't seem to have any new data.`)
+        return '';
+    }
+    
+    // console.log(util.inspect(rawData, false, null));
 
     const p = rawData.kml.Document[0].Folder[0].Placemark;
 

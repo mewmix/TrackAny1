@@ -3,6 +3,18 @@ const xml2js = require('xml2js');
 async function createGarminInsertStatement(deviceID, userID, result) {
     const parser = new xml2js.Parser();
     const rawData = await parser.parseStringPromise(result.data);
+
+    // Need to look at response and see if there is anything before we start parsing data
+    if (rawData === null) {
+        console.log(`Tracker: ${deviceID}'s tracking link might not be valid. The response is completely empty.`)
+        return '';
+    }
+
+    if (rawData.kml.Document[0].Folder === undefined) {
+        console.log(`Tracker ${deviceID} doesn't seem to have any new data.`)
+        return '';
+    }
+
     const p = rawData.kml.Document[0].Folder[0].Placemark;
 
     let insertStatement = '';

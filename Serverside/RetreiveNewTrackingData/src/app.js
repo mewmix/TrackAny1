@@ -7,8 +7,8 @@ const FormatUrlsService = require('./services/format_urls');
 const GarminServices = require('./services/garmin_services');
 const SpotServices = require('./services/spot_services');
 
-// async function start() {     // DEV
-exports.handler = async (event) => {
+async function start() {     // DEV
+// exports.handler = async (event) => {
     try {
         const t0 = Date.now();
         const db = await require('./db').connect();
@@ -37,19 +37,32 @@ async function getTrackerResponses(time, trackers) {
 async function createInsertStatement(trackers, responses) {
     let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
 
+    let trackerInsertStatements = '';
+
     for (let i = 0; i < trackers.length; i++) {
+        // Check and see if response is empty
+        if (responses[i].status !== 200) {
+            continue;
+        }
+
         if (trackers[i].trkType === 'inreach') {
             let string = await GarminServices.createGarminInsertStatement(trackers[i].id, trackers[i].owner_id, responses[i]);
-            insertStatement = insertStatement.concat(string);
+            trackerInsertStatements = trackerInsertStatements.concat(string);
         } else {
             let string = await SpotServices.createSpotInsertStatement(trackers[i].id, trackers[i].owner_id, responses[i]);
-            insertStatement = insertStatement.concat(string);
+            trackerInsertStatements = trackerInsertStatements.concat(string);
         }
     }
+    if (trackerInsertStatements === '') {
+        console.log("None of the devices have any new data to save to the database, exit program here.")
+        process.exit(1);
+    }
+    
+    insertStatement = insertStatement.concat(trackerInsertStatements);
 
     insertStatement = insertStatement.slice(0, -1).concat(";");
     console.log('Final String:', insertStatement);
     return insertStatement;
 }
 
-// start();     // DEV
+start();     // DEV
