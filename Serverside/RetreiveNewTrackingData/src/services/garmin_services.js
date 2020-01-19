@@ -11,7 +11,7 @@ async function createGarminInsertStatement(deviceID, userID, result) {
     }
 
     if (rawData.kml.Document[0].Folder === undefined) {
-        console.log(`Tracker ${deviceID} doesn't seem to have any new data.`)
+        console.log(`Garmin tracker ${deviceID} does not have any new data.`)
         return '';
     }
 

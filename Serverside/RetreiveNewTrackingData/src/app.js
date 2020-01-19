@@ -7,8 +7,8 @@ const FormatUrlsService = require('./services/format_urls');
 const GarminServices = require('./services/garmin_services');
 const SpotServices = require('./services/spot_services');
 
-async function start() {     // DEV
-// exports.handler = async (event) => {
+// async function start() {     // DEV
+exports.handler = async (event) => {
     try {
         const t0 = Date.now();
         const db = await require('./db').connect();
@@ -65,4 +65,4 @@ async function createInsertStatement(trackers, responses) {
     return insertStatement;
 }
 
-start();     // DEV
+// start();     // DEV
