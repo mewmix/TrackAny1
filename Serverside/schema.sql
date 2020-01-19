@@ -92,12 +92,12 @@ INSERT INTO users(fName, lName) VALUES
 ('Honza','Rejmanek');
 
 INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES 
-(1, 'Mark Garmin Inreach', 'inreach', 'https://us0.inreach.garmin.com/Feed/Share/markfaulk'),
-(2, 'Brad Garmin Inreach', 'inreach', 'https://us0.inreach.garmin.com/Feed/Share/bradstevenson'),
-(3, 'Willy SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
-(4, 'Chris SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
-(5, 'Jason SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
-(6, 'Honza SPOT Tracker', 'spot', 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
+(1, 'Mark Garmin Inreach', 'inreach', 'markfaulk'),
+(2, 'Brad Garmin Inreach', 'inreach', 'bradstevenson'),
+(3, 'Willy SPOT Tracker', 'spot', '0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
+(4, 'Chris SPOT Tracker', 'spot', '0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
+(5, 'Jason SPOT Tracker', 'spot', '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
+(6, 'Honza SPOT Tracker', 'spot', '0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
 
 INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca'), (3, 'Red Bull X-Alps 2020', 'Chamonix, Fr');
 

@@ -39,12 +39,12 @@ function formatFinalUrl(trkType, trkLink, currentUnixTime) {
         const timeAgo = new Date(currentUnixTime - (daysAgo));
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
         const garminFormatedDate = dateFormat(timeAgo, 'garmin');
-        return `${trkLink}?d1=${garminFormatedDate}`;
+        return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
     } else {
         const timeAgo = new Date(currentUnixTime - (daysAgo));
         dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
         const spotFormatedDate = dateFormat(timeAgo, 'spot');
-        return `${trkLink}/message.json?startDate=${spotFormatedDate}`;
+        return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
     }
 }
 
