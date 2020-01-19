@@ -1,7 +1,7 @@
 # Variables
 BINARY_NAME=deploy
 PROD_FILES=app.js db.js package-lock.json package.json
-PROD_FOLDERS=node_modules services
+PROD_FOLDERS=node_modules
 
 # Commands
 cleanDist:
