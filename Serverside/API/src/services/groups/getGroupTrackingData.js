@@ -35,7 +35,7 @@ exports.getGroupTrackingData = async function (groupID, queryTill) {
         let promises = [];
 
         for (let i = 0; i < groupMembers.length; i++) {
-            promises[i] = db.execute('SELECT id, unixTime, lat, lng, alt, agl, velocity, heading, txtMsg, isEmergency FROM pings WHERE user_id=? AND unixTime >=? ORDER BY unixTime DESC;', [groupMembers[i].id, queryTill]);
+            promises[i] = db.execute('SELECT id, unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency FROM pings WHERE user_id=? AND unixTime >=? ORDER BY unixTime DESC;', [groupMembers[i].id, queryTill]);
         }
 
         const result = await Promise.all(promises);
