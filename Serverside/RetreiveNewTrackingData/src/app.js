@@ -36,15 +36,16 @@ async function getAllTrackers(db) {
 }
 
 function formatFinalUrl(trkType, trkLink, currentUnixTime) {
-    const miliSecInDay = 86400 * 1000;
-    const daysAgo = miliSecInDay * 14;
+    // const miliSecInDay = 86400 * 1000;
+    // const daysAgo = miliSecInDay * 14; // Use when getting 2 weeks worth
+    const minAgo = (1000 * 60) * 20;   // Use when getting 20 min worth
     if (trkType === 'inreach') {
-        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
         const garminFormatedDate = dateFormat(timeAgo, 'garmin');
         return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
     } else {
-        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
         const spotFormatedDate = dateFormat(timeAgo, 'spot');
         return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
@@ -69,14 +70,14 @@ async function createPingsArray(trackers, responses) {
     for (let i = 0; i < trackers.length; i++) {
         if (trackers[i].trkType === 'inreach') {
             let pings = await parseGarminResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
-            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
+            if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
         } else {
             let pings = await parseSpotResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
-            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
+            if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
         }
     }
 
-    if (pingsArray === []) {
+    if (pingsArray.length === 0) {
         console.log("None of the devices have any new data to save to the database, exit program here.")
         process.exit(1);
     }
@@ -206,7 +207,7 @@ async function getElevationData(pingsArray) {
 }
 
 async function addElevationToPingsArray(pingsArray, elevations) {
-    for (let i = 0; i<pingsArray.length; i++) {
+    for (let i = 0; i < pingsArray.length; i++) {
         pingsArray[i].elevation = +elevations[i].elevation.toFixed(2);
     }
     return pingsArray;
