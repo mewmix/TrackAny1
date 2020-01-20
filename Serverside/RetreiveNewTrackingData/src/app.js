@@ -13,7 +13,9 @@ const xml2js = require('xml2js');
         const trackers = await getAllTrackers(db);
         const responses = await getTrackerResponses(t0, trackers);
         const pingsArray = await createPingsArray(trackers, responses);
-        const insertStatement = await createInsertStatement(pingsArray);
+        const elevations = await getElevationData(pingsArray);
+        const finalPingsArray = await addElevationToPingsArray(pingsArray, elevations);
+        const insertStatement = await createInsertStatement(finalPingsArray);
         const rowsAffected = await saveTrackingData(db, insertStatement);
 
         console.log('Finished. Rows Affected:', rowsAffected);
@@ -114,7 +116,7 @@ async function parseGarminResponse(deviceID, userID, res) {
             unix: unix,
             lat: lat,
             lng: lng,
-            alt: alt, 
+            alt: alt,
             velocity: velocity,
             heading: heading,
             message: message,
@@ -162,7 +164,7 @@ async function parseSpotResponse(deviceID, userID, res) {
             unix: unixTime,
             lat: latitude,
             lng: longitude,
-            alt: altitude, 
+            alt: altitude,
             velocity: '',
             heading: '',
             message: messageContent,
@@ -176,14 +178,38 @@ async function parseSpotResponse(deviceID, userID, res) {
 }
 
 async function createInsertStatement(pingsArray) {
-    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
+    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
 
     for (let p of pingsArray) {
-        insertStatement = insertStatement.concat(`(${p.unix}, ${p.lat}, ${p.lng}, ${p.alt}, "${p.velocity}", "${p.heading}", "${p.message}", "${p.emergency}", ${p.deviceID}, ${p.userID}),`);
+        insertStatement = insertStatement.concat(`(${p.unix}, ${p.lat}, ${p.lng}, ${p.alt}, ${p.elevation}, "${p.velocity}", "${p.heading}", "${p.message}", "${p.emergency}", ${p.deviceID}, ${p.userID}),`);
     }
 
     insertStatement = insertStatement.slice(0, -1).concat(";");
     return insertStatement;
+}
+
+async function getElevationData(pingsArray) {
+    // Max 512 locations per request
+    try {
+        let locations = '';
+        for (let ping of pingsArray) {
+            locations = locations.concat(`${ping.lat},${ping.lng}|`);
+        }
+        locations = locations.slice(0, -1);
+
+        const res = await axios.get(`https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${process.env.ELEVATION_API_KEY}`);
+        return res.data.results;
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+async function addElevationToPingsArray(pingsArray, elevations) {
+    for (let i = 0; i<pingsArray.length; i++) {
+        pingsArray[i].elevation = +elevations[i].elevation.toFixed(2);
+    }
+    return pingsArray;
 }
 
 async function saveTrackingData(db, sqlStatement) {
