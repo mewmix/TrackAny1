@@ -89,7 +89,13 @@ INSERT INTO users(fName, lName) VALUES
 ('Willy','Dydo'),
 ('Chris','Cote'),
 ('Jason','Lombard'),
-('Honza','Rejmanek');
+('Honza','Rejmanek'),
+('Benzie',''),
+('Mitchell','LeMieur'),
+('Chuck','Leathers'),
+('Alex','Raymont'),
+('Mike', 'Miller'),
+('Elena', 'Tolkacheva');
 
 INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES 
 (1, 'Mark Garmin Inreach', 'inreach', 'markfaulk'),
@@ -97,8 +103,15 @@ INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES
 (3, 'Willy SPOT Tracker', 'spot', '0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
 (4, 'Chris SPOT Tracker', 'spot', '0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
 (5, 'Jason SPOT Tracker', 'spot', '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
-(6, 'Honza SPOT Tracker', 'spot', '0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX');
+(6, 'Honza SPOT Tracker', 'spot', '0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX'),
+(7, 'Benzie SPOT Tracker', 'spot', '0JpOELBiVrMdhqzJZ47DitBKRTQlk6lM3'),
+(8, 'Mitchell SPOT Tracker', 'spot', '0SSeZQV8hdiJmzoXAH5tLF4l76n95zyRe'),
+(9, 'Chuck SPOT Tracker', 'spot', '0TKW3rOn7LfYiWip4WhTgbYOc6IktaOFv'),
+(10, 'Alex SPOT Tracker', 'spot', '0493yZtJ1YldN2NuxgOTUcSJjyPFY09I8'),
+(11, 'Mike SPOT Tracker', 'spot', '0Ed5WdEtzXWiyc8zCN85WOZYOi2XgvssT'),
+(12, 'Elena SPOT Tracker', 'spot', '0VYOBeYul1HvjS0ZS13fcF11244uZzerO');
+
 
 INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca'), (3, 'Red Bull X-Alps 2020', 'Chamonix, Fr');
 
-INSERT INTO groups_have_members(group_id, member_id) VALUES (1, 2), (1, 3), (1, 4), (1, 5), (1, 6);
+INSERT INTO groups_have_members(group_id, member_id) VALUES (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12);

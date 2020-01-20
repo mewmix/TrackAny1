@@ -4,8 +4,8 @@ const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
 
-// async function start() {     // DEV
-    exports.handler = async (event) => {
+async function start() {     // DEV
+    // exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
@@ -46,9 +46,12 @@ function formatFinalUrl(trkType, trkLink, currentUnixTime) {
         return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
     } else {
         const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
+        const currentTime = new Date(currentUnixTime);
         dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
         const spotFormatedDate = dateFormat(timeAgo, 'spot');
-        return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
+        const spotFormatedCurrentTime = dateFormat(currentTime, 'spot');
+
+        return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}&endDate=${spotFormatedCurrentTime}`;
     }
 }
 
@@ -222,4 +225,4 @@ async function saveTrackingData(db, sqlStatement) {
     }
 }
 
-// start();     // DEV
+start();     // DEV
