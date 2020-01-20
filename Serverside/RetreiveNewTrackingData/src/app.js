@@ -4,8 +4,8 @@ const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
 
-async function start() {     // DEV
-    // exports.handler = async (event) => {
+// async function start() {     // DEV
+    exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
@@ -225,4 +225,4 @@ async function saveTrackingData(db, sqlStatement) {
     }
 }
 
-start();     // DEV
+// start();     // DEV
