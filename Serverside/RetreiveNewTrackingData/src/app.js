@@ -5,21 +5,26 @@ const xml2js = require('xml2js');
 
 
 // async function start() {     // DEV
-    exports.handler = async (event) => {
+exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
         const db = await require('./db').connect();
         const trackers = await getAllTrackers(db);
         const responses = await getTrackerResponses(t0, trackers);
-        const pingsArray = await createPingsArray(trackers, responses);
+        const pingsArray = await createPingsArray(trackers, responses, t0);
+
+        if (pingsArray.length === 0) {
+            console.log("None of the trackers have new data to insert. Stop Execution Here!")
+            return
+        }
+
         const elevations = await getElevationData(pingsArray);
         const finalPingsArray = await addElevationToPingsArray(pingsArray, elevations);
         const insertStatement = await createInsertStatement(finalPingsArray);
         const rowsAffected = await saveTrackingData(db, insertStatement);
 
         console.log('Finished. Rows Affected:', rowsAffected);
-        // process.exit(1);    // DEV
     } catch (e) {
         console.log('Retreive Tracking Data Lambda Function threw an error:', e);
     }
@@ -36,15 +41,16 @@ async function getAllTrackers(db) {
 }
 
 function formatFinalUrl(trkType, trkLink, currentUnixTime) {
-    const miliSecInDay = 86400 * 1000;
-    const daysAgo = miliSecInDay * 14;
+    // const miliSecInDay = 86400 * 1000;
+    // const daysAgo = miliSecInDay * 14; // Use when getting 2 weeks worth
+    const minAgo = (1000 * 60) * 20;   // Use when getting 20 min worth
     if (trkType === 'inreach') {
-        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
         const garminFormatedDate = dateFormat(timeAgo, 'garmin');
         return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
     } else {
-        const timeAgo = new Date(currentUnixTime - (daysAgo));
+        const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
         const spotFormatedDate = dateFormat(timeAgo, 'spot');
         return `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
@@ -62,28 +68,23 @@ async function getTrackerResponses(time, trackers) {
     return results;
 }
 
-async function createPingsArray(trackers, responses) {
+async function createPingsArray(trackers, responses, time) {
 
     pingsArray = [];
 
     for (let i = 0; i < trackers.length; i++) {
         if (trackers[i].trkType === 'inreach') {
-            let pings = await parseGarminResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
-            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
+            let pings = await parseGarminResponse(trackers[i].id, trackers[i].owner_id, responses[i], time);
+            if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
         } else {
-            let pings = await parseSpotResponse(trackers[i].id, trackers[i].owner_id, responses[i]);
-            if (pings !== []) { pingsArray = pingsArray.concat(pings); }
+            let pings = await parseSpotResponse(trackers[i].id, trackers[i].owner_id, responses[i], time);
+            if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
         }
-    }
-
-    if (pingsArray === []) {
-        console.log("None of the devices have any new data to save to the database, exit program here.")
-        process.exit(1);
     }
     return pingsArray;
 }
 
-async function parseGarminResponse(deviceID, userID, res) {
+async function parseGarminResponse(deviceID, userID, res, time) {
     const parser = new xml2js.Parser();
     const data = await parser.parseStringPromise(res.data);
 
@@ -124,13 +125,14 @@ async function parseGarminResponse(deviceID, userID, res) {
             deviceID: deviceID,
             userID: userID
         }
-
-        pingsArray.push(ping);
+        if (ping.unix >= (time - ((1000 * 60) * 20))) {    // If ping was created within the last 20 min
+            pingsArray.push(ping);
+        }
     }
     return pingsArray;
 }
 
-async function parseSpotResponse(deviceID, userID, res) {
+async function parseSpotResponse(deviceID, userID, res, time) {
     if (res.data.response.errors !== undefined) {
         let { error } = res.data.response.errors;
         if (error.text === 'No Messages to display') {
@@ -172,7 +174,10 @@ async function parseSpotResponse(deviceID, userID, res) {
             deviceID: deviceID,
             userID: userID
         }
-        pingsArray.push(ping);
+
+        if (ping.unix >= (time - ((1000 * 60) * 20))) {    // If ping was created within the last 20 min
+            pingsArray.push(ping);
+        }
     }
     return pingsArray;
 }
@@ -206,7 +211,7 @@ async function getElevationData(pingsArray) {
 }
 
 async function addElevationToPingsArray(pingsArray, elevations) {
-    for (let i = 0; i<pingsArray.length; i++) {
+    for (let i = 0; i < pingsArray.length; i++) {
         pingsArray[i].elevation = +elevations[i].elevation.toFixed(2);
     }
     return pingsArray;

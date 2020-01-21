@@ -3,11 +3,13 @@ const dateFormat = require('dateformat');
 
 async function testSpot(deviceID, trkLink, userID) {
 
-    const weekAgo = new Date(Date.now() - 604800000);
+    const weekAgo = new Date(Date.now() - 1000 * 60 * 20);
+    const currentTime = new Date(Date.now())
     dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
     const spotFormatedDate = dateFormat(weekAgo, 'spot');
+    const spotFormatedCurrentTime = dateFormat(currentTime, 'spot');
 
-    const finalURL = `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}`;
+    const finalURL = `https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/${trkLink}/message.json?startDate=${spotFormatedDate}&endDate=${spotFormatedCurrentTime}`;
 
     const res = await axios.get(finalURL);
 
@@ -64,4 +66,4 @@ async function testSpot(deviceID, trkLink, userID) {
     return pingsArray;
 }
 
-testSpot(4, '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa', 4);
+testSpot(9, '0TKW3rOn7LfYiWip4WhTgbYOc6IktaOFv', 9);
