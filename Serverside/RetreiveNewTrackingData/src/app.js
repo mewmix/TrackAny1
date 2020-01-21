@@ -43,7 +43,7 @@ async function getAllTrackers(db) {
 function formatFinalUrl(trkType, trkLink, currentUnixTime) {
     // const miliSecInDay = 86400 * 1000;
     // const daysAgo = miliSecInDay * 14; // Use when getting 2 weeks worth
-    const minAgo = (1000 * 60) * 60;   // Use when getting 20 min worth
+    const minAgo = (1000 * 60) * process.env.TIME_SPAN_IN_MINUTES;   // Use when getting 20 min worth
     if (trkType === 'inreach') {
         const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
@@ -125,7 +125,7 @@ async function parseGarminResponse(deviceID, userID, res, time) {
             deviceID: deviceID,
             userID: userID
         }
-        if (ping.unix >= (Math.floor(time / 1000) - (60 * 60))) {    // If ping was created within the last 20 min
+        if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
             pingsArray.push(ping);
         }
     }
@@ -175,7 +175,7 @@ async function parseSpotResponse(deviceID, userID, res, time) {
             userID: userID
         }
 
-        if (ping.unix >= (Math.floor(time / 1000) - (60 * 60))) {    // If ping was created within the last 20 min
+        if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
             pingsArray.push(ping);
         }
     }
