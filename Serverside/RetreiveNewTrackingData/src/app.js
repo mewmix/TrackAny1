@@ -4,8 +4,8 @@ const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
 
-// async function start() {     // DEV
-exports.handler = async (event) => {
+async function start() {     // DEV
+// exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
@@ -13,6 +13,7 @@ exports.handler = async (event) => {
         const trackers = await getAllTrackers(db);
         const responses = await getTrackerResponses(t0, trackers);
         const pingsArray = await createPingsArray(trackers, responses, t0);
+        console.log(pingsArray)
 
         if (pingsArray.length === 0) {
             console.log("None of the trackers have new data to insert. Stop Execution Here!")
@@ -154,9 +155,9 @@ async function parseSpotResponse(deviceID, userID, res, time) {
 
     const pingsArray = [];
 
-    for (let point of dataPoints) {
+        for (let i = 0; i < dataPoints.length; i++) {
 
-        let { unixTime, latitude, longitude, altitude, messageContent } = point;
+        let { unixTime, latitude, longitude, altitude, messageContent } = dataPoints[i];
 
         if (messageContent === undefined) {
             messageContent = '';
@@ -226,4 +227,4 @@ async function saveTrackingData(db, sqlStatement) {
     }
 }
 
-// start();     // DEV
+start();     // DEV
