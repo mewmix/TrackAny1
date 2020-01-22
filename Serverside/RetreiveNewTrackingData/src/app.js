@@ -5,7 +5,7 @@ const xml2js = require('xml2js');
 
 
 // async function start() {     // DEV
-exports.handler = async (event) => {
+    exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
@@ -43,7 +43,7 @@ async function getAllTrackers(db) {
 function formatFinalUrl(trkType, trkLink, currentUnixTime) {
     // const miliSecInDay = 86400 * 1000;
     // const daysAgo = miliSecInDay * 14; // Use when getting 2 weeks worth
-    const minAgo = (1000 * 60) * 60;   // Use when getting 20 min worth
+    const minAgo = (1000 * 60) * process.env.TIME_SPAN_IN_MINUTES;   // Use when getting 20 min worth
     if (trkType === 'inreach') {
         const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
@@ -125,7 +125,7 @@ async function parseGarminResponse(deviceID, userID, res, time) {
             deviceID: deviceID,
             userID: userID
         }
-        if (ping.unix >= (Math.floor(time / 1000) - (60 * 60))) {    // If ping was created within the last 20 min
+        if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
             pingsArray.push(ping);
         }
     }
@@ -154,9 +154,9 @@ async function parseSpotResponse(deviceID, userID, res, time) {
 
     const pingsArray = [];
 
-    for (let point of dataPoints) {
+    for (let i = 0; i < dataPoints.length; i++) {
 
-        let { unixTime, latitude, longitude, altitude, messageContent } = point;
+        let { unixTime, latitude, longitude, altitude, messageContent } = dataPoints[i];
 
         if (messageContent === undefined) {
             messageContent = '';
@@ -175,7 +175,7 @@ async function parseSpotResponse(deviceID, userID, res, time) {
             userID: userID
         }
 
-        if (ping.unix >= (Math.floor(time / 1000) - (60 * 60))) {    // If ping was created within the last 20 min
+        if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
             pingsArray.push(ping);
         }
     }
@@ -194,17 +194,40 @@ async function createInsertStatement(pingsArray) {
 }
 
 async function getElevationData(pingsArray) {
-    // Max 512 locations per request
-    try {
-        let locations = '';
-        for (let ping of pingsArray) {
-            locations = locations.concat(`${ping.lat},${ping.lng}|`);
+    try {   // Max 512 locations per request
+        if (pingsArray.length <= 512) {
+            let locations = '';
+            for (let ping of pingsArray) {
+                locations = locations.concat(`${ping.lat},${ping.lng}|`);
+            }
+            locations = locations.slice(0, -1);
+
+            const res = await axios.get(`https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${process.env.ELEVATION_API_KEY}`);
+            return res.data.results;
+        } else {
+
+            const copyArray = [...pingsArray];
+
+            arraysOfAtMost512Pings = []
+
+            while (copyArray.length) {
+                arraysOfAtMost512Pings.push(copyArray.splice(0, 512)) // Change to 512. This will create arrays containing at most 512 pings each
+            }
+
+            allElevationData = [];
+
+            for (let i = 0; i < arraysOfAtMost512Pings.length; i++) {
+                let locations = '';
+                for (let y = 0; y < arraysOfAtMost512Pings[i].length; y++) {
+                    locations = locations.concat(`${arraysOfAtMost512Pings[i][y].lat},${arraysOfAtMost512Pings[i][y].lng}|`);
+                }
+                locations = locations.slice(0, -1);
+
+                let res = await axios.get(`https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${process.env.ELEVATION_API_KEY}`);
+                allElevationData = allElevationData.concat(res.data.results);
+            }
+            return allElevationData
         }
-        locations = locations.slice(0, -1);
-
-        const res = await axios.get(`https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${process.env.ELEVATION_API_KEY}`);
-        return res.data.results;
-
     } catch (e) {
         console.log(e);
     }
@@ -226,4 +249,4 @@ async function saveTrackingData(db, sqlStatement) {
     }
 }
 
-// start();     // DEV
+// start();     // DEVs
