@@ -21,7 +21,7 @@ module.exports = {
     async getAllGroups(req, res) {
         try {
             const allGroups = await GetAllGroups.getAllGroups();
-            return res.status(200).json({ groups: allGroups });
+            return res.status(200).json(allGroups);
 
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to get all groups' });
@@ -31,7 +31,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const group = await GetSingleGroup.getSingleGroup(id);
-            return res.status(200).json({group});
+            return res.status(200).json(group);
         } catch (e) {
             return res.status(500).json({ error: e, message: `Failed to get group: ${id}` });
         }
@@ -122,7 +122,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const roster = await GetGroupRoster.getGroupRoster(id);
-            return res.status(200).json({ roster });
+            return res.status(200).json(roster);
             
         } catch (e) {
             return res.status(500).json({ error: e, message: `Failed to get group roster: ${id}` });

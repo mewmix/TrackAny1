@@ -14,7 +14,6 @@ module.exports = {
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to follow user' });
         }
-
     },
     async unfollowUser(req, res) {
         try {
