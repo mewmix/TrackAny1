@@ -7,7 +7,7 @@ module.exports = {
     async getAllUsers(req, res) {
         try {
             const allUsers = await GetAllUsers.getAllUsers();
-            return res.status(200).json({ users: allUsers });
+            return res.status(200).json(allUsers);
         }
         catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to get all users' });
@@ -17,7 +17,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const userData = await GetSingleUser.getSingleUser(id);
-            res.status(200).json({ user: userData });
+            res.status(200).json(userData);
         }
         catch (e) {
             res.status(500).json({ error: e, message: `Failed to get user: ${userID}` });

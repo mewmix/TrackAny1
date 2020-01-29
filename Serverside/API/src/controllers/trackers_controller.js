@@ -19,7 +19,7 @@ module.exports = {
     async getAllTrackers(req, res) {
         try {
             const allTrackers = await GetAllTrackers.getAllTrackers();
-            return res.status(200).json({ trackers: allTrackers });
+            return res.status(200).json(allTrackers);
 
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to get all trackers' });
@@ -29,7 +29,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const tracker = await GetSingleTracker.getSingleTracker(id);
-            return res.status(200).json({tracker});
+            return res.status(200).json(tracker);
         } catch (e) {
             return res.status(500).json({ error: e, message: `Failed to get tracker: ${id}` });
         }
