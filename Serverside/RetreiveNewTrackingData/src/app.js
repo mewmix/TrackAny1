@@ -4,8 +4,8 @@ const dateFormat = require('dateformat');
 const xml2js = require('xml2js');
 
 
-// async function start() {     // DEV
-    exports.handler = async (event) => {
+async function start() {     // DEV
+    // exports.handler = async (event) => {
     try {
         const t0 = Date.now();
 
@@ -58,14 +58,12 @@ function formatFinalUrl(trkType, trkLink, currentUnixTime) {
 }
 
 async function getTrackerResponses(time, trackers) {
-    let promises = [];
+    // Array.map will create a new array of promises that can then be resolved with Promise.all()
+    let promises = trackers.map((tracker) => {
+        return axios.get(formatFinalUrl(tracker.trkType, tracker.trkLink, time));
+    })
 
-    for (let i = 0; i < trackers.length; i++) {
-        promises[i] = axios.get(formatFinalUrl(trackers[i].trkType, trackers[i].trkLink, time));
-    }
-
-    const results = await Promise.all(promises);
-    return results;
+    return Promise.all(promises);
 }
 
 async function createPingsArray(trackers, responses, time) {
@@ -249,4 +247,4 @@ async function saveTrackingData(db, sqlStatement) {
     }
 }
 
-// start();     // DEVs
+start();     // DEVs
