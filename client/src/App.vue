@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <AppHeader/>
+    <div class="ui container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import AppHeader from './components/AppHeader';
 
 export default {
   name: 'app',
   components: {
+    AppHeader
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
