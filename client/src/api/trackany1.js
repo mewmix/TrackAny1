@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 const ROOT_URL = 'https://api.trackany1.com';
 
@@ -8,6 +8,9 @@ export default {
     },
     loginWithGoogle() {
         window.location = `${ROOT_URL}/auth/google`
+    },
+    fetchMyProfile() {
+        return axios.get(`${ROOT_URL}/api/v1/users/14`);
     }
     // login() {
     //     const queryString = {

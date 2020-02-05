@@ -20,12 +20,12 @@
 
     <h3>Temporary Bypass Google JWT for logging in</h3>
     <a
-      href="http://localhost:8080/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTE4ODh9.rIb7rq68DT5f91Of3XZI1z92MQzJrI3G6KRHz_ghyeY"
+      href="http://localhost:8080/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTQwMDR9.r7vTWZL5gFBFOYKRIJcdO4AKaajrWgYKyMYAIBoL61k"
     >
       <button class="ui blue button">Login</button>
     </a>
     <h3>or raw URL for reference</h3>
-    <p>http://localhost:8080/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTE4ODh9.rIb7rq68DT5f91Of3XZI1z92MQzJrI3G6KRHz_ghyeY</p>
+    <p>http://localhost:8080/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTQwMDR9.r7vTWZL5gFBFOYKRIJcdO4AKaajrWgYKyMYAIBoL61k</p>
   </div>
 </template>
 

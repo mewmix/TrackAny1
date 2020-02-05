@@ -6,8 +6,7 @@
     <div class="right menu">
       <div v-if="isLoggedIn" class="horizontal">
         <router-link to="/" class="item">Home</router-link>
-        <router-link to="/about" class="item">About</router-link>
-        <router-link to="/profile" class="item">My Profile</router-link>
+        <router-link to="/myprofile" class="item">My Profile</router-link>
         <a class="item" @click="logout">Logout</a>
       </div>
       <router-link v-else to="/login" class="ui item">Login</router-link>
