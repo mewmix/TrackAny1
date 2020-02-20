@@ -10,8 +10,11 @@ const getters = {
 };
 
 const actions = {
-    async fetchMyProfile ({ commit }) {
-        const response = await api.fetchMyProfile();
+    async fetchMyProfile ({ rootState, commit }) {
+        // Need to pass JWT Token and userID
+        const { token, userID } = rootState.auth;
+
+        const response = await api.fetchMyProfile(token, userID);
         commit('setMyProfile', response.data);
     }
 };

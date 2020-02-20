@@ -9,8 +9,12 @@ export default {
     loginWithGoogle() {
         window.location = `${ROOT_URL}/auth/google`
     },
-    fetchMyProfile() {
-        return axios.get(`${ROOT_URL}/api/v1/users/14`);
+    fetchMyProfile(token, userID) {
+        return axios.get(`${ROOT_URL}/api/v1/users/${userID}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
     // login() {
     //     const queryString = {

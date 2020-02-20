@@ -12,14 +12,19 @@ export const router = new VueRouter({
             component: AuthHandler
         },
         {
+            path: '/',
+            name: 'Landing',
+            component: () => import('./views/Landing.vue')
+        },
+        {
             path: '/login',
             name: 'Login',
             component: () => import('./views/Login.vue')
         },
         {
-            path: '/',
-            name: 'Home',
-            component: () => import('./views/Home.vue')
+            path: '/dashboard',
+            name: 'Dashboard',
+            component: () => import('./views/Dashboard.vue')
         },
         {
             path: '/myprofile',
