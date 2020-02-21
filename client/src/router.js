@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AuthHandler from './components/AuthHandler'
+import store from './store'
+
+// https://flaviocopes.com/vue-router/
 
 Vue.use(VueRouter)
 
@@ -9,6 +12,7 @@ export const router = new VueRouter({
     routes: [
         {
             path: '/oauth2/callback',
+            name: 'AuthHandler',
             component: AuthHandler
         },
         {
@@ -30,6 +34,25 @@ export const router = new VueRouter({
             path: '/myprofile',
             name: 'MyProfile',
             component: () => import('./views/MyProfile.vue')
+        },
+        {
+            path: '/groupmap/:groupid',
+            name: 'GroupMap',
+            component: () => import('./views/GroupMap.vue')
         }
     ]
 })
+
+const openRoutes = ['Landing', 'Login', 'AuthHandler']
+
+router.beforeEach((to, from, next) => {
+    if (openRoutes.includes(to.name)){  // If route is public
+        // console.log(store.getters.isLoggedIn);
+        next()  
+    } else if (store.getters.isLoggedIn == true) { // If user is signed in
+        // console.log(store.getters.isLoggedIn);
+        next()
+    } else {
+        next('/login')
+    }
+  })
