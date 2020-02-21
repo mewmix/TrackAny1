@@ -8,7 +8,7 @@ import store from './store'
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
-    mode: 'history',
+    mode: 'history',    // This is super important! DO NOT FORGET HISTORY MODE !!!
     routes: [
         {
             path: '/oauth2/callback',

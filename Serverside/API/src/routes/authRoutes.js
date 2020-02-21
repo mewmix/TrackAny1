@@ -14,7 +14,7 @@ module.exports = (app) => {
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook', { session: false }), (req, res) => {
-        res.status(200).json({ status: "Nominal!", description: "Facebook Oauth was a Success", userData: req.user });
+        res.redirect(`https://trackany1.com/oauth2/callback#access_token=${req.user}`);
     });
         
 }
