@@ -34,6 +34,16 @@ const router = new VueRouter({
       component: () => import('../views/MyProfile.vue')
     },
     {
+      path: '/mydevices',
+      name: 'MyDevices',
+      component: () => import('../views/MyDevices.vue')
+    },
+    {
+      path: '/basicmap',
+      name: 'BasicMap',
+      component: () => import('../views/BasicMap.vue')
+    },
+    {
       path: '/groupmap/:groupid',
       name: 'GroupMap',
       component: () => import('../views/GroupMap.vue')

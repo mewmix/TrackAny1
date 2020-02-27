@@ -1,4 +1,4 @@
-import { router } from '../../router';
+import router from '../../router';
 import api from '../../api/trackany1';
 import qs from 'qs';
 import jwt from 'jsonwebtoken';

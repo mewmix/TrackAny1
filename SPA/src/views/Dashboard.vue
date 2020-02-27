@@ -1,11 +1,17 @@
 <template>
-    <div class="dashboard">
-        <h1>Dashboard Page. This is private.</h1>
-    </div>
+  <v-container>
+    <h1>Dashboard</h1>
+  </v-container>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-    name: 'Dashboard'
-}
+  name: "Dashboard",
+  methods: mapActions(["fetchMyProfile"]),
+  created() {
+    this.fetchMyProfile();
+  }
+};
 </script>
