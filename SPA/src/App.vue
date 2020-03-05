@@ -8,13 +8,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import NavBar from './components/NavBar'
 
 export default {
   name: "app",
   components: {
     NavBar
+  },
+  methods: mapActions(["autoLogin", "fetchMyProfile"]),
+  created() {
+    this.autoLogin();
+    this.fetchMyProfile();
   }
+
 };
 </script>
 

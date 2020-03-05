@@ -13,7 +13,7 @@
           </h1>
           <div
             class="subheading mb-4 text-center"
-          >Live tracking for Garmin inReach, Delorme inReach, and SPOT satellite trackers</div>
+          >Live tracking for groups and individuals using Garmin, Delorme, and SPOT satellite trackers</div>
           <v-btn class="mt-12" color="info" dark large to="login">Sign Up / Login</v-btn>
         </v-layout>
       </v-parallax>

@@ -21,7 +21,7 @@ const actions = {
 
 const mutations = {
     setMyProfile: (state, profile) => {
-        state.userData = profile
+        state.userData = profile;
     }
 };
 

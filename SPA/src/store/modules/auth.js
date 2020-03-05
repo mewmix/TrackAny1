@@ -30,28 +30,34 @@ const actions = {
         const query = qs.parse(hash.replace('#', ''));  // This takes the entire query string from url and parses it into an object called query
         const decoded = jwt.decode(query.access_token)
 
-        // Save the token and user ID to local stroage
-        commit('setToken', query.access_token);
-        commit('setUserID', decoded.id)
-        window.localStorage.setItem('trackany1_token', query.access_token);
-        window.localStorage.setItem('trackany1_user_id', decoded.id);
+        commit('setToken', { token: query.access_token, userID: decoded.id })
         router.push('/dashboard');
     },
     logout: ({ commit }) => {
-        commit('setToken', null);
-        window.localStorage.removeItem('trackany1_token');
-        commit('setUserID', null);
-        window.localStorage.removeItem('trackany1_user_id');
+        commit('deleteToken');
         router.push('/login');
     },
+    autoLogin: ({getters}) => {
+        if(getters.isLoggedIn) {    // This action will be called by app.js on application start and if the user is logged in it will redirect to dashboard instead of home page
+            router.push('/basicmap');  // This might render url navigation useless but for now this works
+            // console.log("The user is already logged in on application start")
+        }
+    }
 };
 
 const mutations = {
-    setToken: (state, token) => {
+    setToken: (state, tokenData) => {
+        const { token, userID } = tokenData;
         state.token = token;
-    },
-    setUserID: (state, userID) => {
         state.userID = userID;
+        window.localStorage.setItem('trackany1_token', token);
+        window.localStorage.setItem('trackany1_user_id', userID);
+    },
+    deleteToken: (state) => {
+        state.token = null;
+        state.userID = null;
+        window.localStorage.removeItem('trackany1_token');
+        window.localStorage.removeItem('trackany1_user_id');
     }
 };
 

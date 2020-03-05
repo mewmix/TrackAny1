@@ -3,8 +3,8 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="11" md="4">
         <v-card class="elevation-12">
-          <v-toolbar color="info" dark flat>
-            <v-toolbar-title class="ml-5">Sign in to TrackAny1</v-toolbar-title>
+          <v-toolbar dark flat>
+            <v-toolbar-title class="ml-5">Login to TrackAny1</v-toolbar-title>
             <v-spacer />
             <v-tooltip right>
               <template v-slot:activator="{ on }">
@@ -22,7 +22,7 @@
                 @click="loginWithFacebook"
                 color="#3b5998"
                 class="white--text"
-              >Sign in with Facebook</v-btn>
+              >Continue with Facebook</v-btn>
             </v-col>
           </v-row>
           <v-row align="center" justify="center">
@@ -32,7 +32,7 @@
                 @click="loginWithGoogle"
                 color="#1aa260"
                 class="white--text"
-              >Sign in with Google</v-btn>
+              >Continue with Google</v-btn>
             </v-col>
           </v-row>
           <v-row align="center" justify="center">

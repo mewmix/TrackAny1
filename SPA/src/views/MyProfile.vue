@@ -1,33 +1,86 @@
 <template>
-  <v-container>
-    <v-card class="overflow-hidden mt-5" color="purple lighten-1" dark>
-      <v-toolbar flat color="purple">
-        <v-icon>mdi-account</v-icon>
-        <v-toolbar-title class="font-weight-light">User Profile</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn color="purple darken-3" fab small @click="isEditing = !isEditing">
-          <v-icon v-if="isEditing">mdi-close</v-icon>
-          <v-icon v-else>mdi-pencil</v-icon>
-        </v-btn>
-      </v-toolbar>
-      <v-card-text>
-        <v-text-field :disabled="!isEditing" color="white" label="First Name"></v-text-field>
-        <v-text-field :disabled="!isEditing" color="white" label="Last Name"></v-text-field>
-        <v-text-field :disabled="!isEditing" color="white" label="Email"></v-text-field>
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn :disabled="!isEditing" color="success" @click="save">Save</v-btn>
-      </v-card-actions>
-      <v-snackbar
-        v-model="hasSaved"
-        :timeout="2000"
-        absolute
-        bottom
-        left
-      >Your profile has been updated</v-snackbar>
-    </v-card>
+  <v-container id="user-profile" fluid tag="section">
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <v-card>
+          <v-card-title>
+            <div class="font-weight-light card-title mt-2">
+              Edit Profile
+              <span class="body-1">— Complete your profile</span>
+            </div>
+          </v-card-title>
+
+          <v-form>
+            <v-container class="py-0">
+              <v-row>
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    label="First Name"
+                    :placeholder="myProfile.fName"
+                    v-model="updatedProfile.fName"
+                  />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    label="Last Name"
+                    class="purple-input"
+                    :placeholder="myProfile.lName"
+                    v-model="updatedProfile.lName"
+                  />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    label="Email Address"
+                    class="purple-input"
+                    :placeholder="myProfile.email"
+                    v-model="updatedProfile.email"
+                  />
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <v-text-field label="Company (disabled)" disabled />
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <v-text-field class="purple-input" label="User Name (disabled)" disabled />
+                </v-col>
+
+                <v-col cols="12">
+                  <v-text-field label="Address (disabled)" class="purple-input" disabled />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field label="City (disabled)" class="purple-input" disabled />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field label="Country (disabled)" class="purple-input" disabled />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    class="purple-input"
+                    label="Postal Code (disabled)"
+                    type="number"
+                    disabled
+                  />
+                </v-col>
+
+                <v-col cols="12">
+                  <v-textarea class="purple-input" label="About Me (disabled)" disabled />
+                </v-col>
+
+                <v-col cols="12" class="text-right">
+                  <v-btn color="success" class="mr-0" @click="save">Update Profile</v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -37,18 +90,18 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "MyProfile",
   computed: mapGetters(["myProfile"]),
-  methods: mapActions(["fetchMyProfile"]),
-  save() {
-    this.isEditing = !this.isEditing;
-    this.hasSaved = true;
+  methods: {
+    ...mapActions(["fetchMyProfile"]),
+    save() {
+      console.log(this.updatedProfile);
+    }
   },
   created() {
     this.fetchMyProfile();
   },
   data() {
     return {
-      hasSaved: false,
-      isEditing: null
+      updatedProfile: {fName: "", lName: "", email: ""}
     };
   }
 };

@@ -1,17 +1,17 @@
 <template>
   <v-container>
-    <h1>Dashboard</h1>
+    <h1>{{currentRouteName}}</h1>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "Dashboard",
-  methods: mapActions(["fetchMyProfile"]),
-  created() {
-    this.fetchMyProfile();
+
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    }
   }
 };
 </script>
