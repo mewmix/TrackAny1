@@ -31,7 +31,7 @@ const actions = {
         const decoded = jwt.decode(query.access_token)
 
         commit('setToken', { token: query.access_token, userID: decoded.id })
-        router.push('/dashboard');
+        router.push('/basicmap');
     },
     logout: ({ commit }) => {
         commit('deleteToken');

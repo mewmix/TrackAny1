@@ -37,12 +37,7 @@
         <v-icon large>gps_fixed</v-icon>
       </v-btn>
 
-      <v-btn
-        v-if="$route.name === 'BasicMap'"
-        dark
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
+      <v-btn v-if="$route.name === 'BasicMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon large>mdi-account-group-outline</v-icon>
       </v-btn>
 
@@ -62,43 +57,92 @@
     </v-app-bar>
 
     <v-navigation-drawer v-model="leftDrawer" app clipped>
-      <v-list-item class="px-2">
-        <v-list-item-avatar color="red">
-          <v-img
-            v-if="myProfile.picture !== '' && myProfile.picture !== null"
-            :src="myProfile.picture"
-          ></v-img>
-          <span
-            v-else
-            class="white--text headline"
-          >{{myProfile.fName.charAt(0)}}{{myProfile.lName.charAt(0)}}</span>
-        </v-list-item-avatar>
+      <v-list class="pt-0" dense>
+        <v-list-group color="grey lighten-1">
+          <template v-slot:activator>
+            <v-list-item-avatar color="red">
+              <v-img
+                v-if="myProfile.picture !== '' && myProfile.picture !== null"
+                :src="myProfile.picture"
+              ></v-img>
+              <span
+                v-else
+                class="white--text headline"
+              >{{myProfile.fName.charAt(0)}}{{myProfile.lName.charAt(0)}}</span>
+            </v-list-item-avatar>
+            <v-list-item-title>{{myProfile.fName}} {{myProfile.lName}}</v-list-item-title>
+          </template>
+          <v-divider />
 
-        <v-list-item-title>{{myProfile.fName}} {{myProfile.lName}}</v-list-item-title>
-        <!-- <v-btn icon @click.stop="drawer = !drawer">
-          <v-icon>invert_colors</v-icon>
-        </v-btn>-->
-      </v-list-item>
+          <v-list-item v-for="item in personalRoutes" :key="item.title" link :to="item.route" class="white--text">
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-      <v-divider></v-divider>
+          <v-list-item @click="logout">
+            <v-list-item-icon>
+              <v-icon>arrow_back</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Log out</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
 
-      <v-list dense>
-        <v-list-item v-for="item in sideNavItems" :key="item.title" link :to="item.route">
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+        <v-divider />
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list dense>
+          <v-list-item v-for="item in generalRoutes" :key="item.title" link :to="item.route">
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list dense>
+          <v-list-item>
+            <v-list-item-subtitle>Favorite Groups</v-list-item-subtitle>
+          </v-list-item>
+
+          <v-list-item two-line>
+            <v-list-item-avatar>
+              <img src="https://www.sdhgpa.com/uploads/2/6/0/2/26023409/1526240.jpg?281" />
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>San Diego Paragliding</v-list-item-title>
+              <v-list-item-subtitle>178 members</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-list dense>
+          <v-list-item>
+            <v-list-item-subtitle>Favorite People</v-list-item-subtitle>
+          </v-list-item>
+
+          <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name">
+            <v-list-item-avatar>
+              <img :src="item.pic" />
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{item.name}}</v-list-item-title>
+              <v-list-item-subtitle>{{item.active}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-list>
-
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block color="#212121" class="white--text" @click="logout">Logout</v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -117,54 +161,44 @@ export default {
     return {
       leftDrawer: false,
       rightDrawer: false,
-      sideNavItems: [
-        { title: "My Profile", icon: "mdi-account", route: "/myprofile" },
-        { title: "My Tracking Devices", icon: "devices", route: "/mydevices" },
-        { title: "Dashboard", icon: "dashboard", route: "/dashboard" },
-        { title: "Map", icon: "place", route: "/basicmap" }
+      generalRoutes: [
+        { title: "Explore", icon: "explore", route: "/explore" },
         // {
         //   title: "Favorite Groups",
         //   icon: "mdi-account-group-outline",
         //   route: "/groupmap/1"
         // }
       ],
-      appBarItems: [
-        { title: "Click Me 1" },
-        { title: "Click Me 2" },
-        { title: "Click Me 3" },
-        { title: "Sign Out" }
-      ],
       rightSideNavItems: [
         {
           name: "John Doe",
           pic: "https://randomuser.me/api/portraits/men/80.jpg",
-          alt: "162 ft AGL"
-        },
-        {
-          name: "Billy The Kid",
-          pic: "https://randomuser.me/api/portraits/men/81.jpg",
-          alt: "0 ft AGL"
-        },
-        {
-          name: "Buz Lightyear",
-          pic: "https://randomuser.me/api/portraits/men/70.jpg",
-          alt: "3000 ft AGL"
+          alt: "162 ft AGL",
+          active: "active"
         },
         {
           name: "Connor Mcgregor",
           pic: "https://randomuser.me/api/portraits/men/71.jpg",
-          alt: "-4 ft AGL"
+          alt: "-4 ft AGL",
+          active: "27 min ago"
         },
         {
-          name: "Mike Tyson",
-          pic: "https://randomuser.me/api/portraits/men/72.jpg",
-          alt: "1463 ft AGL"
+          name: "Billy The Kid",
+          pic: "https://randomuser.me/api/portraits/men/81.jpg",
+          alt: "0 ft AGL",
+          active: "2 hours ago"
         },
         {
-          name: "Joe Rogan",
-          pic: "https://randomuser.me/api/portraits/men/73.jpg",
-          alt: "0 ft AGL"
+          name: "Buz Lightyear",
+          pic: "https://randomuser.me/api/portraits/men/70.jpg",
+          alt: "3000 ft AGL",
+          active: "1 month ago"
         }
+      ],
+      personalRoutes: [
+        { title: "My Profile", icon: "mdi-account", route: "/myprofile" },
+        { title: "My Tracking Devices", icon: "devices", route: "/mydevices" },
+        { title: "My Tracking Data", icon: "near_me", route: "/basicmap" }
       ]
     };
   }

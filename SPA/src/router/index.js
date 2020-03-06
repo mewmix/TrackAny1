@@ -24,9 +24,9 @@ const router = new VueRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: () => import('../views/Dashboard.vue')
+      path: '/explore',
+      name: 'Explore',
+      component: () => import('../views/Explore.vue')
     },
     {
       path: '/myprofile',
