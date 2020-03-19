@@ -1,6 +1,6 @@
 <template>
   <nav v-if="isLoggedIn && $route.name != 'Landing' && $route.name != 'Login'">
-    <v-navigation-drawer v-if="$route.name === 'BasicMap'" v-model="rightDrawer" app right>
+    <v-navigation-drawer v-if="$route.name === 'MemberMap'" v-model="rightDrawer" app right>
       <v-list>
         <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name">
           <v-list-item-avatar>
@@ -18,26 +18,38 @@
     <v-app-bar clipped-left app flat>
       <v-app-bar-nav-icon @click.stop="leftDrawer = !leftDrawer" large />
       <v-toolbar-title left class="text-uppercase">
-        <span>
+        <!-- <span>
           <i>Track</i>
         </span>
         <span class="font-weight-light">
           <i>Any1</i>
-        </span>
-        <!-- {{$route.name}} -->
+        </span> -->
+        {{$route.name}}
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn v-if="$route.name === 'BasicMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'MyDevices'" dark icon class="mr-1">
+        <v-icon large>add</v-icon>
+      </v-btn>
+
+      <v-btn v-if="$route.name === 'MyProfile'" dark icon class="mr-1">
+        <v-icon large>edit</v-icon>
+      </v-btn>
+
+      <v-btn v-if="$route.name === 'MyProfile'" dark icon class="mr-1">
+        <v-icon large>settings</v-icon>
+      </v-btn>
+
+      <v-btn v-if="$route.name === 'MemberMap'" dark icon class="mr-1">
         <v-icon large>layers</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'BasicMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'MemberMap'" dark icon class="mr-1">
         <v-icon large>gps_fixed</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'BasicMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
+      <v-btn v-if="$route.name === 'MemberMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon large>mdi-account-group-outline</v-icon>
       </v-btn>
 
@@ -85,10 +97,10 @@
 
           <v-list-item @click="logout">
             <v-list-item-icon>
-              <v-icon>arrow_back</v-icon>
+              <v-icon color="red">arrow_back</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Log out</v-list-item-title>
+              <v-list-item-title class="red--text">Log out</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -119,26 +131,9 @@
               <img src="https://www.sdhgpa.com/uploads/2/6/0/2/26023409/1526240.jpg?281" />
             </v-list-item-avatar>
 
-            <v-list-item-content>
+            <v-list-item-content to="/groups/1">
               <v-list-item-title>San Diego Paragliding</v-list-item-title>
               <v-list-item-subtitle>178 members</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-
-        <v-list dense>
-          <v-list-item>
-            <v-list-item-subtitle>Favorite People</v-list-item-subtitle>
-          </v-list-item>
-
-          <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name">
-            <v-list-item-avatar>
-              <img :src="item.pic" />
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>{{item.name}}</v-list-item-title>
-              <v-list-item-subtitle>{{item.active}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -162,7 +157,12 @@ export default {
       leftDrawer: false,
       rightDrawer: false,
       generalRoutes: [
+        { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },
+        { title: "Tracking Log", icon: "near_me", route: "/membermap/14" },
+        { title: "Live Tracking", icon: "gps_fixed", route: "/membermap/14" }
+        
+        
         // {
         //   title: "Favorite Groups",
         //   icon: "mdi-account-group-outline",
@@ -196,11 +196,11 @@ export default {
         }
       ],
       personalRoutes: [
-        { title: "My Profile", icon: "mdi-account", route: "/myprofile" },
-        { title: "My Tracking Devices", icon: "devices", route: "/mydevices" },
-        { title: "My Tracking Data", icon: "near_me", route: "/basicmap" }
+        { title: "Profile", icon: "mdi-account", route: "/members/14" },
+        { title: "Tracking Devices", icon: "devices", route: "/mydevices" },
+        
       ]
     };
-  }
+  },
 };
 </script>

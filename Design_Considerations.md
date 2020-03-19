@@ -32,10 +32,10 @@
 
 # Normal Use
 ## (Person being tracked)
-1. Automatic login using localStorage and JWT. Then redirect to dashboard.
+1. Automatic login using localStorage and JWT. Then redirect to personal map to ensure tracker is working.
 
 ## (Person doing the tracking)
-1. Automatic login using localStorage and JWT. Then redirect to dashboard.
+1. Automatic login using localStorage and JWT. Then redirect to favorite group or user map.
 
 
 
@@ -45,8 +45,11 @@
 1. Landing page
 2. Login page
 3. 404 page
-4. User Profile page - 
-5. Single User Tracking Map page
-6. Group Profile page
-7. Group Tracking Map page
-8. User / Group search & filter page
+4. Public User Profile page - This is the public page people go to in order to find out more about you and follow / unfollow you
+5. Single User Tracking Map page - This is a more detailed map to track a single person
+6. Group Profile page - This is the public page people go to in order to find out more and follow / join / unfollow / unjoin. It will tell where the group is located, how many members etc.
+7. Group Tracking Map page - A map that allows you to live track everyone in a particular group
+8. User / Group search & filter page - This is how you search for users and groups so that you can join / follow them.
+9. Private Personal Profile Page - Only the user has access to this. This is where they can view their public and private information and edit it. As well as view groups and users they are following / joined. Users can unfollow and unjoin groups from the user profile page.
+10. Edit User Profile Page
+11. Edit following groups & Users Page

@@ -1,6 +1,6 @@
 <template>
   <v-container id="user-profile" fluid tag="section">
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <v-col cols="12" md="8">
         <v-card>
           <v-card-title>
@@ -80,7 +80,7 @@
           </v-form>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
@@ -88,7 +88,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "MyProfile",
+  name: "MemberProfile",
   computed: mapGetters(["myProfile"]),
   methods: {
     ...mapActions(["fetchMyProfile"]),

@@ -29,9 +29,9 @@ const router = new VueRouter({
       component: () => import('../views/Explore.vue')
     },
     {
-      path: '/myprofile',
-      name: 'MyProfile',
-      component: () => import('../views/MyProfile.vue')
+      path: '/members/:id',
+      name: 'MemberProfile',
+      component: () => import('../views/MemberProfile.vue')
     },
     {
       path: '/mydevices',
@@ -39,12 +39,17 @@ const router = new VueRouter({
       component: () => import('../views/MyDevices.vue')
     },
     {
-      path: '/basicmap',
-      name: 'BasicMap',
-      component: () => import('../views/BasicMap.vue')
+      path: '/membermap/:id',
+      name: 'MemberMap',
+      component: () => import('../views/MemberMap.vue')
     },
     {
-      path: '/groupmap/:groupid',
+      path: '/creategroup',
+      name: 'CreateGroup',
+      component: () => import('../views/CreateGroup.vue')
+    },
+    {
+      path: '/groupmap/:id',
       name: 'GroupMap',
       component: () => import('../views/GroupMap.vue')
     }

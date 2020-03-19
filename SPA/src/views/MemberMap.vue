@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: "BasicMap",
+  name: "MemberMap",
   data() {
     return {
       map: null,

@@ -31,15 +31,15 @@ const actions = {
         const decoded = jwt.decode(query.access_token)
 
         commit('setToken', { token: query.access_token, userID: decoded.id })
-        router.push('/basicmap');
+        router.push(`/membermap/${decoded.id}`);
     },
     logout: ({ commit }) => {
         commit('deleteToken');
         router.push('/login');
     },
-    autoLogin: ({getters}) => {
+    autoLogin: ({getters, state}) => {
         if(getters.isLoggedIn) {    // This action will be called by app.js on application start and if the user is logged in it will redirect to dashboard instead of home page
-            router.push('/basicmap');  // This might render url navigation useless but for now this works
+            // router.push(`/membermap/${state.userID}`);  // This might render url navigation useless but for now this works
             // console.log("The user is already logged in on application start")
         }
     }

@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <v-col cols="12" class="text-center">
         <v-btn  fab><v-icon>add</v-icon></v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-row justify="center">
       <v-col cols="12" md="4">
         <v-card max-width="344" class="mx-auto">
