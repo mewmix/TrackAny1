@@ -1,6 +1,6 @@
 <template>
   <v-container id="user-profile" fluid tag="section">
-    <!-- <v-row justify="center">
+    <v-row justify="center">
       <v-col cols="12" md="8">
         <v-card>
           <v-card-title>
@@ -39,48 +39,32 @@
                   />
                 </v-col>
 
-                <v-col cols="12" md="6">
-                  <v-text-field label="Company (disabled)" disabled />
+                <v-col cols="12" md="4">
+                  <v-text-field label="City" class="purple-input" />
                 </v-col>
 
-                <v-col cols="12" md="6">
-                  <v-text-field class="purple-input" label="User Name (disabled)" disabled />
+                <v-col cols="12" md="4">
+                  <v-text-field label="State" class="purple-input" />
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field label="Country" class="purple-input" />
                 </v-col>
 
                 <v-col cols="12">
-                  <v-text-field label="Address (disabled)" class="purple-input" disabled />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field label="City (disabled)" class="purple-input" disabled />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field label="Country (disabled)" class="purple-input" disabled />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code (disabled)"
-                    type="number"
-                    disabled
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea class="purple-input" label="About Me (disabled)" disabled />
-                </v-col>
-
-                <v-col cols="12" class="text-right">
-                  <v-btn color="success" class="mr-0" @click="save">Update Profile</v-btn>
+                  <v-textarea class="purple-input" label="About Me" />
                 </v-col>
               </v-row>
             </v-container>
           </v-form>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red accent-4" text>Cancel</v-btn>
+            <v-btn color="blue accent-4" @click="save">Save</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
-    </v-row> -->
+    </v-row>
   </v-container>
 </template>
 
@@ -88,7 +72,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "MemberProfile",
+  name: "EditUser",
   computed: mapGetters(["myProfile"]),
   methods: {
     ...mapActions(["fetchMyProfile"]),
@@ -101,7 +85,7 @@ export default {
   },
   data() {
     return {
-      updatedProfile: {fName: "", lName: "", email: ""}
+      updatedProfile: { fName: "", lName: "", email: "" }
     };
   }
 };

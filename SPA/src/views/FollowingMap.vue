@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: "GroupMap",
+  name: "FollowingMap",
   data() {
     return {
       map: null,

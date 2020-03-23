@@ -34,9 +34,24 @@ const router = new VueRouter({
       component: () => import('../views/MemberProfile.vue')
     },
     {
+      path: '/groups/:id',
+      name: 'GroupProfile',
+      component: () => import('../views/GroupProfile.vue')
+    },
+    {
       path: '/mydevices',
       name: 'MyDevices',
       component: () => import('../views/MyDevices.vue')
+    },
+    {
+      path: '/edit/user',
+      name: 'EditUser',
+      component: () => import('../views/EditUser.vue')
+    },
+    {
+      path: '/edit/group/:id',
+      name: 'EditGroup',
+      component: () => import('../views/EditGroup.vue')
     },
     {
       path: '/membermap/:id',
@@ -44,15 +59,25 @@ const router = new VueRouter({
       component: () => import('../views/MemberMap.vue')
     },
     {
+      path: '/groupmap/:id',
+      name: 'GroupMap',
+      component: () => import('../views/GroupMap.vue')
+    },
+    {
+      path: '/followingmap',
+      name: 'FollowingMap',
+      component: () => import('../views/FollowingMap.vue')
+    },
+    {
       path: '/creategroup',
       name: 'CreateGroup',
       component: () => import('../views/CreateGroup.vue')
     },
     {
-      path: '/groupmap/:id',
-      name: 'GroupMap',
-      component: () => import('../views/GroupMap.vue')
-    }
+      path: '/createdevice',
+      name: 'CreateDevice',
+      component: () => import('../views/CreateDevice.vue')
+    },
   ]
 })
 

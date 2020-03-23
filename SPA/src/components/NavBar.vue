@@ -29,10 +29,6 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn v-if="$route.name === 'MyDevices'" dark icon class="mr-1">
-        <v-icon large>add</v-icon>
-      </v-btn>
-
       <v-btn v-if="$route.name === 'MyProfile'" dark icon class="mr-1">
         <v-icon large>edit</v-icon>
       </v-btn>
@@ -126,14 +122,14 @@
             <v-list-item-subtitle>Favorite Groups</v-list-item-subtitle>
           </v-list-item>
 
-          <v-list-item two-line>
-            <v-list-item-avatar>
+          <v-list-item two-line to="/groups/1">
+            <!-- <v-list-item-avatar>
               <img src="https://www.sdhgpa.com/uploads/2/6/0/2/26023409/1526240.jpg?281" />
-            </v-list-item-avatar>
+            </v-list-item-avatar> -->
 
-            <v-list-item-content to="/groups/1">
-              <v-list-item-title>San Diego Paragliding</v-list-item-title>
-              <v-list-item-subtitle>178 members</v-list-item-subtitle>
+            <v-list-item-content >
+              <v-list-item-title>San Diego Free Flight</v-list-item-title>
+              <v-list-item-subtitle>6 members</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -159,8 +155,8 @@ export default {
       generalRoutes: [
         { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },
-        { title: "Tracking Log", icon: "near_me", route: "/membermap/14" },
-        { title: "Live Tracking", icon: "gps_fixed", route: "/membermap/14" }
+        { title: "My Tracking Log", icon: "near_me", route: "/membermap/14" },
+        { title: "Favorite People", icon: "gps_fixed", route: "/followingmap" }
         
         
         // {
