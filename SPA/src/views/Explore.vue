@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Explore",
   data() {
@@ -67,7 +69,12 @@ export default {
   computed: {
     currentRouteName() {
       return this.$route.name;
-    }
-  }
+    },
+    ...mapGetters(["allUsers"]),
+  },
+  created() {
+    this.fetchAllUsers();
+  },
+  methods: mapActions(['fetchAllUsers'])
 };
 </script>

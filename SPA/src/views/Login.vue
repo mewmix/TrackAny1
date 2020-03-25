@@ -37,7 +37,12 @@
           </v-row>
           <v-row align="center" justify="center">
             <v-col cols="11" class="mb-3">
-                <v-btn block color="purple" class="white--text" to="/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTQwMDR9.r7vTWZL5gFBFOYKRIJcdO4AKaajrWgYKyMYAIBoL61k">Testing Bypass</v-btn>
+              <v-btn
+                block
+                color="purple"
+                class="white--text"
+                to="/oauth2/callback#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImZOYW1lIjoiTWFyayIsImxOYW1lIjoiRmF1bGtuZXIiLCJpYXQiOjE1ODA4OTQwMDR9.r7vTWZL5gFBFOYKRIJcdO4AKaajrWgYKyMYAIBoL61k"
+              >Testing Bypass</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -47,10 +52,15 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "Login",
-  methods: mapActions(["loginWithFacebook", "loginWithGoogle"])
+  methods: {
+    loginWithFacebook() {
+      window.location = `https://api.trackany1.com/auth/facebook`;
+    },
+    loginWithGoogle() {
+      window.location = `https://api.trackany1.com/auth/google`;
+    }
+  }
 };
 </script>
