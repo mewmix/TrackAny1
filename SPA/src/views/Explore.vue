@@ -6,8 +6,6 @@
   <v-container id="explore" fluid tag="section">
     <v-row justify="center">
       <v-col cols="12" md="8">
-        https://vuetifyjs.com/en/components/text-fields/#icon-events
-        <v-btn>Search via World Map</v-btn>
         <v-card>
           <v-card-title class="headline">Explore Groups &amp; People</v-card-title>
 

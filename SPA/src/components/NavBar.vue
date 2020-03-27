@@ -1,6 +1,7 @@
 <template>
   <nav v-if="isLoggedIn && $route.name != 'Landing' && $route.name != 'Login'">
     <v-navigation-drawer v-if="$route.name === 'MemberMap'" v-model="rightDrawer" app right>
+      <v-select :items="timeFilters" label="Time Filter" solo></v-select>
       <v-list>
         <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name">
           <v-list-item-avatar>
@@ -18,13 +19,13 @@
     <v-app-bar clipped-left app flat>
       <v-app-bar-nav-icon @click.stop="leftDrawer = !leftDrawer" large />
       <v-toolbar-title left class="text-uppercase">
-        <!-- <span>
+        <span>
           <i>Track</i>
         </span>
         <span class="font-weight-light">
           <i>Any1</i>
-        </span> -->
-        {{$route.name}}
+        </span>
+        <!-- {{$route.name}} -->
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -82,7 +83,13 @@
           </template>
           <v-divider />
 
-          <v-list-item v-for="item in personalRoutes" :key="item.title" link :to="item.route" class="white--text">
+          <v-list-item
+            v-for="item in personalRoutes"
+            :key="item.title"
+            link
+            :to="item.route"
+            class="white--text"
+          >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -125,9 +132,9 @@
           <v-list-item two-line to="/groups/1">
             <!-- <v-list-item-avatar>
               <img src="https://www.sdhgpa.com/uploads/2/6/0/2/26023409/1526240.jpg?281" />
-            </v-list-item-avatar> -->
+            </v-list-item-avatar>-->
 
-            <v-list-item-content >
+            <v-list-item-content>
               <v-list-item-title>San Diego Free Flight</v-list-item-title>
               <v-list-item-subtitle>6 members</v-list-item-subtitle>
             </v-list-item-content>
@@ -152,13 +159,13 @@ export default {
     return {
       leftDrawer: false,
       rightDrawer: false,
+      timeFilters: ['most recent', '1 hr', '24 hrs', '48 hrs', '1 week', '1 month', 'all'],
       generalRoutes: [
         { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },
         { title: "My Tracking Log", icon: "near_me", route: "/membermap/14" },
         { title: "Favorite People", icon: "gps_fixed", route: "/followingmap" }
-        
-        
+
         // {
         //   title: "Favorite Groups",
         //   icon: "mdi-account-group-outline",
@@ -193,10 +200,9 @@ export default {
       ],
       personalRoutes: [
         { title: "Profile", icon: "mdi-account", route: "/members/14" },
-        { title: "Tracking Devices", icon: "devices", route: "/mydevices" },
-        
+        { title: "Tracking Devices", icon: "devices", route: "/mydevices" }
       ]
     };
-  },
+  }
 };
 </script>
