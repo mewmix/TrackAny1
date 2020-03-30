@@ -16,7 +16,7 @@
           </v-list-item>
 
           <v-img
-            src="https://static.garmincdn.com/en/products/010-01735-11/v/rf-lg.jpg"
+            :src="require('@/assets/Trackers/Garmin/inreach-explorer.jpg')"
             height="350"
           ></v-img>
 
@@ -44,7 +44,7 @@
           </v-list-item>
 
           <v-img
-            src="https://www.frontrunneroutfitters.com/media/catalog/product/cache/add2be93cd9bee29f0cc2064a0ae411d/s/p/spot-gen3-satellite-gps-messenger-by-spot-SPOT002-1.jpg"
+            :src="require('@/assets/Trackers/Spot/gen3.jpg')"
             height="350"
           ></v-img>
 
