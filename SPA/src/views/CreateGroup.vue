@@ -43,7 +43,7 @@
 
               <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
 
-              <v-btn text>Cancel</v-btn>
+              <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="2">
@@ -90,7 +90,7 @@
 
               <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
 
-              <v-btn text>Cancel</v-btn>
+              <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="3">
@@ -106,7 +106,7 @@
 
               <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
 
-              <v-btn text>Cancel</v-btn>
+              <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="4">
@@ -126,7 +126,7 @@
 
               <v-btn color="primary" @click="e1 = 1">Finish</v-btn>
 
-              <v-btn text>Cancel</v-btn>
+              <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
           </v-stepper-items>
         </v-stepper>

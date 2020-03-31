@@ -23,7 +23,7 @@ Users can view and share their tracking logs.
 
 
 # Supported Devices
-![Satellite Trackers](docs/trackers.jpeg)
+![Satellite Trackers](docs/trackers.jpg)
 
   - [Garmin Inreach Satellite Trackers](https://explore.garmin.com/en-US/inreach/)
   - [Delorme Inreach Satellite Trackers](https://www.amazon.com/DeLorme-inReach-SE-Satellite-Tracker/dp/B00BX7TJ2O)

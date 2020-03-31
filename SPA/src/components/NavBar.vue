@@ -1,9 +1,28 @@
 <template>
   <nav v-if="isLoggedIn && $route.name != 'Landing' && $route.name != 'Login'">
     <v-navigation-drawer v-if="$route.name === 'MemberMap'" v-model="rightDrawer" app right>
+      <v-list-item>
+        <v-list-item-content>
+          <router-link to="/groups/1">
+            <v-list-item-title>San Diego Paragliding</v-list-item-title>
+          </router-link>
+          <v-list-item-subtitle>178 Members</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-select :items="timeFilters" label="Time Filter" solo></v-select>
-      <v-list>
-        <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name">
+
+      <v-row>
+        <v-col cols="6" class="pr-0 py-0">
+          <v-btn block tile>all</v-btn>
+        </v-col>
+        <v-col cols="6" class="pl-0 py-0">
+          <v-btn block tile>clear</v-btn>
+        </v-col>
+      </v-row>
+
+      <v-list class="pt-0">
+        <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name" class="pr-2">
           <v-list-item-avatar>
             <img :src="item.pic" />
           </v-list-item-avatar>
@@ -12,6 +31,21 @@
             <v-list-item-title>{{item.name}}</v-list-item-title>
             <v-list-item-subtitle>{{item.alt}}</v-list-item-subtitle>
           </v-list-item-content>
+
+          <v-list-item-action class="ml-0">
+            <v-menu bottom left>
+              <template v-slot:activator="{ on }">
+                <v-btn icon v-on="on">
+                  <v-icon color="grey lighten-1">more_vert</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item v-for="(item, index) in userItems" :key="index">
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -159,7 +193,16 @@ export default {
     return {
       leftDrawer: false,
       rightDrawer: false,
-      timeFilters: ['most recent', '1 hr', '24 hrs', '48 hrs', '1 week', '1 month', 'all'],
+      userItems: [{ title: "Show" }, { title: "Center" }, { title: "Profile" }],
+      timeFilters: [
+        "most recent",
+        "1 hr",
+        "24 hrs",
+        "48 hrs",
+        "1 week",
+        "1 month",
+        "all"
+      ],
       generalRoutes: [
         { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },

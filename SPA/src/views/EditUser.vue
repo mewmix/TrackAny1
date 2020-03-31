@@ -59,7 +59,7 @@
           </v-form>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="red accent-4" text>Cancel</v-btn>
+            <v-btn color="red accent-4" to="/explore" text>Cancel</v-btn>
             <v-btn color="blue accent-4" @click="save">Save</v-btn>
           </v-card-actions>
         </v-card>
