@@ -6,33 +6,29 @@ Track anyone, anywhere in the world, with the most popular and trusted Satellite
 [REST API Documentation](https://api.trackany1.com/docs)
 
 # Why build this application?
-Keeping tabs on multiple people with different satellite trackers has always been a chore. As a paragliding pilot and offroader, I am constantly using websites like Garmin and SPOT to keep track of my friends. Each tracker has a unique URL you visit for location information and messages. This means you have to open multiple browser tabs to keep track of multiple people. You have to hop from one browser tab to the next, constantly refreshing and re-zooming trying to figure out where you are in relation to your friends. 
+At the moment there are only a few websites that allow you to live track groups of people using dissimilar satellite trackers. The few that do are outdated, lacking the most basic features with poor user experience.
 
-And remembering which URL belongs to which friend is another nightmare. The URLs are long and randomized. And if I lose them I have no other way of tracking my friends.
-ex)
-https://share.findmespot.com/shared/faces/viewspots.jsp?glId=0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps
+Satellite trackers and messengers are commonly used by sailors, pilots, hikers, climbers, off-roaders, and many other outdoor types. They can be used to send SOS messages, text messages, relay your location, etc. They are valuable tools that allow you to stay safe & connected anywhere in the world. There are many brands. Garmin, DeLorme, Spot, FlyMaster, Yellow Brick, etc. Each brand has a live tracking website you can visit to track each device. This is where the problem lies.
 
-Every time my friends and I go out flying or riding, we have to log in to our accounts on Garmin or SPOT and copy-paste the tracking URL to a group chat. Its a hassle.
+When a person buys a new satellite tracker and activates it, they receive a public URL that can be shared with friends and family for live tracking. This works fine if you are only keeping tabs on one person at a time, but it quickly becomes an issue when you have a group of people you need to track. You would have to open separate browser tabs for each person and hop between them constantly refreshing and scrolling. 
 
-One of the biggest things I hate is that I cant see my location on the map in relation to my friend. I have to manually copy-paste the coordinates into google maps.
+TrackAny1.com is a web application that solves this issue. It allows you to track multiple people simultaneously anywhere in the world.
 
 # What are my goals for the project and what type of functionality should be expected?
-Sign in with Google and Facebook. Users shouldnt have to remember passwords!
-Users can register multiple Satellite Trackers with the application.
+Sign in with Google and Facebook.
+Users can register multiple Satellite Trackers and Messengers.
 Users can create and join tracking groups.
-Tracking groups can be public, private, or personal.
-Users can have a list of favorite groups and friends.
-Live tracking page should allow user to see thier own location on the map using cellphones GPS.
+Tracking groups are public, anyone can join or follow.
+Users can follow other users. They will have a map with all of the people they are following. 
+Tracking pages should allow user to see thier own location on the map using cellphones GPS.
 Users can view and share their tracking logs.
-
 
 # Supported Devices
 ![Satellite Trackers](docs/trackers.jpg)
 
   - [Garmin Inreach Satellite Trackers](https://explore.garmin.com/en-US/inreach/)
   - [Delorme Inreach Satellite Trackers](https://www.amazon.com/DeLorme-inReach-SE-Satellite-Tracker/dp/B00BX7TJ2O)
-  - [SPOT Satellite Trackers](https://www.findmespot.com/en/)
-  - iOS & Android (with cell reception) 
+  - [SPOT Satellite Trackers](https://www.findmespot.com/en/) 
 
 # Un-Supported Devices (Coming Soon)
  - [FlyMaster Flight Instruments](https://www.flymaster.net/)
