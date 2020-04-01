@@ -84,7 +84,7 @@
     </section>
 
     <section>
-      <v-parallax :src="require('@/assets/trackers.jpeg')" height="500">
+      <v-parallax :src="require('@/assets/trackers.jpg')" height="500">
         <v-layout column align-center justify-center>
           <div class="headline white--text mb-4 text-center">Group tracking has never been easier</div>
           <em>Sign up today</em>
