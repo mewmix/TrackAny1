@@ -17,8 +17,11 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item @click="changeUserStatus">
+          <v-list-item @click="changeUserStatus" v-if="!active">
             <v-list-item-title>Show</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="changeUserStatus" v-else>
+            <v-list-item-title>Hide</v-list-item-title>
           </v-list-item>
           <v-list-item @click="centerMap">
             <v-list-item-title>Center</v-list-item-title>
