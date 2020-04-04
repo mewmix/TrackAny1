@@ -1,6 +1,6 @@
 <template>
   <nav v-if="isLoggedIn && $route.name != 'Landing' && $route.name != 'Login'">
-    <v-navigation-drawer v-if="$route.name === 'MemberMap'" v-model="rightDrawer" app right>
+    <v-navigation-drawer v-if="$route.name === 'GroupMap'" v-model="rightDrawer" app right>
       <v-list-item>
         <v-list-item-content>
           <router-link to="/groups/1">
@@ -21,33 +21,8 @@
         </v-col>
       </v-row>
 
-      <v-list class="pt-0">
-        <v-list-item two-line v-for="item in rightSideNavItems" :key="item.name" class="pr-2">
-          <v-list-item-avatar>
-            <img :src="item.pic" />
-          </v-list-item-avatar>
+      <SideNavUserList :trackingData="rightSideNavItems"></SideNavUserList>
 
-          <v-list-item-content>
-            <v-list-item-title>{{item.name}}</v-list-item-title>
-            <v-list-item-subtitle>{{item.alt}}</v-list-item-subtitle>
-          </v-list-item-content>
-
-          <v-list-item-action class="ml-0">
-            <v-menu bottom left>
-              <template v-slot:activator="{ on }">
-                <v-btn icon v-on="on">
-                  <v-icon color="grey lighten-1">more_vert</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item v-for="(item, index) in userItems" :key="index">
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar clipped-left app flat>
@@ -72,15 +47,15 @@
         <v-icon large>settings</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'MemberMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'GroupMap'" dark icon class="mr-1">
         <v-icon large>layers</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'MemberMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'GroupMap'" dark icon class="mr-1">
         <v-icon large>gps_fixed</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'MemberMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
+      <v-btn v-if="$route.name === 'GroupMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon large>mdi-account-group-outline</v-icon>
       </v-btn>
 
@@ -163,7 +138,7 @@
             <v-list-item-subtitle>Favorite Groups</v-list-item-subtitle>
           </v-list-item>
 
-          <v-list-item two-line to="/groups/1">
+          <v-list-item two-line to="/groupmap/1">
             <!-- <v-list-item-avatar>
               <img src="https://www.sdhgpa.com/uploads/2/6/0/2/26023409/1526240.jpg?281" />
             </v-list-item-avatar>-->
@@ -180,6 +155,8 @@
 </template>
 
 <script>
+import SideNavUserList from "./SideNavUserList";
+
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -217,28 +194,72 @@ export default {
       ],
       rightSideNavItems: [
         {
-          name: "John Doe",
+          id: 1,
+          fName: "John",
+          lName: "Doe",
           pic: "https://randomuser.me/api/portraits/men/80.jpg",
           alt: "162 ft AGL",
-          active: "active"
+          active: "active",
+          userTrackingData: [
+            {
+              id: 14,
+              unixTime: 1579644484,
+              lat: "34.44680000",
+              lng: "-119.68613000",
+              alt: "-103.00",
+              elevation: "194.80",
+              velocity: "",
+              heading: "",
+              txtMsg: "",
+              isEmergency: ""
+            },
+            {
+              id: 15,
+              unixTime: 1579643887,
+              lat: "34.44680000",
+              lng: "-119.68613000",
+              alt: "-103.00",
+              elevation: "194.80",
+              velocity: "",
+              heading: "",
+              txtMsg: "",
+              isEmergency: ""
+            }
+          ]
         },
         {
-          name: "Connor Mcgregor",
+          id: 2,
+          fName: "Mad",
+          lName: "Max",
           pic: "https://randomuser.me/api/portraits/men/71.jpg",
           alt: "-4 ft AGL",
-          active: "27 min ago"
-        },
-        {
-          name: "Billy The Kid",
-          pic: "https://randomuser.me/api/portraits/men/81.jpg",
-          alt: "0 ft AGL",
-          active: "2 hours ago"
-        },
-        {
-          name: "Buz Lightyear",
-          pic: "https://randomuser.me/api/portraits/men/70.jpg",
-          alt: "3000 ft AGL",
-          active: "1 month ago"
+          active: "27 min ago",
+          userTrackingData: [
+            {
+              id: 91,
+              unixTime: 1579654598,
+              lat: "34.18571000",
+              lng: "-116.21765000",
+              alt: "758.00",
+              elevation: "756.53",
+              velocity: "",
+              heading: "",
+              txtMsg: "",
+              isEmergency: ""
+            },
+            {
+              id: 81,
+              unixTime: 1579654306,
+              lat: "34.18614000",
+              lng: "-116.21741000",
+              alt: "785.00",
+              elevation: "780.80",
+              velocity: "",
+              heading: "",
+              txtMsg: "",
+              isEmergency: ""
+            }
+          ]
         }
       ],
       personalRoutes: [
@@ -246,6 +267,9 @@ export default {
         { title: "Tracking Devices", icon: "devices", route: "/mydevices" }
       ]
     };
+  },
+  components: {
+    SideNavUserList
   }
 };
 </script>
