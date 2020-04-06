@@ -36,23 +36,19 @@ export default {
         }
       );
       this.tileLayer.addTo(this.map);
-    }
-  },
-  mounted() {
-    this.initMap();
-  },
-  created() {
-    EventBus.$on("addUserToMap", user => {
-      console.log("Add to Map");
+    },
+    centerMap(lat, lng) {
+      this.map.setView([lat, lng]);
+    },
+    addUser(user) {
+      let s = user.userTrackingData[0];
 
-      var s = user.userTrackingData[0];
-
-      var myMarkerAndPopup = L.marker([s.lat, s.lng])
+      let myMarkerAndPopup = L.marker([s.lat, s.lng])
         .bindPopup(`<h2>${user.fName} ${user.lName}<br></h2><hr><br><br><b></b><br><b>Alt:</b> 
             ${s.alt} m ASL <br><b>Meters Above Ground:</b> ${s.agl}<br><b>Heading: </b> ${s.heading}<br><b>Velocity: </b> ${s.velocity}<br><b>Lat:</b> ${s.lat}<br><b>Lng:</b> ${s.lng}<br>
             <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${s.lat},${s.lng}">Google Maps</a><br><button onclick="copyText('${s.lat}, ${s.lng}')">Copy Coordinates To Clipboard</button>`);
 
-      var latLng = [];
+      let latLng = [];
 
       for (let i = 0; i < user.userTrackingData.length; i++) {
         latLng.push([
@@ -61,9 +57,9 @@ export default {
         ]);
       }
 
-      var myPolyline = L.polyline(latLng, { color: "red" });
+      let myPolyline = L.polyline(latLng, { color: "red" });
 
-      var myLayerGroup = L.layerGroup([myMarkerAndPopup, myPolyline]);
+      let myLayerGroup = L.layerGroup([myMarkerAndPopup, myPolyline]);
 
       let temporaryUserLayer = {
         userID: user.id,
@@ -74,22 +70,46 @@ export default {
 
       myLayerGroup.addTo(this.map);
 
-      this.map.setView([s.lat, s.lng]);
-    });
-
-    EventBus.$on("removeUserFromMap", user => {
-      console.log("Remove from map");
-
+      this.centerMap(s.lat, s.lng);
+    },
+    removeUser(user) {
       this.map.removeLayer(
         this.myMapsLayerGroups.find(x => x.userID === user.id).userLayerGroup
       );
       this.myMapsLayerGroups = this.myMapsLayerGroups.filter(
         x => x.userID !== user.id
       );
+    },
+    clearMap() {
+      this.myMapsLayerGroups.forEach(user => {
+        this.map.removeLayer(user.userLayerGroup);
+      });
+
+      this.myMapsLayerGroups = [];
+    }
+  },
+  mounted() {
+    this.initMap();
+  },
+  created() {
+    EventBus.$on("addUserToMap", user => {
+      this.addUser(user);
+    });
+
+    EventBus.$on("removeUserFromMap", user => {
+      this.removeUser(user);
     });
 
     EventBus.$on("centerMap", data => {
-      this.map.setView([data.lat, data.lng]);
+      this.centerMap(data.lat, data.lng);
+    });
+
+    EventBus.$on("clearMap", () => {
+      this.clearMap();
+    });
+
+    EventBus.$on("showAll", data => {
+      console.log("Show All");
     });
   }
 };

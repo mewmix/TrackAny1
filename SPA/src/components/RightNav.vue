@@ -1,11 +1,16 @@
 <template>
   <div>
-    <v-list-item>
+    <v-list-item v-if="$route.name === 'GroupMap'">
       <v-list-item-content>
         <router-link to="/groups/1">
           <v-list-item-title>San Diego Paragliding</v-list-item-title>
         </router-link>
-        <v-list-item-subtitle>178 Members</v-list-item-subtitle>
+        <v-list-item-subtitle>178 members</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <v-list-item v-if="$route.name === 'FollowingMap'">
+      <v-list-item-content>
+          <v-list-item-title>My Favorite People</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -21,10 +26,10 @@
 
     <v-row>
       <v-col cols="6" class="pr-0 py-0">
-        <v-btn block tile>all</v-btn>
+        <v-btn block tile @click="showAll">all</v-btn>
       </v-col>
       <v-col cols="6" class="pl-0 py-0">
-        <v-btn block tile>clear</v-btn>
+        <v-btn block tile @click="clearMap">clear</v-btn>
       </v-col>
     </v-row>
 
@@ -41,6 +46,14 @@ export default {
   name: "RightNav",
   components: {
     SideNavUserList
+  },
+  methods: {
+    clearMap() {
+      EventBus.$emit('clearMap')
+    },
+    showAll() {
+      EventBus.$emit('showAll', {data: "groups tracking data goes here"})
+    }
   },
   data: () => {
     return {

@@ -1,6 +1,6 @@
 <template>
   <nav v-if="isLoggedIn && $route.name != 'Landing' && $route.name != 'Login'">
-    <v-navigation-drawer v-if="$route.name === 'GroupMap'" v-model="rightDrawer" app right>
+    <v-navigation-drawer v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap'" v-model="rightDrawer" app right>
       <RightNav />
     </v-navigation-drawer>
 
@@ -26,15 +26,15 @@
         <v-icon large>settings</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'GroupMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap' " dark icon class="mr-1">
         <v-icon large>layers</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'GroupMap'" dark icon class="mr-1">
+      <v-btn v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap'" dark icon class="mr-1">
         <v-icon large>gps_fixed</v-icon>
       </v-btn>
 
-      <v-btn v-if="$route.name === 'GroupMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
+      <v-btn v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap'" dark icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon large>mdi-account-group-outline</v-icon>
       </v-btn>
 
