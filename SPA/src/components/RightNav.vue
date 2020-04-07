@@ -33,7 +33,7 @@
       </v-col>
     </v-row>
 
-    <SideNavUserList :trackingData="rightSideNavItems"></SideNavUserList>
+    <SideNavUserList :trackingData="groupTrackingData"></SideNavUserList>
   </div>
 </template>
 
@@ -49,10 +49,17 @@ export default {
   },
   methods: {
     clearMap() {
-      EventBus.$emit('clearMap')
+      EventBus.$emit('clearMap');
+      EventBus.$emit('deactivateUserListItems');
+
     },
     showAll() {
-      EventBus.$emit('showAll', {data: "groups tracking data goes here"})
+      // When we show all users we need to clear the map of all data so that we dont render duplicates.
+      // We then need to iterate over groupTrackingData and populate the map
+      // We then need to make all the userListItemsTiles active
+      EventBus.$emit('clearMap');
+      EventBus.$emit('showAll', this.groupTrackingData)
+      EventBus.$emit('activateUserListItems');
     }
   },
   data: () => {
@@ -67,7 +74,7 @@ export default {
         { name: "All Data", val: "all" }
       ],
       userItems: [{ title: "Show" }, { title: "Center" }, { title: "Profile" }],
-      rightSideNavItems: [
+      groupTrackingData: [
         {
           id: 1,
           fName: "John",

@@ -49,9 +49,24 @@ export default {
       menuItems: [{ title: "Show" }, { title: "Center" }, { title: "Profile" }]
     };
   },
+  created() {
+    EventBus.$on("deactivateUserListItems", () => {
+      // Set active to false if true
+      if (this.active) {
+        this.active = false;
+      }
+    });
+
+    EventBus.$on("activateUserListItems", () => {
+      // Set active to true if not already
+      if (!this.active) {
+        this.active = true;
+      }
+    });
+  },
   methods: {
     changeUserStatus() {
-      if (this.active === false) {
+      if (!this.active) {
         EventBus.$emit("addUserToMap", this.user);
         this.active = !this.active;
       } else {
@@ -60,7 +75,10 @@ export default {
       }
     },
     centerMap() {
-        EventBus.$emit("centerMap", {lat: this.user.userTrackingData[0].lat, lng: this.user.userTrackingData[0].lng})
+      EventBus.$emit("centerMap", {
+        lat: this.user.userTrackingData[0].lat,
+        lng: this.user.userTrackingData[0].lng
+      });
     }
   }
 };

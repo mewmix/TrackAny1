@@ -14,7 +14,8 @@ export default {
       layers: [],
       group: {},
       trackingData: [],
-      myMapsLayerGroups: []
+      myMapsLayerGroups: [],
+      geolocationLayer: null // Contains the circle and circleMarker for users geolocation
     };
   },
   methods: {
@@ -37,8 +38,12 @@ export default {
       );
       this.tileLayer.addTo(this.map);
     },
-    centerMap(lat, lng) {
-      this.map.setView([lat, lng]);
+    centerMap(lat, lng, zoom) {
+      if (zoom == undefined || zoom == null) {
+        this.map.setView([lat, lng]);
+      } else {
+        this.map.setView([lat, lng], zoom);
+      }
     },
     addUser(user) {
       let s = user.userTrackingData[0];
@@ -69,8 +74,6 @@ export default {
       this.myMapsLayerGroups.push(temporaryUserLayer);
 
       myLayerGroup.addTo(this.map);
-
-      this.centerMap(s.lat, s.lng);
     },
     removeUser(user) {
       this.map.removeLayer(
@@ -86,6 +89,33 @@ export default {
       });
 
       this.myMapsLayerGroups = [];
+    },
+    showGeolocation(lat, lng, accuracy) {
+      this.centerMap(lat, lng, 17);
+
+      let circleMarker = L.circleMarker([lat, lng], {
+        color: "white",
+        weight: 2,
+        fillColor: "#4285F4",
+        fillOpacity: 1
+      });
+
+      let circle = L.circle([lat, lng], {
+        color: "#4285F4",
+        fillColor: "#4285F4",
+        fillOpacity: 0.1,
+        radius: 175
+      });
+
+      let geolocationLayerGroup = L.layerGroup([circleMarker, circle]);
+
+      this.geolocationLayer = geolocationLayerGroup; // The geoloationLayer is our local copy of the layerGroup so that we have a reference to remove it later
+
+      geolocationLayerGroup.addTo(this.map);
+    },
+    removeGeolocation() {
+      this.map.removeLayer(this.geolocationLayer);
+      this.geolocationLayer = null;
     }
   },
   mounted() {
@@ -94,6 +124,10 @@ export default {
   created() {
     EventBus.$on("addUserToMap", user => {
       this.addUser(user);
+      this.centerMap(
+        user.userTrackingData[0].lat,
+        user.userTrackingData[0].lng
+      );
     });
 
     EventBus.$on("removeUserFromMap", user => {
@@ -108,8 +142,25 @@ export default {
       this.clearMap();
     });
 
-    EventBus.$on("showAll", data => {
-      console.log("Show All");
+    EventBus.$on("showAll", groupTrackingData => {
+      let bounds = [];
+      groupTrackingData.forEach(user => {
+        this.addUser(user);
+        bounds.push([
+          user.userTrackingData[0].lat,
+          user.userTrackingData[0].lng
+        ]);
+      });
+      this.map.fitBounds(bounds);
+      // We then need to Zoom out and center on all the users in the group
+    });
+
+    EventBus.$on("showGeolocation", (lat, lng, accuracy) => {
+      this.showGeolocation(lat, lng, accuracy);
+    });
+
+    EventBus.$on("removeGeolocation", () => {
+      this.removeGeolocation();
     });
   }
 };
