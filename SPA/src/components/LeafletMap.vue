@@ -22,34 +22,53 @@ export default {
   },
   methods: {
     initBaseMaps() {
-      this.baseMaps[0] = L.tileLayer(
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      // https://docs.mapbox.com/mapbox-gl-js/api/
+
+      let mapBoxToken =
+        "pk.eyJ1IjoibWFya2ZhdWxrMzUwIiwiYSI6ImNqbWp3M3N5eDA2cHUza204OXB5dnY4YTMifQ.u9XEdqXo2g0dokrYs0xDRQ";
+
+      this.baseMaps[0] = L.mapboxGL({
+        accessToken: mapBoxToken,
+        style: "mapbox://styles/mapbox/satellite-streets-v11"
+      });
+      this.baseMaps[1] = L.mapboxGL({
+        accessToken: mapBoxToken,
+        style: "mapbox://styles/mapbox/streets-v11"
+      });
+      this.baseMaps[2] = L.mapboxGL({
+        accessToken: mapBoxToken,
+        style: "mapbox://styles/mapbox/satellite-v9"
+      });
+      this.baseMaps[3] = L.mapboxGL({
+        accessToken: mapBoxToken,
+        style: "mapbox://styles/mapbox/outdoors-v11"
+      });
+      this.baseMaps[4] = L.mapboxGL({
+        accessToken: mapBoxToken,
+        style: "mapbox://styles/mapbox/dark-v10"
+      });
+
+      this.baseMaps[5] = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         {
           attribution:
-            'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
         }
       );
 
-      this.baseMaps[1] = L.tileLayer(
-        'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+      this.baseMaps[6] = L.tileLayer(
+        "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
         {
-          attribution: ''
+          attribution: ""
         }
       );
 
-      this.baseMaps[2] = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      this.baseMaps[7] = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-          attribution: ''
+          attribution: ""
         }
       );
-
-      this.baseMaps[3] = L.tileLayer(
-        'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
-        {
-          attribution: ''
-        }
-      );      
     },
     initMap() {
       this.initBaseMaps();
