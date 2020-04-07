@@ -1,8 +1,12 @@
 <template>
-  <v-btn dark icon @click="triggerGPS" :disabled="!isCompatable">
-    <v-icon v-if="gpsLoading == false" large :color="color">gps_fixed</v-icon>
-    <v-progress-circular v-if="gpsLoading == true" indeterminate color="primary"></v-progress-circular>
-  </v-btn>
+  <div>
+    <v-btn dark icon v-if="!gpsLoading" @click="triggerGPS" :disabled="!isCompatable">
+      <v-icon large :color="color">gps_fixed</v-icon>
+    </v-btn>
+    <v-btn v-if="gpsLoading" icon>
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </v-btn>
+  </div>
 </template>
 
 <script>
