@@ -10,16 +10,50 @@ export default {
   data() {
     return {
       map: null,
-      tileLayer: null,
+      currentBaseMapIndex: 0,
       layers: [],
       group: {},
       trackingData: [],
       myMapsLayerGroups: [],
-      geolocationLayer: null // Contains the circle and circleMarker for users geolocation
+      geolocationLayer: null, // Contains the circle and circleMarker for users geolocation
+      satellite: null,
+      baseMaps: []
     };
   },
   methods: {
+    initBaseMaps() {
+      this.baseMaps[0] = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+          attribution:
+            'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }
+      );
+
+      this.baseMaps[1] = L.tileLayer(
+        'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+        {
+          attribution: ''
+        }
+      );
+
+      this.baseMaps[2] = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          attribution: ''
+        }
+      );
+
+      this.baseMaps[3] = L.tileLayer(
+        'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+        {
+          attribution: ''
+        }
+      );      
+    },
     initMap() {
+      this.initBaseMaps();
+
       this.map = L.map("map", {
         center: [33.1434, -117.1661],
         zoom: 8,
@@ -28,15 +62,8 @@ export default {
         attributionControl: false,
         zoomControl: false
       });
-      this.tileLayer = L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        {
-          id: "map",
-          attribution:
-            "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-        }
-      );
-      this.tileLayer.addTo(this.map);
+
+      this.baseMaps[0].addTo(this.map);
     },
     centerMap(lat, lng, zoom) {
       if (zoom == undefined || zoom == null) {
@@ -161,6 +188,13 @@ export default {
 
     EventBus.$on("removeGeolocation", () => {
       this.removeGeolocation();
+    });
+
+    EventBus.$on("changeBaseMap", newMapNumber => {
+      // This removes the old base map and creates a new one. It updates the currentBaseMapIndex to keep track of which one it needs to remove next
+      this.baseMaps[this.currentBaseMapIndex].removeFrom(this.map);
+      this.baseMaps[newMapNumber].addTo(this.map);
+      this.currentBaseMapIndex = newMapNumber;
     });
   }
 };

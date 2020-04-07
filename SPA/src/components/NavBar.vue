@@ -55,7 +55,8 @@
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
-        <v-icon large>mdi-account-group-outline</v-icon>
+        <v-icon v-if="!rightDrawer" large>mdi-account-group-outline</v-icon>
+        <v-icon v-else large>close</v-icon>
       </v-btn>
 
       <!-- <v-menu bottom left>
