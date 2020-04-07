@@ -31,14 +31,18 @@
         <v-icon large>settings</v-icon>
       </v-btn>
 
-      <v-btn
+      <!-- <v-btn
         v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap' "
         dark
         icon
         class="mr-1"
       >
         <v-icon large>layers</v-icon>
-      </v-btn>
+      </v-btn>-->
+      <MapLayersBtn
+        class="mr-1"
+        v-if="$route.name === 'GroupMap' || $route.name === 'FollowingMap' "
+      ></MapLayersBtn>
 
       <GeolocationBtn
         class="mr-1"
@@ -79,6 +83,7 @@
 import RightNav from "./RightNav";
 import LeftNav from "./LeftNav";
 import GeolocationBtn from "./GeolocationBtn";
+import MapLayersBtn from "./MapLayersBtn";
 import { EventBus } from "../main";
 
 import { mapActions, mapGetters } from "vuex";
@@ -88,7 +93,8 @@ export default {
   components: {
     RightNav,
     LeftNav,
-    GeolocationBtn
+    GeolocationBtn,
+    MapLayersBtn
   },
   computed: {
     ...mapGetters(["isLoggedIn", "myProfile"])
