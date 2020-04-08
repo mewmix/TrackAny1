@@ -3,7 +3,7 @@
     <v-btn dark icon v-if="!gpsLoading" @click="triggerGPS" :disabled="!isCompatable">
       <v-icon large :color="color">gps_fixed</v-icon>
     </v-btn>
-    <v-btn v-if="gpsLoading" icon>
+    <v-btn v-if="gpsLoading" icon disabled>
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </v-btn>
   </div>

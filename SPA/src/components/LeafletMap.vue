@@ -92,12 +92,11 @@ export default {
       }
     },
     addUser(user) {
-      let s = user.userTrackingData[0];
+      let latest = user.userTrackingData[0];
 
-      let myMarkerAndPopup = L.marker([s.lat, s.lng])
-        .bindPopup(`<h2>${user.fName} ${user.lName}<br></h2><hr><br><br><b></b><br><b>Alt:</b> 
-            ${s.alt} m ASL <br><b>Meters Above Ground:</b> ${s.agl}<br><b>Heading: </b> ${s.heading}<br><b>Velocity: </b> ${s.velocity}<br><b>Lat:</b> ${s.lat}<br><b>Lng:</b> ${s.lng}<br>
-            <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${s.lat},${s.lng}">Google Maps</a><br><button onclick="copyText('${s.lat}, ${s.lng}')">Copy Coordinates To Clipboard</button>`);
+      let myMarkerAndPopup = L.marker([latest.lat, latest.lng]).bindPopup(
+        this.generateCutomPopup(user.fName, user.lName, latest)
+      );
 
       let latLng = [];
 
@@ -120,6 +119,33 @@ export default {
       this.myMapsLayerGroups.push(temporaryUserLayer);
 
       myLayerGroup.addTo(this.map);
+    },
+    generateCutomPopup(fName, lName, data) {
+      let { alt, elevation, heading, velocity, lat, lng } = data;
+      let agl = parseInt(alt) - parseInt(elevation);
+      let popup = `
+      <b style="font-size: 20px;">${fName} ${lName}</b>
+      <br>
+      <br>
+      <b>Last Update: </b>10 min ago
+      <br>  
+      <b>Altitude: </b>${parseInt(alt)}m
+      <br>  
+      <b>AGL: </b>${agl}m
+      <br>
+      <b>Speed: </b>${velocity}
+      <br>
+      <b>Heading: </b>${heading}
+      <br>
+      <b>Lat: </b>${lat}
+      <br>
+      <b>Lng: </b>${lng}
+      <br>
+      <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}">Google Maps</a>
+      <br>
+      <button onclick="copyText('${lat}, ${lng}')">Copy Coordinates To Clipboard</button>
+      `;
+      return popup;
     },
     removeUser(user) {
       this.map.removeLayer(
@@ -147,9 +173,9 @@ export default {
       });
 
       let circle = L.circle([lat, lng], {
-        color: "#4285F4",
+        weight: 0,
         fillColor: "#4285F4",
-        fillOpacity: 0.1,
+        fillOpacity: 0.25,
         radius: 175
       });
 
