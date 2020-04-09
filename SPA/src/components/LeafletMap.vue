@@ -3,7 +3,9 @@
 </template>
 
 <script>
-import { EventBus } from "../main";
+import { EventBus } from '../main';
+import { customMarker } from '../helpers/customMarker';
+import { customPopup } from '../helpers/customPopup';
 
 export default {
   name: "LeafletMap",
@@ -100,14 +102,14 @@ export default {
           iconSize: [54, 60],
           iconAnchor: [27, 60],
           popupAnchor: [0, -60],
-          html: this.generateCustomMarker(
+          html: customMarker(
             user.fName,
             user.lName,
             latest.isEmergency,
             user.pic
           )
         })
-      }).bindPopup(this.generateCustomPopup(user.fName, user.lName, latest), {className: "mySuperUniquePopup"});
+      }).bindPopup(customPopup(user.fName, user.lName, latest), {className: "mySuperUniquePopup"});
 
       let latLng = [];
 
@@ -130,52 +132,6 @@ export default {
       this.myMapsLayerGroups.push(temporaryUserLayer);
 
       myLayerGroup.addTo(this.map);
-    },
-    generateCustomPopup(fName, lName, data) {
-      let { alt, elevation, heading, velocity, lat, lng } = data;
-      let agl = parseInt(alt) - parseInt(elevation);
-      let html = `
-      <b style="font-size: 20px;">${fName} ${lName}</b>
-      <br>
-      <br>
-      <b>Last Update: </b>10 min ago
-      <br>  
-      <b>Altitude: </b>${parseInt(alt)}m
-      <br>  
-      <b>AGL: </b>${agl}m
-      <br>
-      <b>Speed: </b>${velocity}
-      <br>
-      <b>Heading: </b>${heading}
-      <br>
-      <b>Lat: </b>${lat}
-      <br>
-      <b>Lng: </b>${lng}
-      <br>
-      <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}">Google Maps</a>
-      <br>
-      <button onclick="copyText('${lat}, ${lng}')">Copy Coordinates To Clipboard</button>
-      `;
-      return html;
-    },
-    generateCustomMarker(fName, lName, status, pic) {
-      let blue = '#2196F3';
-      let red = '#D32F2F';
-      let yellow = '#FFFF00';
-      let grey = '#424242';
-      let html = `
-      <svg width="54" height="60" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
-        <g id="marker" fill="${yellow}">
-          <circle cx="27" cy="27" r="27"/>
-          <polygon points="18,52 36,52 27,60"/>
-        </g>
-        <clipPath id="pictureCircle">
-          <circle cx="27" cy="27" r="25" fill="#FFFFFF"/>
-        </clipPath>
-        <image clip-path="url(#pictureCircle)" href="${pic}" x="2" y="2" width="50" height="50" r="5"/>
-      </svg>
-      `;
-      return html;
     },
     removeUser(user) {
       this.map.removeLayer(
