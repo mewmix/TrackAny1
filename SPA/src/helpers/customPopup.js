@@ -1,5 +1,8 @@
 // Will need to import moment.js to adjust the timestamp
 
+// Should really remove fields that we dont have data for !!!!!!!!!
+// We could concat data fields we have !!!!!!
+
 export const customPopup = (fName, lName, data) => {
     let { alt, elevation, heading, velocity, lat, lng } = data;
     let agl = parseInt(alt) - parseInt(elevation);  // Subtract users altitude from ground elevation 

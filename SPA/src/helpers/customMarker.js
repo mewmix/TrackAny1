@@ -23,7 +23,7 @@ export const customMarker = (fName, lName, status, pic) => {
             markerColor = '#D32F2F' // Red
             break;
         default:
-            markerColor = '#FFFF00' // Yellow
+            markerColor = '#2196F3' // Blue
     }
 
     if (!pic || pic === '' || pic === null || pic == undefined) { // If there is no profile pic, render user initials
@@ -40,13 +40,17 @@ export const customMarker = (fName, lName, status, pic) => {
             </svg>
         `;
         return html;
-    } else { // If there is a profile picture
+    } else { // If there is a profile picture, render user initials as well as a profile pic
         html = `
             <svg width="54" height="60" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
                 <g id="marker" fill="${markerColor}">
                     <circle cx="27" cy="27" r="27"/>
                     <polygon points="18,52 36,52 27,60"/>
                 </g>
+                <circle cx="27" cy="27" r="25" fill="${textBackground}"/>
+                <text style="font-size:24px; text-transform:uppercase; font-family: Roboto Mono;" fill="${textColor}"  x="13" y="36">
+                    ${initials}
+                </text>
                 <clipPath id="pictureCircle">
                     <circle cx="27" cy="27" r="25" fill="#FFFFFF"/>
                 </clipPath>
