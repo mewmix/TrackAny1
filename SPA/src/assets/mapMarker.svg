@@ -1,0 +1,11 @@
+<!-- This is meant to be used with a 50x50px profile picture.  -->
+<svg width="54" height="60" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
+    <g id="marker" fill="red">
+        <circle cx="27" cy="27" r="27"/>
+        <polygon points="18,52 36,52 27,60"/>
+    </g>
+    <clipPath id="pictureCircle">
+        <circle cx="27" cy="27" r="25" fill="#FFFFFF"/>
+    </clipPath>
+    <image clip-path="url(#pictureCircle)" href="https://randomuser.me/api/portraits/men/71.jpg" x="2" y="2" width="50" height="50" r="5"/>
+</svg>

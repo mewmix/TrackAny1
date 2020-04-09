@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       map: null,
-      currentBaseMapIndex: 0,
+      currentBaseMapIndex: 4,
       layers: [],
       group: {},
       trackingData: [],
@@ -82,7 +82,7 @@ export default {
         zoomControl: false
       });
 
-      this.baseMaps[0].addTo(this.map);
+      this.baseMaps[this.currentBaseMapIndex].addTo(this.map);
     },
     centerMap(lat, lng, zoom) {
       if (zoom == undefined || zoom == null) {
@@ -94,9 +94,20 @@ export default {
     addUser(user) {
       let latest = user.userTrackingData[0];
 
-      let myMarkerAndPopup = L.marker([latest.lat, latest.lng]).bindPopup(
-        this.generateCutomPopup(user.fName, user.lName, latest)
-      );
+      let myMarkerAndPopup = L.marker([latest.lat, latest.lng], {
+        icon: new L.divIcon({
+          className: "mySuperCustomMarker",
+          iconSize: [54, 60],
+          iconAnchor: [27, 60],
+          popupAnchor: [0, -60],
+          html: this.generateCustomMarker(
+            user.fName,
+            user.lName,
+            latest.isEmergency,
+            user.pic
+          )
+        })
+      }).bindPopup(this.generateCustomPopup(user.fName, user.lName, latest), {className: "mySuperUniquePopup"});
 
       let latLng = [];
 
@@ -120,10 +131,10 @@ export default {
 
       myLayerGroup.addTo(this.map);
     },
-    generateCutomPopup(fName, lName, data) {
+    generateCustomPopup(fName, lName, data) {
       let { alt, elevation, heading, velocity, lat, lng } = data;
       let agl = parseInt(alt) - parseInt(elevation);
-      let popup = `
+      let html = `
       <b style="font-size: 20px;">${fName} ${lName}</b>
       <br>
       <br>
@@ -145,7 +156,26 @@ export default {
       <br>
       <button onclick="copyText('${lat}, ${lng}')">Copy Coordinates To Clipboard</button>
       `;
-      return popup;
+      return html;
+    },
+    generateCustomMarker(fName, lName, status, pic) {
+      let blue = '#2196F3';
+      let red = '#D32F2F';
+      let yellow = '#FFFF00';
+      let grey = '#424242';
+      let html = `
+      <svg width="54" height="60" viewBox="0 0 54 60" xmlns="http://www.w3.org/2000/svg">
+        <g id="marker" fill="${yellow}">
+          <circle cx="27" cy="27" r="27"/>
+          <polygon points="18,52 36,52 27,60"/>
+        </g>
+        <clipPath id="pictureCircle">
+          <circle cx="27" cy="27" r="25" fill="#FFFFFF"/>
+        </clipPath>
+        <image clip-path="url(#pictureCircle)" href="${pic}" x="2" y="2" width="50" height="50" r="5"/>
+      </svg>
+      `;
+      return html;
     },
     removeUser(user) {
       this.map.removeLayer(
@@ -265,5 +295,9 @@ body {
   position: absolute;
   z-index: 1;
   cursor: crosshair;
+}
+.mySuperCustomMarker {
+  background: transparent !important;
+  border: none !important;
 }
 </style>

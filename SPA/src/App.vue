@@ -26,4 +26,7 @@ export default {
 </script>
 
 <style>
+.mySuperUniquePopup .leaflet-popup-tip-container {
+    display: none !important;
+}
 </style>

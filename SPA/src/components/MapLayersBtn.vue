@@ -34,7 +34,7 @@ export default {
   name: "MapLayersBtn",
   data() {
     return {
-      currentMapLayer: "0"
+      currentMapLayer: "4"
     };
   },
   watch: {
