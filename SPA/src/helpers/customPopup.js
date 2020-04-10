@@ -40,9 +40,9 @@ export const customPopup = (fName, lName, data) => {
             <br>
             <ul style="list-style: none; padding-left: 0;">
                 <li><b>Last Update: </b>${moment.unix(unixTime).fromNow()}</li>
-                <li><b>ASL: </b>${metersASL}m (${feetASL}ft)</li>
-                <li><b>AGL: </b>${metersAGL}m (${feetAGL}ft)</li>
-                <li><b>Elevation: </b>${metersElevation}m (${feetElevation}ft)</li>
+                <li><b>ASL: </b>${metersASL}m &ensp;(${feetASL}ft)</li>
+                <li><b>AGL: </b>${metersAGL}m &ensp;(${feetAGL}ft)</li>
+                <li><b>Elevation: </b>${metersElevation}m &ensp;(${feetElevation}ft)</li>
                 ${velocity}
                 ${heading}
                 <li><b>Lat: </b>${lat}</li>

@@ -38,4 +38,8 @@ export default {
     color: #ff0000 !important;
     background: transparent;
 }
+
+::-webkit-scrollbar {
+display: none;
+}
 </style>
