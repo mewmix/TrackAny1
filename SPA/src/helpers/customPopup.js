@@ -1,38 +1,57 @@
-// Will need to import moment.js to adjust the timestamp
-
-// Should really remove fields that we dont have data for !!!!!!!!!
-// We could concat data fields we have !!!!!!
-
 export const customPopup = (fName, lName, data) => {
-    let { alt, elevation, heading, velocity, lat, lng } = data;
-    let agl = parseInt(alt) - parseInt(elevation);  // Subtract users altitude from ground elevation 
+    let { alt, elevation, heading, velocity, lat, lng, unixTime, txtMsg, isEmergency } = data;
 
-    // Set AGL to 0 if it turns out to be a negative number. You shouldn't be underground.
-    if (agl < 0) {
-        agl = 0;
+    alt = parseFloat(alt);
+    elevation = parseFloat(elevation);
+    let agl = alt - elevation;  // Subtract users altitude from ground elevation
+
+    let conversionFactor = 3.2808;
+    let feetASL = Math.round(alt * conversionFactor);
+    let feetAGL = Math.round(agl * conversionFactor);
+    let feetElevation = Math.round(elevation * conversionFactor);
+    let metersASL = Math.round(alt);
+    let metersAGL = Math.round(agl);
+    let metersElevation = Math.round(elevation);
+
+    // Remove insignificant trailing zeros from lat, lng
+    lat = parseFloat(lat).toString();
+    lng = parseFloat(lng).toString();
+
+    if (txtMsg !== '') {
+        txtMsg = `
+        <br>
+        <b>Text Msg: </b>${txtMsg}
+        <br>`;
+    }
+    if (velocity !== '') {
+        velocity = `<li><b>Speed: </b>${velocity}</li>`;
+    }
+    if (heading !== '') {
+        heading = `<li><b>Heading: </b>${heading}</li>`;
     }
 
     let html = `
             <b style="font-size: 20px;">${fName} ${lName}</b>
             <br>
+            ${moment.unix(unixTime).format('MMM Do YYYY, h:mm a')}
             <br>
-            <b>Last Update: </b>10 min ago
-            <br>  
-            <b>Altitude: </b>${parseInt(alt)}m
-            <br>  
-            <b>AGL: </b>${agl}m
+            <hr>
+            ${txtMsg}
             <br>
-            <b>Speed: </b>${velocity}
+            <ul style="list-style: none; padding-left: 0;">
+                <li><b>Last Update: </b>${moment.unix(unixTime).fromNow()}</li>
+                <li><b>ASL: </b>${metersASL}m (${feetASL}ft)</li>
+                <li><b>AGL: </b>${metersAGL}m (${feetAGL}ft)</li>
+                <li><b>Elevation: </b>${metersElevation}m (${feetElevation}ft)</li>
+                ${velocity}
+                ${heading}
+                <li><b>Lat: </b>${lat}</li>
+                <li><b>Lng: </b>${lng}</li>
+            </ul>
             <br>
-            <b>Heading: </b>${heading}
+            <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" style="font-size: 16px;">Google Maps</a>
             <br>
-            <b>Lat: </b>${lat}
-            <br>
-            <b>Lng: </b>${lng}
-            <br>
-            <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}">Google Maps</a>
-            <br>
-            <button onclick="copyText('${lat}, ${lng}')">Copy Coordinates To Clipboard</button>
+            <a target="_blank" href="https://www.windy.com/${lat}/${lng}?${lat},${lng},12" style="font-size: 16px;">Windy Weather</a>
         `;
 
     return html;
