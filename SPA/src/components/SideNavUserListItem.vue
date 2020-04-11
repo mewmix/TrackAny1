@@ -7,7 +7,7 @@
 
     <v-list-item-content>
       <v-list-item-title>{{user.fName}} {{user.lName}}</v-list-item-title>
-      <v-list-item-subtitle>{{user.alt}}</v-list-item-subtitle>
+      <v-list-item-subtitle>{{timeAgo}}</v-list-item-subtitle>
     </v-list-item-content>
 
     <v-list-item-action class="ml-0">
@@ -64,6 +64,11 @@ export default {
         this.active = true;
       }
     });
+  },
+  computed: {
+    timeAgo: function () {
+      return moment.unix(this.user.userTrackingData[0].unixTime).fromNow();
+    }
   },
   methods: {
     changeUserStatus() {
