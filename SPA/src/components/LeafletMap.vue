@@ -106,7 +106,7 @@ export default {
             user.fName,
             user.lName,
             latest.isEmergency,
-            user.pic
+            user.picture
           )
         })
       }).bindPopup(customPopup(user.fName, user.lName, latest), {className: "mySuperUniquePopup"});

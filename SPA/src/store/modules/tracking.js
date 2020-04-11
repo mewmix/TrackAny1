@@ -1,14 +1,18 @@
 import Users from '../../api/Users'
+import TrackingData from '../../api/TrackingData'
 // import router from '../../router';
 
 const state = {
     userData: [],
-    users: []
+    users: [],
+    groupTrackingData: []
 };
 
 const getters = {
     myProfile: state => state.userData,
-    allUsers: state => state.users
+    allUsers: state => state.users,
+    // groupTrackingData: state => state.groupTrackingData,
+    groupTrackingData: state => state.groupTrackingData.filter(user => user.userTrackingData.length > 0).sort((a, b) => (a.userTrackingData[0].unixTime < b.userTrackingData[0].unixTime) ? 1 : -1)
 };
 
 const actions = {
@@ -22,7 +26,10 @@ const actions = {
     async fetchAllUsers ({ commit }) {
         const response = await Users.all();
         commit('setAllUsers', response.data);
-
+    },
+    async fetchGroupTrackingData ({ commit }, [id, timeSpan]) {
+        const response = await TrackingData.getGroupTrackingData(id, timeSpan);
+        commit('setGroupTrackingData', response.data);
     }
 };
 
@@ -32,6 +39,9 @@ const mutations = {
     },
     setAllUsers: (state, userData) => {
         state.users = userData;
+    },
+    setGroupTrackingData: (state, trackingData) => {
+        state.groupTrackingData = trackingData;
     }
 };
 

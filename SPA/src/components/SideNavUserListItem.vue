@@ -1,7 +1,8 @@
 <template>
   <v-list-item two-line class="pr-2" @click="changeUserStatus" :input-value="active">
-    <v-list-item-avatar>
-      <img :src="user.pic" />
+    <v-list-item-avatar color="#222222">
+      <img v-if="user.picture !== null" :src="user.picture" />
+      <span v-else class="white--text" style="font-family: Roboto Mono; font-size: 23px;">{{user.fName[0]}}{{user.lName[0]}}</span>
     </v-list-item-avatar>
 
     <v-list-item-content>
