@@ -73,10 +73,12 @@ export default {
   methods: {
     changeUserStatus() {
       if (!this.active) {
-        EventBus.$emit("addUserToMap", this.user);
+        EventBus.$emit("addUserToMap", this.user); // Adds user to map
+        EventBus.$emit("addToListOfUsersOnMap", this.user.id); // We have a list of user id's on the rightNav component that keep track of who is on the map for when it updates.
         this.active = !this.active;
       } else {
         EventBus.$emit("removeUserFromMap", this.user);
+        EventBus.$emit("removeFromListOfUsersOnMap", this.user.id); // We have a list of user id's on the rightNav component that keep track of who is on the map for when it updates.
         this.active = !this.active;
       }
     },

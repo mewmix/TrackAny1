@@ -48,7 +48,10 @@
       </v-col>
     </v-row>
 
+    <v-progress-linear v-if="loadingData" indeterminate color="yellow darken-2"></v-progress-linear>
+
     <SideNavUserList :trackingData="groupTrackingData"></SideNavUserList>
+    
   </div>
 </template>
 
@@ -66,27 +69,70 @@ export default {
   },
   watch: {
     selected: function() {
-      console.log(this.selected.val);
+      console.log(`A new timespan has been chosen: ${this.selected.val}`);
+      // Call a vuex action with the timespan to grab tracking data. Vuex will change the groupTrackingData getter.
+      // We have a watcher on groupTrackingData that will automagically update the userList and map.
+      this.getTrackingData(this.$route.params.id, this.selected.val);
+    },
+    groupTrackingData: function() {
+      console.log("New tracking data is available!");
+
+      this.loadingData = false;
+
+      EventBus.$emit("clearMap");
+
+      // When we get new data. We need to try and add the users who were previously on the map. We have a list of ids for those who were on the map.
+      // Loop through the list of ids and add those poeople to the map.
+      // If the id is not available in the new tracking data, we need to remove it from the list of users on the map !!!
+      // DONT FORGET TO REMOVE ANY USER IDS THAT DONT MATCH THE INCOMING DATA !!!
+
+      // If groupTrackingData is null we need to remove all users from map
+
+      if (this.usersOnMap.length !== 0 && this.groupTrackingData !== null) {
+        // If there were previously people on the map, and we have new data
+        // For each id loop through the trackingData. Find an object with ID that matches and add to map. If none match, remove id from list.
+        let matches = [];
+        let usersToAddToMap = [];
+
+        this.usersOnMap.forEach(uid => {
+          for (let i = 0; i < this.groupTrackingData.length; i++) {
+            if (this.groupTrackingData[i].id === uid) {
+              // console.log(`We have a match. User: ${uid}`);
+              usersToAddToMap.push(this.groupTrackingData[i]);
+              matches.push(uid);
+              break;
+            }
+          }
+        });
+        // console.log(`Matches: ${matches}`);
+        this.usersOnMap = matches;
+        EventBus.$emit("showAll", usersToAddToMap);
+      }
     }
   },
   computed: {
-    ...mapGetters(['groupTrackingData'])
+    ...mapGetters(["groupTrackingData"])
   },
   created() {
-    this.getTrackingData(this.$route.params.id, 'all')
+    this.getTrackingData(this.$route.params.id, "all");
 
-    EventBus.$on("addUserToMap", user => {
-      this.usersOnMap.push(user.id);
+    EventBus.$on("addToListOfUsersOnMap", id => {
+      // When a userListItem is clicked, that users object is sent to the map to be displayed. But this component has no way of knowing who is on the map. So we use an event bus to pass user id's anytime a user is added or removed from the map
+      this.usersOnMap.push(id);
     });
-    EventBus.$on("removeUserFromMap", user => {
-      this.usersOnMap = this.usersOnMap.filter(uid => uid !== user.id);
+    EventBus.$on("removeFromListOfUsersOnMap", id => {
+      // When a userListItem is clicked, that users object is sent to the map to be displayed. But this component has no way of knowing who is on the map. So we use an event bus to pass user id's anytime a user is added or removed from the map
+      this.usersOnMap = this.usersOnMap.filter(uid => uid !== id);
     });
   },
   methods: {
     getTrackingData(id, timeSpan) {
-      this.$store.dispatch('fetchGroupTrackingData', [id, timeSpan]);
+      this.$store.dispatch("fetchGroupTrackingData", [id, timeSpan]);
+      this.loadingData = true;
     },
     countDownTimer() {
+      if (!this.reloadTimeout) this.reloadTimeout = true; // This will disable the reload button and display the loader
+
       if (this.countDown > 0) {
         setTimeout(() => {
           this.countDown -= 1;
@@ -117,32 +163,28 @@ export default {
       });
     },
     reloadMapData() {
-      this.reloadTimeout = true;
-      this.countDownTimer(); // Disable the reload btn for 10 sec
       console.log("Reload Map Data");
-      //
-      // Need to make a copy of all the people who are on the map
-      // Need to clear all map layers except geolocation layer
-      // Need to make a request for tracking data with the current selected timespan
-      // Need to update groupTrackingData in this component
-      //
+      this.countDownTimer(); // Disable the reload btn for 10 sec
+      
+      this.getTrackingData(this.$route.params.id, this.selected.val);
     }
   },
   data: () => {
     return {
+      loadingData: true,
       usersOnMap: [], // This is to keep track of who is currentley on the map incase we hit reload or change the time filer
       countDown: 10,
       reloadTimeout: false,
-      selected: { name: "1 Week", val: "1week" },
+      selected: { name: "All Data", val: "all" },
       timeFilters: [
-        { name: "Most Recent", val: "mostrecent" },
+        // { name: "Most Recent", val: "mostrecent" },
         { name: "1 Hour", val: "1hr" },
         { name: "1 Day", val: "24hr" },
         { name: "2 Days", val: "48hr" },
         { name: "1 Week", val: "1week" },
         { name: "All Data", val: "all" }
       ],
-      userItems: [{ title: "Show" }, { title: "Center" }, { title: "Profile" }],
+      userItems: [{ title: "Show" }, { title: "Center" }, { title: "Profile" }]
     };
   }
 };
