@@ -1,7 +1,10 @@
 <template>
   <div>
-    <v-btn dark icon v-if="!gpsLoading" @click="triggerGPS" :disabled="!isCompatable">
+    <v-btn dark icon v-if="!gpsLoading && !err" @click="triggerGPS" :disabled="!isCompatable">
       <v-icon large :color="color">gps_fixed</v-icon>
+    </v-btn>
+    <v-btn icon v-if="err">
+      <v-icon large color="#D50000">warning</v-icon>
     </v-btn>
     <v-btn v-if="gpsLoading" icon disabled>
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -16,8 +19,9 @@ export default {
   name: "GeolocationBtn",
   data: () => {
     return {
-      gps: false,
-      gpsLoading: false
+      gps: false, // False will make the GPS icon white. True will be blue
+      gpsLoading: false,
+      err: false
     };
   },
   computed: {
@@ -37,7 +41,7 @@ export default {
     triggerGPS() {
       if (!this.gps) {
         this.gpsLoading = true;
-        navigator.geolocation.getCurrentPosition(this.showPosition);
+        navigator.geolocation.getCurrentPosition(this.showPosition, this.showError);
         // Set the GPS icon to true where it will be blue
         this.gps = true;
       } else {
@@ -53,7 +57,11 @@ export default {
       let { latitude, longitude, accuracy } = position.coords;
       // Then pass the geolocation data to the map via EventBus
       EventBus.$emit("showGeolocation", latitude, longitude, accuracy);
-    }
+    },
+    showError() {
+      this.gpsLoading = false;
+      this.err = true;
+    },
   }
 };
 </script>
