@@ -21,15 +21,14 @@ exports.handler = async (event) => {
 
         const elevations = await getElevationData(pingsArray);
         const finalPingsArray = await addElevationToPingsArray(pingsArray, elevations);
-        const insertStatement = await createInsertStatement(finalPingsArray);
-        const rowsAffected = await saveTrackingData(db, insertStatement);
+        const insertArray = await createInsertArray(finalPingsArray);
+        const rowsAffected = await saveTrackingData(db, insertArray);
 
         console.log('Finished. Rows Affected:', rowsAffected);
     } catch (e) {
         console.log('Retreive Tracking Data Lambda Function threw an error:', e);
     }
 }
-
 
 async function getAllTrackers(db) {
     try {
@@ -202,15 +201,14 @@ async function parseSpotResponse(deviceID, userID, res, time) {
     return pingsArray;
 }
 
-async function createInsertStatement(pingsArray) {
-    let insertStatement = 'INSERT IGNORE INTO pings(unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ';
+async function createInsertArray(pingsArray) {
+    let insertArray = []
 
     for (let p of pingsArray) {
-        insertStatement = insertStatement.concat(`(${p.unix}, ${p.lat}, ${p.lng}, ${p.alt}, ${p.elevation}, "${p.velocity}", "${p.heading}", "${p.message}", "${p.emergency}", ${p.deviceID}, ${p.userID}),`);
+        insertArray.push([p.unix, p.lat, p.lng, p.alt, p.elevation, p.velocity, p.heading, p.message, p.emergency, p.deviceID, p.userID]);
     }
 
-    insertStatement = insertStatement.slice(0, -1).concat(";");
-    return insertStatement;
+    return insertArray;
 }
 
 async function getElevationData(pingsArray) {
@@ -260,9 +258,9 @@ async function addElevationToPingsArray(pingsArray, elevations) {
     return pingsArray;
 }
 
-async function saveTrackingData(db, sqlStatement) {
+async function saveTrackingData(db, insertArray) {
     try {
-        const [result] = await db.execute(sqlStatement)
+        const [result] = await db.query('INSERT IGNORE INTO pings(unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ?', [insertArray]);
         return result.affectedRows
     } catch (e) {
         throw e
