@@ -111,17 +111,33 @@ async function parseGarminResponse(deviceID, userID, res, time) {
         let message = d[i].ExtendedData[0].Data[15].value[0];
         let emergency = d[i].ExtendedData[0].Data[14].value[0];
 
+        // Remove units from Altitude ex) 120.39 m from MSL
+        alt = alt.split(' m from MSL')[0];
+
+        // Remove units from velocity ex) 1.0 km/h
+        velocity = velocity.split(' km/h')[0];
+
+        // Remove units from heading ex) 292.50 ° True
+        heading = heading.split(' ° True')[0];
+
+        // Make emergency a boolean number
+        if (emergency === 'False') {
+            emergency = 0;
+        } else if(emergency === 'True') {
+            emergency = 1;
+        }
+
         const ping = {
-            unix: unix,
-            lat: lat,
-            lng: lng,
-            alt: alt,
-            velocity: velocity,
-            heading: heading,
-            message: message,
-            emergency: emergency,
-            deviceID: deviceID,
-            userID: userID
+            unix,
+            lat,
+            lng,
+            alt,
+            velocity,
+            heading,
+            message,
+            emergency,
+            deviceID,
+            userID
         }
         if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
             pingsArray.push(ping);
@@ -154,11 +170,17 @@ async function parseSpotResponse(deviceID, userID, res, time) {
 
     for (let i = 0; i < dataPoints.length; i++) {
 
-        let { unixTime, latitude, longitude, altitude, messageContent } = dataPoints[i];
+        let { unixTime, latitude, longitude, altitude, messageContent, messageType } = dataPoints[i];
 
         if (messageContent === undefined) {
             messageContent = '';
         }
+
+        let emergency = 0;
+
+        if (messageType === 'HELP') {
+            emergency = 1;
+        } 
 
         ping = {
             unix: unixTime,
@@ -168,9 +190,9 @@ async function parseSpotResponse(deviceID, userID, res, time) {
             velocity: '',
             heading: '',
             message: messageContent,
-            emergency: '',
-            deviceID: deviceID,
-            userID: userID
+            emergency,
+            deviceID,
+            userID
         }
 
         if (ping.unix >= (Math.floor(time / 1000) - (60 * process.env.TIME_SPAN_IN_MINUTES))) {    // If ping was created within the last 20 min
