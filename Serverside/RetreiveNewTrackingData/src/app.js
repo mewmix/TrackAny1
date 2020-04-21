@@ -110,8 +110,9 @@ async function parseGarminResponse(deviceID, userID, res, time) {
         let message = d[i].ExtendedData[0].Data[15].value[0];
         let emergency = d[i].ExtendedData[0].Data[14].value[0];
 
-        // Remove units from Altitude ex) 120.39 m from MSL
-        alt = alt.split(' m from MSL')[0];
+        // Remove units from Altitude ex) 120.39 m from MSL and round to 2 decimal places
+        alt = parseFloat(alt.split(' m from MSL')[0]).toFixed(2);
+        
 
         // Remove units from velocity ex) 1.0 km/h
         velocity = velocity.split(' km/h')[0];
@@ -171,6 +172,9 @@ async function parseSpotResponse(deviceID, userID, res, time) {
 
         let { unixTime, latitude, longitude, altitude, messageContent, messageType } = dataPoints[i];
 
+        // Round number to 2 decimal places for simplicity
+        altitude = parseFloat(altitude).toFixed(2);
+
         if (messageContent === undefined) {
             messageContent = '';
         }
@@ -186,8 +190,8 @@ async function parseSpotResponse(deviceID, userID, res, time) {
             lat: latitude,
             lng: longitude,
             alt: altitude,
-            velocity: '',
-            heading: '',
+            velocity: null,
+            heading: null,
             message: messageContent,
             emergency,
             deviceID,
@@ -260,6 +264,7 @@ async function addElevationToPingsArray(pingsArray, elevations) {
 
 async function saveTrackingData(db, insertArray) {
     try {
+        console.log(insertArray)
         const [result] = await db.query('INSERT IGNORE INTO pings(unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ?', [insertArray]);
         return result.affectedRows
     } catch (e) {
