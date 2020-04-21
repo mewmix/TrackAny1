@@ -264,7 +264,6 @@ async function addElevationToPingsArray(pingsArray, elevations) {
 
 async function saveTrackingData(db, insertArray) {
     try {
-        console.log(insertArray)
         const [result] = await db.query('INSERT IGNORE INTO pings(unixTime, lat, lng, alt, elevation, velocity, heading, txtMsg, isEmergency, tracker_id, user_id) VALUES ?', [insertArray]);
         return result.affectedRows
     } catch (e) {
