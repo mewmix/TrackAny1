@@ -2,28 +2,32 @@
 // It takes the users name, status, & profile picture
 // It will render 1 of 2 markers depending upon whether the profile picture URL exists
 // We can change the marker background to grey, blue, yellow, or red depending upon the status
-export const customMarker = (fName, lName, status, pic) => {
+export const customMarker = (fName, lName, isEmergency, pic) => {
     let html;
-    let markerColor = '';
+    let markerColor = '#2196F3';
     let initials = `${fName[0]}${lName[0]}`;
     let textBackground = '#222222';
     let textColor = 'white';
 
-    switch (status) {
-        case 'inactive':
-            markerColor = '#424242' // Grey
-            break;
-        case 'active':
-            markerColor = '#2196F3' // Blue
-            break;
-        case 'help':
-            markerColor = '#FFFF00' // Yellow
-            break;
-        case 'sos':
-            markerColor = '#D32F2F' // Red
-            break;
-        default:
-            markerColor = '#2196F3' // Blue
+    // switch (status) {
+    //     case 'inactive':
+    //         markerColor = '#424242' // Grey
+    //         break;
+    //     case 'active':
+    //         markerColor = '#2196F3' // Blue
+    //         break;
+    //     case 'help':
+    //         markerColor = '#FFFF00' // Yellow
+    //         break;
+    //     case 'sos':
+    //         markerColor = '#D32F2F' // Red
+    //         break;
+    //     default:
+    //         markerColor = '#2196F3' // Blue
+    // }
+
+    if (isEmergency) {
+        markerColor = '#D32F2F';
     }
 
     if (!pic || pic === '' || pic === null || pic == undefined) { // If there is no profile pic, render user initials

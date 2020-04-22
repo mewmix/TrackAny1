@@ -97,7 +97,7 @@ export default {
         { title: "Favorite People", icon: "gps_fixed", route: "/followingmap" }
       ],
       personalRoutes: [
-        { title: "Profile", icon: "mdi-account", route: "/members/14" },
+        { title: "Profile", icon: "mdi-account", route: "/members/13" },
         { title: "Tracking Devices", icon: "devices", route: "/mydevices" }
       ]
     };

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item two-line class="pr-2" @click="changeUserStatus" :input-value="active">
+  <v-list-item two-line class="pr-2" @click="changeUserStatus" :input-value="active" v-bind:class="{ leftBorderEmergency: emergency }">
     <v-list-item-avatar color="#222222">
       <img v-if="user.picture !== null" :src="user.picture" />
       <span v-else class="white--text" style="font-family: Roboto Mono; font-size: 23px;">{{user.fName[0]}}{{user.lName[0]}}</span>
@@ -68,6 +68,17 @@ export default {
   computed: {
     timeAgo: function () {
       return moment.unix(this.user.userTrackingData[0].unixTime).fromNow();
+    },
+    emergency: function () {
+      // Need to loop through the user tracking data for the given time period and return true or false if isEmergency is 1
+      let emergency = false;
+
+      for(let i = 0; i < this.user.userTrackingData.length; i++ ) {
+        if (this.user.userTrackingData[i].isEmergency) {
+          emergency = true;
+        }
+      }
+      return emergency;
     }
   },
   methods: {
@@ -91,3 +102,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.leftBorderEmergency {
+  border-left: 3px solid #D32F2F;
+}
+</style>

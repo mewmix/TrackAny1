@@ -14,8 +14,8 @@ export const customPopup = (fName, lName, data) => {
     let metersElevation = Math.round(elevation);
 
     // Remove insignificant trailing zeros from lat, lng
-    lat = parseFloat(lat).toString();
-    lng = parseFloat(lng).toString();
+    // lat = parseFloat(lat).toString();
+    // lng = parseFloat(lng).toString();
 
     if (txtMsg !== '') {
         txtMsg = `
@@ -23,11 +23,25 @@ export const customPopup = (fName, lName, data) => {
         <b>Text Msg: </b>${txtMsg}
         <br>`;
     }
-    if (velocity !== '') {
-        velocity = `<li><b>Speed: </b>${velocity}</li>`;
+    if (velocity !== null) {
+        let mph = Math.round(parseFloat(velocity) / 1.609);
+        velocity = `<li><b>Speed: </b>${Math.round(velocity)}km/h &ensp;(${mph}mph)</li>`;
+    } else {
+        velocity = '';
     }
-    if (heading !== '') {
-        heading = `<li><b>Heading: </b>${heading}</li>`;
+    if (heading !== null) {
+        heading = `<li><b>Heading: </b>${heading} ° True</li>`;
+    } else {
+        heading = '';
+    }
+
+    let emergencyContent = '';
+    
+    if (isEmergency) {
+        emergencyContent = `
+        <br>
+        <b style="font-size: 20px; color:red;">SOS: </b><span style="color:red; font-size: 20px;">Activated</span>
+        <br>`;
     }
 
     let html = `
@@ -36,6 +50,7 @@ export const customPopup = (fName, lName, data) => {
             ${moment.unix(unixTime).format('MMM Do YYYY, h:mm a')}
             <br>
             <hr>
+            ${emergencyContent}
             ${txtMsg}
             <br>
             <ul style="list-style: none; padding-left: 0;">
