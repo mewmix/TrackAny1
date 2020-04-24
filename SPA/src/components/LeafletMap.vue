@@ -3,9 +3,10 @@
 </template>
 
 <script>
-import { EventBus } from '../main';
-import { customMarker } from '../helpers/customMarker';
-import { customPopup } from '../helpers/customPopup';
+import { EventBus } from "../main";
+import { customMarker } from "../helpers/customMarker";
+import { customPopup } from "../helpers/customPopup";
+import { customCircleMarker } from "../helpers/customCircleMarker";
 
 export default {
   name: "LeafletMap",
@@ -96,6 +97,67 @@ export default {
     addUser(user) {
       let latest = user.userTrackingData[0];
 
+      let layerGroupArray = []; // This array is used to hold all of a users map objects before being added to the map. Each object is pushed into the array after being created.
+
+      // -- 1) Create Map Poly lines --------------------
+
+      let latLng = [];
+      for (let i = user.userTrackingData.length - 1; i >= 0; i--) {
+        let { lat, lng } = user.userTrackingData[i];
+
+        // Need to add a third Z-value for color gradient
+        let factor = 200 / user.userTrackingData.length;
+        let brightness = Math.round(350 - i * factor);
+
+        latLng.push([lat, lng, brightness]);
+      }
+
+      let hotlineLayer = L.hotline(latLng, {
+        min: 150,
+        max: 350,
+        palette: {
+          0.0: "black",
+          // 0.5: "#ffffff",
+          1.0: "red"
+        },
+        weight: 5,
+        // outlineColor: "#000000",
+        outlineWidth: 0
+      });
+
+      layerGroupArray.push(hotlineLayer);
+
+      // let myPolyline = L.polyline(latLng, { color: "red" });
+      // layerGroupArray.push(myPolyline);
+
+      // -/ 1) Create Map Poly lines --------------------
+
+      // -- 2) Create Coordinate Circle Markers w Popups --------------------
+
+      for (let i = 1; i < user.userTrackingData.length; i++) {
+        // REMEMBER NOT TO ADD THE FIRST POINT !!!!
+        // Create new circleMarker and push to layerGroupArray
+        let { lat, lng } = user.userTrackingData[i];
+
+        let circleMarker = L.marker([lat, lng], {
+          icon: new L.divIcon({
+            className: "mySuperCustomMarker",
+            iconSize: [36, 36],
+            iconAnchor: [18, 18],
+            html: customCircleMarker("#212121", "#626262")
+          })
+        }).bindPopup(
+          customPopup(user.fName, user.lName, user.userTrackingData[i]),
+          { className: "mySuperUniquePopup" }
+        );
+        layerGroupArray.push(circleMarker);
+      }
+
+      // -/ 2) Create Coordinate Circle Markers w Popups --------------------
+
+      // -- 3) Create User Marker w Popup --------------------
+
+      // Create most recent Marker & Popup
       let myMarkerAndPopup = L.marker([latest.lat, latest.lng], {
         icon: new L.divIcon({
           className: "mySuperCustomMarker",
@@ -109,20 +171,15 @@ export default {
             user.picture
           )
         })
-      }).bindPopup(customPopup(user.fName, user.lName, latest), {className: "mySuperUniquePopup"});
+      }).bindPopup(customPopup(user.fName, user.lName, latest), {
+        className: "mySuperUniquePopup"
+      });
 
-      let latLng = [];
+      layerGroupArray.push(myMarkerAndPopup);
 
-      for (let i = 0; i < user.userTrackingData.length; i++) {
-        latLng.push([
-          user.userTrackingData[i].lat,
-          user.userTrackingData[i].lng
-        ]);
-      }
+      // -/ 3) Create User Marker w Popup --------------------
 
-      let myPolyline = L.polyline(latLng, { color: "red" });
-
-      let myLayerGroup = L.layerGroup([myMarkerAndPopup, myPolyline]);
+      let myLayerGroup = L.layerGroup(layerGroupArray);
 
       let temporaryUserLayer = {
         userID: user.id,
