@@ -20,7 +20,7 @@ export const customPopup = (fName, lName, data) => {
     if (txtMsg !== '') {
         txtMsg = `
         <br>
-        <b>Text Msg: </b>${txtMsg}
+        <b>Msg: </b>${txtMsg}
         <br>`;
     }
     if (velocity !== null) {
@@ -45,7 +45,7 @@ export const customPopup = (fName, lName, data) => {
     }
 
     let html = `
-            <b style="font-size: 20px;">${fName} ${lName}</b>
+            <b style="font-size: 20px; padding-right:30px;">${fName} ${lName}</b>
             <br>
             ${moment.unix(unixTime).format('MMM Do YYYY, h:mm a')}
             <br>

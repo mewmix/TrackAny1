@@ -137,14 +137,14 @@ export default {
       for (let i = 1; i < user.userTrackingData.length; i++) {
         // REMEMBER NOT TO ADD THE FIRST POINT !!!!
         // Create new circleMarker and push to layerGroupArray
-        let { lat, lng } = user.userTrackingData[i];
+        let { lat, lng, txtMsg, isEmergency } = user.userTrackingData[i];
 
         let circleMarker = L.marker([lat, lng], {
           icon: new L.divIcon({
             className: "mySuperCustomMarker",
             iconSize: [36, 36],
             iconAnchor: [18, 18],
-            html: customCircleMarker("#212121", "#626262")
+            html: customCircleMarker("#212121", "#626262", txtMsg, isEmergency)
           })
         }).bindPopup(
           customPopup(user.fName, user.lName, user.userTrackingData[i]),
