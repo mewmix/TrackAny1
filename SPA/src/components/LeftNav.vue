@@ -93,7 +93,7 @@ export default {
       generalRoutes: [
         { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },
-        { title: "My Tracking Log", icon: "near_me", route: "/membermap/14" },
+        { title: "My Track", icon: "near_me", route: "/membermap/14" },
         { title: "Favorite People", icon: "gps_fixed", route: "/followingmap" }
       ],
       personalRoutes: [
