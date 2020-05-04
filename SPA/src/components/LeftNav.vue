@@ -94,7 +94,7 @@ export default {
         { title: "New Group", icon: "group_add", route: "/creategroup" },
         { title: "Explore", icon: "explore", route: "/explore" },
         { title: "My Track", icon: "near_me", route: "/membermap/14" },
-        { title: "Favorite People", icon: "gps_fixed", route: "/followingmap" }
+        { title: "Favorites Map", icon: "favorite_border", route: "/followingmap" }
       ],
       personalRoutes: [
         { title: "Profile", icon: "mdi-account", route: "/members/13" },

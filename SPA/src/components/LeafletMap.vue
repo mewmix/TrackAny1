@@ -106,26 +106,30 @@ export default {
         let { lat, lng } = user.userTrackingData[i];
 
         // Need to add a third Z-value for color gradient
-        let factor = 200 / user.userTrackingData.length;
-        let brightness = Math.round(350 - i * factor);
+        // let factor = 200 / user.userTrackingData.length;
+        // let brightness = Math.round(350 - i * factor);
+        // latLng.push([lat, lng, brightness]);
 
-        latLng.push([lat, lng, brightness]);
+        latLng.push([lat, lng]);
       }
 
-      let hotlineLayer = L.hotline(latLng, {
-        min: 150,
-        max: 350,
-        palette: {
-          0.0: "black",
-          // 0.5: "#ffffff",
-          1.0: "red"
-        },
-        weight: 5,
-        // outlineColor: "#000000",
-        outlineWidth: 0
-      });
+      let myPolyline = L.polyline(latLng, { color: "red" });
+      layerGroupArray.push(myPolyline);
 
-      layerGroupArray.push(hotlineLayer);
+      // let hotlineLayer = L.hotline(latLng, {
+      //   min: 150,
+      //   max: 350,
+      //   palette: {
+      //     0.0: "black",
+      //     // 0.5: "#ffffff",
+      //     1.0: "red"
+      //   },
+      //   weight: 5,
+      //   // outlineColor: "#000000",
+      //   outlineWidth: 0
+      // });
+
+      // layerGroupArray.push(hotlineLayer);
 
       // let myPolyline = L.polyline(latLng, { color: "red" });
       // layerGroupArray.push(myPolyline);
