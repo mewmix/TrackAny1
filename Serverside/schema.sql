@@ -20,6 +20,7 @@ CREATE TABLE trackers(
     id INT AUTO_INCREMENT PRIMARY KEY,
     trkName VARCHAR (255),
     trkType VARCHAR (255) NOT NULL,
+    trkModel VARCHAR (255),
     trkLink VARCHAR (255) NOT NULL UNIQUE,
     lastLocationPing INT UNSIGNED DEFAULT 0,
     lastApiCall INT UNSIGNED DEFAULT 0,
