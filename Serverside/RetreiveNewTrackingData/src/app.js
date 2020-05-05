@@ -43,12 +43,12 @@ function formatFinalUrl(trkType, trkLink, currentUnixTime) {
     // const miliSecInDay = 86400 * 1000;
     // const daysAgo = miliSecInDay * 14; // Use when getting 2 weeks worth
     const minAgo = (1000 * 60) * process.env.TIME_SPAN_IN_MINUTES;   // Use when getting 20 min worth
-    if (trkType === 'inreach') {
+    if (trkType === 'Garmin' || trkType === 'Delorme') {
         const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
         const garminFormatedDate = dateFormat(timeAgo, 'garmin');
         return `https://us0.inreach.garmin.com/Feed/Share/${trkLink}?d1=${garminFormatedDate}`;
-    } else {
+    } else if (trkType === 'Spot') {
         const timeAgo = new Date(currentUnixTime - (minAgo)); // daysAgo
         dateFormat.masks.spot = 'yyyy-mm-dd"T"HH:MM:ss"-0000"';
         const spotFormatedDate = dateFormat(timeAgo, 'spot');
