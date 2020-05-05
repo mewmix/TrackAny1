@@ -70,10 +70,10 @@ async function createPingsArray(trackers, responses, time) {
     pingsArray = [];
 
     for (let i = 0; i < trackers.length; i++) {
-        if (trackers[i].trkType === 'inreach') {
+        if (trackers[i].trkType === 'Garmin' || trackers[i].trkType === 'Delorme') {
             let pings = await parseGarminResponse(trackers[i].id, trackers[i].owner_id, responses[i], time);
             if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
-        } else {
+        } else if(trackers[i].trkType === 'Spot') {
             let pings = await parseSpotResponse(trackers[i].id, trackers[i].owner_id, responses[i], time);
             if (pings.length !== 0) { pingsArray = pingsArray.concat(pings); }
         }

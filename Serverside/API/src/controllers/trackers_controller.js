@@ -8,9 +8,9 @@ module.exports = {
     async createTracker(req, res) {
         try {
             const userID = req.userData.id;
-            const { trkType, trkLink, trkName } = req.body;
+            const { trkType, trkLink, trkName, trkModel } = req.body;
 
-            const newTrackerID = await CreateTracker.createTracker(userID, trkType, trkLink, trkName);
+            const newTrackerID = await CreateTracker.createTracker(userID, trkType, trkLink, trkName, trkModel);
             return res.status(201).json({ id: newTrackerID, message: `Tracker created with id: ${newTrackerID}` });            
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to create new tracker' });
