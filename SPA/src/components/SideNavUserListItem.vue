@@ -30,6 +30,9 @@
           <v-list-item :to="{ name: 'MemberProfile', params: { id: this.user.id }}">
             <v-list-item-title>Profile</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="showMessages">
+            <v-list-item-title>Messages</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-list-item-action>
@@ -98,6 +101,9 @@ export default {
         lat: this.user.userTrackingData[0].lat,
         lng: this.user.userTrackingData[0].lng
       });
+    },
+    showMessages() {
+      console.log(`Show Messages for user: ${this.user.id}`)
     }
   }
 };

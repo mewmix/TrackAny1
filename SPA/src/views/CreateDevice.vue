@@ -26,7 +26,7 @@
 
               <v-btn color="primary" @click.prevent="e1 = 2" :disabled="!firstComplete">Continue</v-btn>
 
-              <v-btn text to="/explore">Cancel</v-btn>
+              <v-btn text to="/mydevices">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="2">
@@ -58,11 +58,11 @@
 
               <v-btn color="primary" @click.prevent="e1 = 3" :disabled="!secondComplete">Continue</v-btn>
 
-              <v-btn text to="/explore">Cancel</v-btn>
+              <v-btn text to="/mydevices">Cancel</v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="3">
-              <v-card class="mb-12" color="grey darken-3" v-if="trkType.val === 'spot'">
+              <v-card class="mb-12" color="grey darken-3" v-if="trkType.brand === 'Spot'">
                 <v-card-title class="headline">We need your spot's Feed ID</v-card-title>
                 <v-card-subtitle>The Feed ID is a long string of characters found at the end of your spot shared page URL.</v-card-subtitle>
                 <v-card-subtitle>Ex) http://share.findmespot.com/shared/faces/viewspots.jsp?glId=<span style="color: yellow;">YOUR_FEED_ID</span></v-card-subtitle>
@@ -110,7 +110,7 @@
                 </v-row>
               </v-card>
 
-              <v-card class="mb-12" color="grey darken-3" v-if="trkType.val === 'garmin' || trkType.val === 'delorme'">
+              <v-card class="mb-12" color="grey darken-3" v-if="trkType.brand === 'Garmin' || trkType.brand === 'Delorme'">
                 <v-card-title class="headline">We need your inReach's Map Share Address</v-card-title>
                 <v-card-subtitle>The Map Share Address can be found on the Social Tab of Garmin's website.</v-card-subtitle>
 
@@ -158,7 +158,7 @@
 
               <v-btn color="primary" @click.prevent="submitForm" :disabled="!thirdComplete">Finish</v-btn>
 
-              <v-btn text to="/explore">Cancel</v-btn>
+              <v-btn text to="/mydevices">Cancel</v-btn>
             </v-stepper-content>
           </v-stepper-items>
         </v-stepper>
@@ -168,6 +168,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Trackers from '../api/Trackers';
 
 export default {
   name: "CreateDevice",
@@ -175,10 +176,22 @@ export default {
     submitForm() {
       console.log(`
       Name: ${this.trkName}
-      Brand: ${this.trkType.val}
+      Brand: ${this.trkType.brand}
       Model: ${this.trkModel}
       Link: ${this.trkLink}
       `);
+
+      Trackers.create({
+        trkType: this.trkType.brand,
+        trkModel: this.trkModel, // New field
+        trkName: this.trkName,
+        trkLink: this.trkLink
+      }).then((res) => {
+        console.log(res);
+        this.$router.push('/mydevices');
+      }).catch((e) => {
+        console.log(e);
+      })
     }
   },
   computed: {
@@ -226,7 +239,6 @@ export default {
       devices: [
         {
           brand: "Garmin",
-          val: "garmin",
           models: [
             "inReach Explorer +",
             "inReach Explorer",
@@ -238,12 +250,10 @@ export default {
         },
         {
           brand: "Spot",
-          val: "spot",
           models: ["Gen3", "X", "Trace"]
         },
         {
           brand: "Delorme",
-          val: "delorme",
           models: ["inReach Explorer", "inReach SE"]
         }
       ]

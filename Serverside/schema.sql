@@ -98,19 +98,19 @@ INSERT INTO users(fName, lName) VALUES
 ('Mike', 'Miller'),
 ('Elena', 'Tolkacheva');
 
-INSERT INTO trackers(owner_id, trkName, trkType, trkLink) VALUES 
-(1, 'Mark Garmin Inreach', 'inreach', 'markfaulk'),
-(2, 'Brad Garmin Inreach', 'inreach', 'bradstevenson'),
-(3, 'Willy SPOT Tracker', 'spot', '0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
-(4, 'Chris SPOT Tracker', 'spot', '0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
-(5, 'Jason SPOT Tracker', 'spot', '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
-(6, 'Honza SPOT Tracker', 'spot', '0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX'),
-(7, 'Benzie SPOT Tracker', 'spot', '0JpOELBiVrMdhqzJZ47DitBKRTQlk6lM3'),
-(8, 'Mitchell SPOT Tracker', 'spot', '0SSeZQV8hdiJmzoXAH5tLF4l76n95zyRe'),
-(9, 'Chuck SPOT Tracker', 'spot', '0TKW3rOn7LfYiWip4WhTgbYOc6IktaOFv'),
-(10, 'Alex SPOT Tracker', 'spot', '0493yZtJ1YldN2NuxgOTUcSJjyPFY09I8'),
-(11, 'Mike SPOT Tracker', 'spot', '0Ed5WdEtzXWiyc8zCN85WOZYOi2XgvssT'),
-(12, 'Elena SPOT Tracker', 'spot', '0VYOBeYul1HvjS0ZS13fcF11244uZzerO');
+INSERT INTO trackers(owner_id, trkName, trkType, trkModel, trkLink) VALUES 
+(1, 'Mark Garmin Inreach', 'Garmin', 'inReach Explorer +', 'markfaulk'),
+(2, 'Brad Garmin Inreach', 'Delorme', 'inReach Explorer', 'bradstevenson'),
+(3, 'Willy SPOT Tracker', 'Spot', 'Gen3', '0uDYpNSftFoxXHSlTJVzo57ty2DBikQHb'),
+(4, 'Chris SPOT Tracker', 'Spot', 'Gen3', '0OQC2EvSbXKVozJGR0Sg7vE8HYfvzdyps'),
+(5, 'Jason SPOT Tracker', 'Spot', 'Gen3', '0lOSqK4ZMcY7h6ulQ936SqUeQqSTlNHDa'),
+(6, 'Honza SPOT Tracker', 'Spot', 'Gen3', '0qTK7XC70JsCahvvnBcOkcfNJ12VFaTHX'),
+(7, 'Benzie SPOT Tracker', 'Spot', 'Gen3', '0JpOELBiVrMdhqzJZ47DitBKRTQlk6lM3'),
+(8, 'Mitchell SPOT Tracker', 'Spot', 'Gen3', '0SSeZQV8hdiJmzoXAH5tLF4l76n95zyRe'),
+(9, 'Chuck SPOT Tracker', 'Spot', 'Gen3', '0TKW3rOn7LfYiWip4WhTgbYOc6IktaOFv'),
+(10, 'Alex SPOT Tracker', 'Spot', 'Gen3', '0493yZtJ1YldN2NuxgOTUcSJjyPFY09I8'),
+(11, 'Mike SPOT Tracker', 'Spot', 'Gen3', '0Ed5WdEtzXWiyc8zCN85WOZYOi2XgvssT'),
+(12, 'Elena SPOT Tracker', 'Spot', 'Gen3', '0VYOBeYul1HvjS0ZS13fcF11244uZzerO');
 
 
 INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca'), (3, 'Red Bull X-Alps 2020', 'Chamonix, Fr');
