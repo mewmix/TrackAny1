@@ -17,5 +17,8 @@ export default {
     },
     update(id, data) {
         return Api.put(`${END_POINT}/${id}`, data);
+    },
+    usersTrackers() {
+        return Api.get(`userstrackers`);
     }
 }

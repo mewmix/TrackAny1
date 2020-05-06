@@ -14,7 +14,7 @@
           <v-stepper-items>
             <v-stepper-content step="1">
               <v-card class="mb-12" color="grey darken-3">
-                <v-card-title class="headline">First, give your tracker a name</v-card-title>
+                <v-card-title class="headline">Give your tracker a name</v-card-title>
                 <v-card-subtitle>This can be anything. Ex) John's Garmin inReach</v-card-subtitle>
 
                 <v-card-text>
@@ -31,7 +31,7 @@
 
             <v-stepper-content step="2">
               <v-card class="mb-12" color="grey darken-3">
-                <v-card-title class="headline">Select your device's Make and Model</v-card-title>
+                <v-card-title class="headline">Select Make and Model</v-card-title>
 
                 <v-card-subtitle>The names should be on the device</v-card-subtitle>
 
@@ -241,7 +241,7 @@ export default {
           brand: "Garmin",
           models: [
             "inReach Explorer +",
-            "inReach Explorer",
+            "inReach SE +",
             "inReach Mini",
             "GPS Map 66i",
             "GPS Map 86i",

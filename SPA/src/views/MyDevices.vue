@@ -4,75 +4,49 @@
       <v-col cols="12" class="text-center">
         <v-btn fab to="/createdevice"><v-icon>add</v-icon></v-btn>
       </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="12" md="4">
-        <v-card max-width="344" class="mx-auto">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="headline">Mark's Garmin Tracker</v-list-item-title>
-              <v-list-item-subtitle>Garmin inReach Explorer+</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
 
-          <v-img
-            :src="require('@/assets/Trackers/Garmin/inreach-explorer.jpg')"
-            height="350"
-          ></v-img>
-
-          <v-card-text>
-            Created: Jan 20th, 2016
-            <br />
-            Public Tracking ID: markfaulk350
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn text color="blue accent-4">Edit</v-btn>
-            <v-btn text color="red accent-4">Delete</v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col cols="12" class="text-center" v-if="loading === true">
+        Loading...
       </v-col>
 
-      <v-col cols="12" md="4">
-        <v-card max-width="344" class="mx-auto">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="headline">Mark's Backup Tracker</v-list-item-title>
-              <v-list-item-subtitle>SPOT Gen3</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-img
-            :src="require('@/assets/Trackers/Spot/gen3.jpg')"
-            height="350"
-          ></v-img>
-
-          <v-card-text>
-            Created: Aug 1st, 2011
-            <br />
-            Public Tracking ID: ajhaoihk43n4k53455kjoa
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn text color="blue accent-4">Edit</v-btn>
-            <v-btn text color="red accent-4">Delete</v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col cols="12" class="text-center" v-if="trackers.length === 0 && loading !== true">
+        <h4>You do not have any tracking devices. Hit the + button to register a device.</h4>
       </v-col>
+
     </v-row>
+    <v-row justify="center" v-if="trackers.length > 0">
+      <TrackingDeviceCard v-for="tracker in trackers" :key="tracker.id" :tracker="tracker"></TrackingDeviceCard>
+    </v-row>
+
   </v-container>
 </template>
 
 <script>
-// import { mapActions } from "vuex";
+import TrackingDeviceCard from '../components/TrackingDeviceCard';
+import Trackers from '../api/Trackers';
 
 export default {
-  name: "MyDevices"
-  //   methods: mapActions(["fetchMyDevices"]),
-  //   created() {
-  //     this.fetchMyDevices();
-  //   }
+  name: "MyDevices",
+  components: {
+    TrackingDeviceCard
+  },
+  data() {
+    return {
+      trackers: [],
+      loading: false
+    }
+  },
+    created() {
+      this.loading = true;
+      Trackers.usersTrackers().then((res) => {
+        this.trackers = res.data;
+        this.loading = false;
+        // console.log(this.trackers);
+      }).catch((e) => {
+        this.loading = false;
+        console.log(e)
+      })
+    }
+
 };
 </script>
