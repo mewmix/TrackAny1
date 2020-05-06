@@ -37,12 +37,12 @@ module.exports = {
     async updateTracker(req, res) {
         try {
             const userID = req.userData.id;
-            const { id, trkType, trkLink, trkName } = req.body;
+            const { id, trkType, trkLink, trkName, trkModel } = req.body;
 
             const trackerToUpdate = await GetSingleTracker.getSingleTracker(id);
 
             if(trackerToUpdate.owner_id == userID) {
-                await UpdateTracker.updateTracker(id, trkType, trkLink, trkName);
+                await UpdateTracker.updateTracker(id, trkType, trkLink, trkName, trkModel);
                 return res.status(200).json({ message: `Tracker ${id} was successfully updated`});
             } else {
                 res.status(401).json({ message: `Failed to update tracker: ${id}. You do not have the authority.` });
