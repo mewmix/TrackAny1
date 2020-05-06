@@ -40,6 +40,7 @@ module.exports = (app) => {
     app.get('/api/v1/trackers/:id', checkAuth, TrackersController.getSingleTracker);
     app.put('/api/v1/trackers', checkAuth, TrackersController.updateTracker);
     app.delete('/api/v1/trackers/:id', checkAuth, TrackersController.deleteTracker);
+    app.get('/api/v1/userstrackers', checkAuth, TrackersController.getUsersTrackers);
 
     // Group Routes
     app.post('/api/v1/groups', checkAuth, GroupsController.createGroup);

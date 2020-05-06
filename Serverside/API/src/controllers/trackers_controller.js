@@ -3,6 +3,7 @@ const GetAllTrackers = require('../services/trackers/getAllTrackers');
 const GetSingleTracker = require('../services/trackers/getSingleTracker');
 const UpdateTracker = require('../services/trackers/updateTracker');
 const DeleteTracker = require('../services/trackers/deleteTracker');
+const GetUsersTrackers = require('../services/trackers/getUsersTrackers');
 
 module.exports = {
     async createTracker(req, res) {
@@ -68,4 +69,15 @@ module.exports = {
             res.status(500).json({ error: e, message: `Failed to delete tracker: ${id}` });
         }
     },
+    async getUsersTrackers(req, res) {
+        try {
+            const userID = req.userData.id;
+
+            const usersTrackers = await GetUsersTrackers.getUsersTrackers(userID);
+
+            return res.status(200).json(usersTrackers);
+        } catch (e) {
+            res.status(500).json({ error: e, message: `Failed to get all trackers for user: ${userID}` });
+        }
+    }
 }
