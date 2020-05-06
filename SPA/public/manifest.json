@@ -1,0 +1,20 @@
+{
+    "name": "TrackAny1",
+    "short_name": "TrackAny1",
+    "theme_color": "#BD10E0",
+    "icons": [
+        {
+            "src": "./img/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/followingmap",
+    "display": "standalone",
+    "background_color": "#000000"
+}
