@@ -5,8 +5,8 @@ const util = require('util'); // For viewing deeply nested xml parsed json objec
 
 async function testGarmin(deviceID, trkLink, userID) {
     const miliSecInDay = 86400 * 1000;
-    // const daysAgo = new Date(Date.now() - (miliSecInDay * 14));
-    const daysAgo = new Date(Date.now() - (1000 * 60 * 20));
+    const daysAgo = new Date(Date.now() - (miliSecInDay * 7));
+    // const daysAgo = new Date(Date.now() - (1000 * 60 * 20));
     dateFormat.masks.garmin = 'yyyy-mm-dd"T"HH:MM"Z"';
     const garminFormatedDate = dateFormat(daysAgo, 'garmin');
 
@@ -15,8 +15,12 @@ async function testGarmin(deviceID, trkLink, userID) {
 
     const res = await axios.get(finalURL);
 
+    // console.log(res.data)
+
     const parser = new xml2js.Parser();
     const data = await parser.parseStringPromise(res.data);
+
+    console.log(data)
 
     if (data === null) {
         console.log(`Tracker: ${deviceID}'s tracking link might not be valid. The response is completely empty.`)
