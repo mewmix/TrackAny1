@@ -18,27 +18,17 @@
               <v-card class="mb-12" color="grey darken-3">
                 <v-card-title class="headline">First, set your group's location</v-card-title>
                 <v-card-subtitle>We'll connect you with people in and around your area</v-card-subtitle>
-
-                <v-card-text>
-                  <v-autocomplete
-                    color="white"
-                    hide-no-data
-                    hide-selected
-                    outlined
-                    label="Search for a City"
-                  ></v-autocomplete>
-                </v-card-text>
-                <v-divider></v-divider>
-                <!-- <v-expand-transition>
-                  <v-list v-if="model" class="red lighten-3">
-                    <v-list-item v-for="(field, i) in fields" :key="i">
-                      <v-list-item-content>
-                        <v-list-item-title v-text="field.value"></v-list-item-title>
-                        <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list>
-                </v-expand-transition> -->
+                <v-row justify="center">
+                  <v-col cols="11" sm="11">
+                    <v-text-field label="City" outlined></v-text-field>
+                  </v-col>
+                  <v-col cols="11" sm="11">
+                    <v-text-field label="State" outlined></v-text-field>
+                  </v-col>
+                  <v-col cols="11" sm="11">
+                    <v-text-field label="Country" outlined></v-text-field>
+                  </v-col>
+                </v-row>
               </v-card>
 
               <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
@@ -136,6 +126,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "CreateGroup",
   data() {
