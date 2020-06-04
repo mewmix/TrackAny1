@@ -16,17 +16,11 @@
           <v-stepper-items>
             <v-stepper-content step="1">
               <v-card class="mb-12" color="grey darken-3">
-                <v-card-title class="headline">First, set your group's location</v-card-title>
+                <v-card-title class="headline">Set your group's location</v-card-title>
                 <v-card-subtitle>We'll connect you with people in and around your area</v-card-subtitle>
                 <v-row justify="center">
                   <v-col cols="11" sm="11">
-                    <v-text-field label="City" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="11" sm="11">
-                    <v-text-field label="State" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="11" sm="11">
-                    <v-text-field label="Country" outlined></v-text-field>
+                    <PlacesAutocomplete/>
                   </v-col>
                 </v-row>
               </v-card>
@@ -127,9 +121,13 @@
 
 <script>
 import axios from 'axios'
+import PlacesAutocomplete from '../components/PlacesAutocomplete'
 
 export default {
   name: "CreateGroup",
+  components: {
+    PlacesAutocomplete
+  },
   data() {
     return {
       e1: 1,
