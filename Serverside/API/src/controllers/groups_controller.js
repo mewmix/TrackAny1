@@ -10,9 +10,9 @@ module.exports = {
     async createGroup(req, res) {
         try {
             const userID = req.userData.id;
-            const { groupName, region, info } = req.body;
+            const { groupName, info, lat, lng, address, city, county, stateAbbr, state, countryAbbr, country, postal } = req.body;
 
-            const newGroupID = await CreateGroup.createGroup(groupName, region, info, userID);
+            const newGroupID = await CreateGroup.createGroup(userID, groupName, info, lat, lng, address, city, county, stateAbbr, state, countryAbbr, country, postal);
             return res.status(201).json({ id: newGroupID, message: `Group created with id: ${newGroupID}` });            
         } catch (e) {
             return res.status(500).json({ error: e, message: 'Failed to create new group' });

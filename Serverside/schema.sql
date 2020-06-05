@@ -48,11 +48,19 @@ CREATE TABLE pings(
 
 CREATE TABLE public_groups(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    creatorID VARCHAR (255) NOT NULL,
+    creatorID INT NOT NULL,
     groupName VARCHAR (255) NOT NULL UNIQUE,
-    region VARCHAR (255) DEFAULT '',
-    info VARCHAR (255) DEFAULT '',
-    radioFrq VARCHAR (255) DEFAULT '',
+    info VARCHAR (255),
+    lat DOUBLE,
+    lng DOUBLE,
+    address VARCHAR (255),
+    city VARCHAR (255),
+    county VARCHAR (255),
+    stateAbbr VARCHAR (255),
+    state VARCHAR (255),
+    countryAbbr VARCHAR (255),
+    country VARCHAR (255),
+    postal VARCHAR (255),
     created TIMESTAMP DEFAULT NOW()
 );
 
@@ -113,6 +121,8 @@ INSERT INTO trackers(owner_id, trkName, trkType, trkModel, trkLink) VALUES
 (12, 'Elena SPOT Tracker', 'Spot', 'Gen3', '0VYOBeYul1HvjS0ZS13fcF11244uZzerO');
 
 
-INSERT INTO public_groups(creatorID, groupName, region) VALUES (2, 'San Diego Paragliding', 'San Diego, Ca'), (3, 'Red Bull X-Alps 2020', 'Chamonix, Fr');
+INSERT INTO public_groups(creatorID, groupName, info, lat, lng, city, state, country, stateAbbr, countryAbbr) VALUES 
+(2, 'San Diego Paragliding', 'description goes here', 32.715738, -117.1610838, 'San Diego', 'California', 'United States', 'CA', 'US'),
+(3, 'Red Bull X-Alps 2020', 'description goes here', 47.80949, 13.05501, 'Salzburg', 'Salzburg', 'Austria', 'Salzburg', 'AT');
 
 INSERT INTO groups_have_members(group_id, member_id) VALUES (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12);

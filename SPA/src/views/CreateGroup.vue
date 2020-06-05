@@ -20,7 +20,7 @@
                 <v-card-subtitle>We'll connect you with people in and around your area</v-card-subtitle>
                 <v-row justify="center">
                   <v-col cols="11" sm="11">
-                    <PlacesAutocomplete/>
+                    <PlacesAutocomplete @placeData="placeData" />
                   </v-col>
                 </v-row>
               </v-card>
@@ -83,7 +83,7 @@
                 <v-card-subtitle>Choose a name that will give people a clear idea of what the group is about</v-card-subtitle>
                 <v-row justify="center">
                   <v-col cols="11" sm="11">
-                    <v-text-field label="Group Name" outlined></v-text-field>
+                    <v-text-field v-model="groupName" label="Group Name" outlined></v-text-field>
                   </v-col>
                 </v-row>
               </v-card>
@@ -103,7 +103,14 @@
 
                 <v-row justify="center">
                   <v-col cols="11">
-                    <v-textarea no-resize outlined label="Description" value height="280"></v-textarea>
+                    <v-textarea
+                      v-model="info"
+                      no-resize
+                      outlined
+                      label="Description"
+                      value
+                      height="280"
+                    ></v-textarea>
                   </v-col>
                 </v-row>
               </v-card>
@@ -120,8 +127,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import PlacesAutocomplete from '../components/PlacesAutocomplete'
+import axios from "axios";
+import PlacesAutocomplete from "../components/PlacesAutocomplete";
 
 export default {
   name: "CreateGroup",
@@ -145,8 +152,20 @@ export default {
         { text: "Mountain Biking" },
         { text: "Climbing" },
         { text: "Racing" }
-      ]
+      ],
+      location: null,
+      groupName: "",
+      info: ""
     };
+  },
+  methods: {
+    placeData(location) {
+      if (location === undefined) {
+        this.location = null;
+      } else {
+        this.location = location;
+      }
+    }
   },
 
   computed: {
