@@ -3,7 +3,7 @@
     id="searchTextField"
     type="text"
     label="City"
-    placeholder="Search for a city"
+    placeholder="Search for a city using auto-complete"
     outlined
   ></v-text-field>
 </template>
@@ -73,7 +73,7 @@ export default {
             break;
         }
       }
-      this.$emit("placeData", this.location);
+          this.$emit("placeData", this.location);
     }
   }
 };

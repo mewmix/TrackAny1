@@ -7,7 +7,7 @@
       <v-list class="pt-5 mb-10">
         <v-list-item>There is no tracking data for this given time period.</v-list-item>
       </v-list>
-      <v-img id="glider" :src="require('@/assets/glider.svg')"></v-img>
+      <v-img id="glider" :src="require('@/assets/realpg.webp')"></v-img>
     </div>
   </div>
 </template>
@@ -35,10 +35,10 @@ export default {
 
 @keyframes rotation {
     0% {
-      transform: rotate(359deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: rotate(0deg);
+      transform: rotate(359deg);
     }
 }
 </style>

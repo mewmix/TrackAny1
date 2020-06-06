@@ -25,7 +25,7 @@
                 </v-row>
               </v-card>
 
-              <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
+              <v-btn color="primary" @click="e1 = 2" :disabled="!firstComplete">Continue</v-btn>
 
               <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
@@ -88,7 +88,7 @@
                 </v-row>
               </v-card>
 
-              <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
+              <v-btn color="primary" @click="e1 = 4" :disabled="!thirdComplete">Continue</v-btn>
 
               <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
@@ -115,7 +115,7 @@
                 </v-row>
               </v-card>
 
-              <v-btn color="primary" @click="e1 = 1">Finish</v-btn>
+              <v-btn color="primary" @click="submitForm">Finish</v-btn>
 
               <v-btn text to="/explore">Cancel</v-btn>
             </v-stepper-content>
@@ -127,8 +127,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import PlacesAutocomplete from "../components/PlacesAutocomplete";
+import Groups from "../api/Groups";
 
 export default {
   name: "CreateGroup",
@@ -165,6 +165,28 @@ export default {
       } else {
         this.location = location;
       }
+    },
+    submitForm() {
+      Groups.create({
+        groupName: this.groupName,
+        info: this.info,
+        address: this.location.address,
+        lat: this.location.lat,
+        lng: this.location.lng,
+        city: this.location.city,
+        county: this.location.county,
+        stateAbbr: this.location.stateAbbr,
+        state: this.location.state,
+        countryAbbr: this.location.countryAbbr,
+        country: this.location.country,
+        postal: this.location.postal,
+      })
+        .then(res => {
+          this.$router.push(`/groups/${res.data.id}`);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
 
@@ -191,6 +213,20 @@ export default {
       }
 
       return selections;
+    },
+    firstComplete() {
+      if(this.location === null || this.location === undefined || this.location.address === undefined) {
+        return false
+      } else {
+        return true
+      }
+    },
+    thirdComplete() {
+      if(this.groupName.length > 2 && 55 > this.groupName.length) {
+        return true
+      } else {
+        return false
+      }
     }
   },
 
