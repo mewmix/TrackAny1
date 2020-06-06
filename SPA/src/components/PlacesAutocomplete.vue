@@ -3,7 +3,7 @@
     id="searchTextField"
     type="text"
     label="City"
-    placeholder="Search for a city using auto-complete"
+    placeholder="Find city using auto-complete"
     outlined
   ></v-text-field>
 </template>

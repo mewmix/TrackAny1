@@ -97,8 +97,7 @@
               <v-card class="mb-12" color="grey darken-3" height="450px">
                 <v-card-title class="headline">Now describe what your group will be about</v-card-title>
                 <v-card-subtitle>
-                  1. What's the puspose of the group?
-                  <br />2. Who should join?
+                  This is a good place to put general info.
                 </v-card-subtitle>
 
                 <v-row justify="center">
@@ -107,7 +106,7 @@
                       v-model="info"
                       no-resize
                       outlined
-                      label="Description"
+                      label="General Info - (Optional)"
                       value
                       height="280"
                     ></v-textarea>

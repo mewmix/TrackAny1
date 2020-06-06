@@ -39,12 +39,12 @@ module.exports = {
     async updateGroup(req, res) {
         try {
             const userID = req.userData.id;
-            const { groupName, region, info, id } = req.body;
+            const { groupName, info, id } = req.body;
 
             const groupToUpdate = await GetSingleGroup.getSingleGroup(id);
 
             if(groupToUpdate.creatorID == userID) {
-                await UpdateGroup.updateGroup(groupName, region, info, id);
+                await UpdateGroup.updateGroup(groupName, info, id);
                 return res.status(200).json({ message: `Group ${id} was successfully updated`});
             } else {
                 res.status(401).json({ message: `Failed to update group: ${id}. You do not have the authority.` });

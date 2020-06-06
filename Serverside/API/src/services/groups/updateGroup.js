@@ -1,7 +1,7 @@
-exports.updateGroup = async function (groupName, region, info, id) {
+exports.updateGroup = async function (groupName, info, id) {
     try {
         const db = await require('../../db').connectToDatabase();
-        await db.execute('UPDATE public_groups SET groupName=?, region=?, info=?, WHERE id=?;', [groupName, region, info, id]);
+        await db.execute('UPDATE public_groups SET groupName=?, info=?, WHERE id=?;', [groupName, info, id]);
     } catch (e) {
         throw e;
     }
